@@ -1,3 +1,4 @@
+
 "use client";
 
 import Image from "next/image";
@@ -27,8 +28,8 @@ export default function Navbar() {
           <Image
             src="/images/logo/kb-logo.png"
             alt="kaitlynn.b"
-            width={116}
-            height={40}
+            width={88}
+            height={30}
             priority
           />
         </Link>
@@ -45,16 +46,17 @@ export default function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`relative py-2 text-sm transition-colors ${
+                aria-current={isActive ? "page" : undefined}
+                className={`relative py-2 text-sm transition-colors duration-300 ${
                   isActive
                     ? "text-[#6fbd68]"
-                    : "text-white/80 hover:text-white"
+                    : "text-white/80 hover:text-[#a7f3d0]"
                 }`}
               >
                 {link.label}
 
                 {isActive && (
-                  <span className="absolute inset-x-0 -bottom-1 h-px bg-[#6fbd68]" />
+                  <span className="absolute inset-x-0 -bottom-1 h-px bg-[#6fbd68] shadow-[0_0_8px_rgba(111,189,104,0.35)]" />
                 )}
               </Link>
             );
