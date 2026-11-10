@@ -1,273 +1,94 @@
 "use client";
 
-import { useEffect, useRef } from "react";
 import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
+import { Bricolage_Grotesque } from "next/font/google";
 import styles from "./Hero.module.css";
+import ParticleBackground from "./ParticleBackground";
 
-interface Particle {
-  x: number;
-  y: number;
-  vx: number;
-  vy: number;
-  radius: number;
-  alpha: number;
-  targetAlpha: number;
-  hueOffset: number;
-}
+const heroFont = Bricolage_Grotesque({
+  subsets: ["latin"],
+  display: "swap",
+});
 
 export default function Hero() {
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
-
-  const mouseRef = useRef({
-    x: -1000,
-    y: -1000,
-    active: false,
-  });
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    let animationFrameId: number;
-    let particles: Particle[] = [];
-
-    const maxParticles = 85;
-    const connectionRadius = 140;
-
-    // Match the original viewport-based canvas sizing.
-    const resizeCanvas = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    };
-
-    const createParticles = () => {
-      particles = [];
-
-      for (let i = 0; i < maxParticles; i++) {
-        particles.push({
-          x: Math.random() * canvas.width,
-          y: Math.random() * canvas.height,
-          vx: (Math.random() - 0.5) * 0.22,
-          vy: (Math.random() - 0.5) * 0.22,
-          radius: Math.random() * 2.2 + 1.2,
-          alpha: Math.random() * 0.5 + 0.2,
-          targetAlpha: Math.random() * 0.7 + 0.3,
-          hueOffset: Math.random() * 30 - 15,
-        });
-      }
-    };
-
-    const drawScene = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      // Render and update particle nodes.
-      for (let i = 0; i < particles.length; i++) {
-        const p = particles[i];
-
-        // Continuous particle movement.
-        p.x += p.vx;
-        p.y += p.vy;
-
-        // Subtle opacity variation.
-        p.alpha += (p.targetAlpha - p.alpha) * 0.01;
-
-        if (Math.abs(p.alpha - p.targetAlpha) < 0.02) {
-          p.targetAlpha = Math.random() * 0.7 + 0.3;
-        }
-
-        // Keep particles within the canvas.
-        if (p.x < 0) p.x = canvas.width;
-        if (p.x > canvas.width) p.x = 0;
-        if (p.y < 0) p.y = canvas.height;
-        if (p.y > canvas.height) p.y = 0;
-
-        // Desktop pointer interaction.
-        if (mouseRef.current.active) {
-          const mDx = p.x - mouseRef.current.x;
-          const mDy = p.y - mouseRef.current.y;
-          const mDist = Math.sqrt(mDx * mDx + mDy * mDy);
-
-          if (mDist > 0 && mDist < 180) {
-            p.x -= (mDx / mDist) * 0.6;
-            p.y -= (mDy / mDist) * 0.6;
-          }
-        }
-
-        // Draw particle node.
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-
-        ctx.fillStyle = `rgba(111, 189, 104, ${p.alpha})`;
-        ctx.fill();
-
-        // Connect nearby particles.
-        for (let j = i + 1; j < particles.length; j++) {
-          const p2 = particles[j];
-
-          const dx = p.x - p2.x;
-          const dy = p.y - p2.y;
-          const distance = Math.sqrt(dx * dx + dy * dy);
-
-          if (distance < connectionRadius) {
-            const lineAlpha =
-              (1 - distance / connectionRadius) * 0.22;
-
-            const strokeColor =
-              p.hueOffset > 0
-                ? `rgba(111, 189, 104, ${lineAlpha})`
-                : `rgba(167, 243, 208, ${lineAlpha * 0.7})`;
-
-            ctx.beginPath();
-            ctx.moveTo(p.x, p.y);
-            ctx.lineTo(p2.x, p2.y);
-
-            ctx.strokeStyle = strokeColor;
-            ctx.lineWidth = 1;
-            ctx.stroke();
-          }
-        }
-      }
-
-      // Draw connections between particles and the mouse.
-      if (mouseRef.current.active) {
-        for (let i = 0; i < particles.length; i++) {
-          const p = particles[i];
-
-          const dx = p.x - mouseRef.current.x;
-          const dy = p.y - mouseRef.current.y;
-          const distance = Math.sqrt(dx * dx + dy * dy);
-
-          if (distance < 150) {
-            const mouseLineAlpha =
-              (1 - distance / 150) * 0.35;
-
-            ctx.beginPath();
-            ctx.moveTo(p.x, p.y);
-            ctx.lineTo(
-              mouseRef.current.x,
-              mouseRef.current.y
-            );
-
-            ctx.strokeStyle =
-              `rgba(111, 189, 104, ${mouseLineAlpha})`;
-
-            ctx.lineWidth = 1.2;
-            ctx.stroke();
-          }
-        }
-      }
-
-      animationFrameId = requestAnimationFrame(drawScene);
-    };
-
-    const handleMouseMove = (event: MouseEvent) => {
-      mouseRef.current.x = event.clientX;
-      mouseRef.current.y = event.clientY;
-      mouseRef.current.active = true;
-    };
-
-    const handleMouseLeave = () => {
-      mouseRef.current.active = false;
-      mouseRef.current.x = -1000;
-      mouseRef.current.y = -1000;
-    };
-
-    const handleResize = () => {
-      resizeCanvas();
-      createParticles();
-    };
-
-    // Initialize.
-    resizeCanvas();
-    createParticles();
-    drawScene();
-
-    // Event listeners.
-    window.addEventListener("resize", handleResize);
-    window.addEventListener("mousemove", handleMouseMove);
-    document.addEventListener("mouseleave", handleMouseLeave);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-      window.removeEventListener("mousemove", handleMouseMove);
-      document.removeEventListener("mouseleave", handleMouseLeave);
-
-      cancelAnimationFrame(animationFrameId);
-    };
-  }, []);
-
   return (
-    <section className={styles.hero}>
-      {/* Animated particle background */}
+    <section
+      className={`${heroFont.className} relative isolate flex min-h-[max(780px,100svh)] w-full items-center overflow-hidden bg-[#030405] px-6 pb-32 pt-36 text-white sm:px-10 lg:px-16`}
+    >
+      {/* Background Stacking Canvas Architecture */}
       <div className={styles.background} aria-hidden="true">
-        <div className={styles.backgroundGlow} />
-
-        <canvas
-          ref={canvasRef}
-          className={styles.fluidCanvas}
-        />
-
-        <div className={styles.leftOverlay} />
-        <div className={styles.bottomOverlay} />
+          <ParticleBackground />
       </div>
 
       {/* Hero content */}
-      <div className={styles.content}>
-        <div className={styles.intro}>
-          <span className={styles.eyebrow}>
-            <span className={styles.eyebrowLine} />
-            SOFTWARE ENGINEER
-          </span>
-
-          <span className={styles.subEyebrow}>
-            FULL-STACK DEVELOPMENT
-          </span>
+      <div className="relative z-10 mx-auto w-full max-w-7xl">
+        {/* Eyebrow Status Badge */}
+        <div
+          className={`${styles.reveal} ${styles.delayEyebrow} mb-8 inline-flex items-center gap-2.5 text-[11px] font-medium uppercase tracking-[0.22em] text-white/50 sm:text-xs`}
+        >
+          <span className="h-1.5 w-1.5 rounded-full bg-[#6fbd68] shadow-[0_0_12px_rgba(111,189,104,0.85)]" />
+          Software Engineer / Full-Stack Development
         </div>
 
-        <h1 className={styles.heading}>
-          <span className={styles.headingLine}>
-            Architecting code
-          </span>
-
-          <span className={styles.headingLine}>
-            without compromise.
-          </span>
+        {/* Headline Fluid Scaling */}
+        <h1
+          className={`${styles.reveal} ${styles.delayHeadlineOne} max-w-300 text-[clamp(2.5rem,7vw,6.8rem)] font-semibold leading-[1.02] tracking-tighter text-white`}
+        >
+          Architecting code <br className="hidden md:inline" />
+          without <span className="text-[#6fbd68]">compromise.</span>
         </h1>
 
-        <p className={styles.description}>
-          I design, develop, and launch web applications with an emphasis on
-          thoughtful architecture, clean execution, and software built to last.
-        </p>
+        {/* Asymmetric Split Layout Area */}
+        <div className="mt-12 flex flex-col gap-10 lg:flex-row lg:items-end lg:justify-between border-t border-white/6 pt-10">
+          <p
+            className={`${styles.reveal} ${styles.delayDescription} max-w-130 text-base leading-[1.8] tracking-normal text-white/60 sm:text-lg`}
+          >
+            I design, build, and launch web applications with thoughtful
+            architecture, clean execution, and a focus on creating software
+            that lasts.
+          </p>
 
-        <div className={styles.actions}>
-          <Link href="#projects" className={styles.primaryButton}>
-            Explore Case Studies
-            <span aria-hidden="true">↗</span>
-          </Link>
+          {/* Premium Easing Hover Interactions */}
+          <nav
+            className={`${styles.reveal} ${styles.delayActions} flex flex-wrap items-center gap-4`}
+            aria-label="Hero navigation"
+          >
+            <Link
+              href="#projects"
+              className="group inline-flex min-h-13 items-center gap-2.5 rounded-full bg-[#6fbd68] px-7 text-sm font-semibold text-[#030405] transition-all duration-300 hover:bg-[#83ce7c] hover:scale-[1.02] hover:shadow-[0_0_32px_rgba(111,189,104,0.25)] active:scale-[0.98]"
+              style={{ transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)" }}
+            >
+              Explore my work
+              <ArrowUpRight
+                size={16}
+                strokeWidth={2.5}
+                className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+              />
+            </Link>
 
-          <Link href="/contact" className={styles.secondaryButton}>
-            Discuss a Project
-          </Link>
+            <Link
+              href="/contact"
+              className="inline-flex min-h-13 items-center rounded-full border border-white/10 bg-white/1 px-7 text-sm font-semibold text-white/80 transition-all duration-300 hover:border-white/25 hover:bg-white/5 hover:scale-[1.02] hover:text-white active:scale-[0.98]"
+              style={{ transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)" }}
+            >
+              Get in touch
+            </Link>
+          </nav>
         </div>
       </div>
 
-      {/* Bottom labels */}
-      <div className={styles.footer}>
-        <span>QUALITY OVER SHORTCUTS.</span>
-        <span>BUILT WITH INTENTION</span>
-      </div>
-
-      {/* Scroll indicator */}
-      <a
-        href="#projects"
-        className={styles.scrollIndicator}
-        aria-label="Scroll to projects"
+      {/* Structural Metadata Footer Status Bar */}
+      <div
+        className={`${styles.reveal} ${styles.delayDetails} absolute bottom-8 left-6 right-6 z-10 flex items-center justify-between border-t border-white/5 pt-6 sm:left-10 sm:right-10 lg:left-16 lg:right-16`}
       >
-        <span />
-      </a>
+        <span className="text-[10px] font-medium tracking-[0.25em] text-white/30">
+          THOUGHTFUL BY DESIGN.
+        </span>
+        <span className="text-[10px] font-medium tracking-[0.25em] text-white/30">
+          BUILT WITH INTENTION.
+        </span>
+      </div>
     </section>
   );
 }
