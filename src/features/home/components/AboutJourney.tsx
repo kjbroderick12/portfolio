@@ -1,4 +1,3 @@
-
 "use client";
 
 import {
@@ -65,12 +64,12 @@ export default function AboutJourney() {
   return (
     <section
       id="about"
-      className={`${sansFont.className} relative isolate w-full overflow-hidden bg-[#080d12] px-6 pb-24 pt-10 text-white sm:px-10 sm:pb-28 sm:pt-14 lg:px-16 lg:pt-20`}
+      className={`${sansFont.className} relative isolate w-full overflow-hidden bg-[#080d12] px-6 pb-12 pt-10 text-white sm:px-10 sm:pb-16 sm:pt-14 lg:px-16 lg:pt-20`}
     >
       {/* Background Atmosphere */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 z-0 bg-linear-to-b from-[#080d12] via-[#090f14] to-[#080d12]"
+        className="pointer-events-none absolute inset-0 z-0 bg-linear-to-b from-[#06090d] via-[#080d12] to-[#06090d]]"
       />
 
       <div
@@ -81,7 +80,7 @@ export default function AboutJourney() {
       <div className="relative z-10 mx-auto w-full max-w-7xl">
         {/* About Introduction */}
         <ScrollReveal variant="up" threshold={0.1} duration={800}>
-          <div className="mb-16 grid gap-8 border-b border-white/8 pb-12 md:mb-20 md:grid-cols-[1.1fr_0.9fr] md:items-end md:gap-16 md:pb-14">
+          <div className="mb-16 grid gap-8 border-b border-white/8 pb-12 md:mb-20 md:grid-cols-[1.1fr_0.9fr] md:items-center md:gap-16 md:pb-14">
             <div>
               <div className="mb-5 inline-flex items-center gap-3 text-[10px] font-medium uppercase tracking-[0.24em] text-[#6fbd68] sm:text-[11px]">
                 <span className="h-1.5 w-1.5 rounded-full bg-[#6fbd68] shadow-[0_0_10px_rgba(111,189,104,0.4)]" />
@@ -105,7 +104,7 @@ export default function AboutJourney() {
                 paying attention to the details.
               </p>
 
-              <p className="mt-4 text-sm leading-[1.9] text-white/45 sm:text-base">
+              <p className="mt-4 text-sm leading-[1.9] text-white/65 sm:text-base">
                 Eventually, I decided to turn my interest in technology into
                 a career. Since then, I've been learning, building projects,
                 and getting hands-on experience with different technologies.

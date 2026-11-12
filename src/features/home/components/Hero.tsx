@@ -73,7 +73,7 @@ export default function Hero() {
 
               <Link
                 href="/contact"
-                className="inline-flex min-h-13 items-center rounded-full border border-white/10 bg-white/[0.01] px-6 text-sm font-semibold text-white/80 transition-all duration-300 hover:scale-[1.02] hover:border-white/25 hover:bg-white/5 hover:text-white active:scale-[0.98] sm:px-7"
+                className="inline-flex min-h-13 items-center rounded-full border border-white/10 bg-white/1 px-6 text-sm font-semibold text-white/80 transition-all duration-300 hover:scale-[1.02] hover:border-white/25 hover:bg-white/5 hover:text-white active:scale-[0.98] sm:px-7"
                 style={{
                   transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)",
                 }}
