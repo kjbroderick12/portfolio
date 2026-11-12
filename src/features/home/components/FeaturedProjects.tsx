@@ -47,7 +47,7 @@ const projects: Project[] = [
     ],
     image: "/images/projects/teffiessmokybbq.png",
     imageAlt: "Teffie's Smoky BBQ website preview",
-    liveUrl: "https://teffiessmokybbq.com/",
+    liveUrl: "https://teffiesmokybbq.com/",
     actionLabel: "Visit Live Website",
   },
   {
@@ -86,23 +86,23 @@ export default function FeaturedProjects({
   return (
     <section
       id="projects"
-      className={`${sansFont.className} relative isolate w-full overflow-hidden bg-[#030405] px-6 pb-28 pt-24 text-white sm:px-10 sm:pb-32 sm:pt-32 lg:px-16`}
+      className={`${sansFont.className} relative isolate w-full overflow-hidden bg-[#030405] px-6 pb-10 pt-10 text-white sm:px-10 sm:pb-12 sm:pt-14 lg:px-16`}
     >
-      {/* Background transition */}
+      {/* Ambient Lighting */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-64 bg-linear-to-b from-[#030405] via-[#040608]/50 to-transparent"
+        className="pointer-events-none absolute -right-48 top-40 z-0 h-125 w-125 rounded-full bg-[#6fbd68]/[0.035] blur-[140px]"
       />
 
-      {/* Ambient lighting */}
+      {/* Transition into About */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -right-48 top-40 -z-10 h-125 w-125 rounded-full bg-[#6fbd68]/[0.035] blur-[140px]"
+        className="pointer-events-none absolute inset-x-0 bottom-0 z-0 h-64 bg-linear-to-b from-transparent via-[#080d12]/70 to-[#080d12]"
       />
 
-      <div className="mx-auto w-full max-w-7xl">
+      <div className="relative z-10 mx-auto w-full max-w-7xl">
         {/* Section Header */}
-        <div className="mb-14 flex flex-col gap-7 border-b border-white/8 pb-10 md:mb-16 md:flex-row md:items-end md:justify-between md:gap-12">
+        <div className="mb-10 flex flex-col gap-7 pb-6 md:mb-12 md:flex-row md:items-end md:justify-between md:gap-12">
           <div>
             <div className="mb-5 inline-flex items-center gap-3 text-[10px] font-medium uppercase tracking-[0.24em] text-[#6fbd68] sm:text-[11px]">
               <span className="h-1.5 w-1.5 rounded-full bg-[#6fbd68] shadow-[0_0_10px_rgba(111,189,104,0.4)]" />
@@ -121,7 +121,7 @@ export default function FeaturedProjects({
         </div>
 
         {/* Projects */}
-       <div className="flex flex-col gap-12 sm:gap-10 lg:gap-12">
+        <div className="flex flex-col gap-12 sm:gap-10 lg:gap-12">
           {projectList.map((project) => (
             <ScrollReveal
               key={project.title}
@@ -171,47 +171,45 @@ export default function FeaturedProjects({
                     ))}
                   </div>
 
-                 
-                {/* Actions */}
-                <div className="flex flex-wrap items-center gap-3">
-                  {project.githubUrl && (
-                    <Link
-                      href={project.githubUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="group/github inline-flex h-12 items-center justify-center gap-2.5 rounded-full border border-[#6fbd68]/30 bg-[#6fbd68]/[0.07] px-6 text-sm font-semibold text-[#6fbd68] transition-all duration-300 hover:border-[#6fbd68]/60 hover:bg-[#6fbd68]/[0.14] hover:shadow-[0_0_20px_rgba(111,189,104,0.08)] active:scale-[0.97]"
-                    >
-                      <GitBranch
-                        size={17}
-                        strokeWidth={1.8}
-                        className="transition-transform duration-300 group-hover/github:scale-110"
-                      />
-                      View on GitHub
-                      <ArrowUpRight
-                        size={15}
-                        strokeWidth={2}
-                        className="transition-transform duration-300 group-hover/github:translate-x-0.5 group-hover/github:-translate-y-0.5"
-                      />
-                    </Link>
-                  )}
+                  {/* Actions */}
+                  <div className="flex flex-wrap items-center gap-3">
+                    {project.githubUrl && (
+                      <Link
+                        href={project.githubUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="group/github inline-flex h-12 items-center justify-center gap-2.5 rounded-full border border-[#6fbd68]/30 bg-[#6fbd68]/[0.07] px-6 text-sm font-semibold text-[#6fbd68] transition-all duration-300 hover:border-[#6fbd68]/60 hover:bg-[#6fbd68]/[0.14] hover:shadow-[0_0_20px_rgba(111,189,104,0.08)] active:scale-[0.97]"
+                      >
+                        <GitBranch
+                          size={17}
+                          strokeWidth={1.8}
+                          className="transition-transform duration-300 group-hover/github:scale-110"
+                        />
+                        View on GitHub
+                        <ArrowUpRight
+                          size={15}
+                          strokeWidth={2}
+                          className="transition-transform duration-300 group-hover/github:translate-x-0.5 group-hover/github:-translate-y-0.5"
+                        />
+                      </Link>
+                    )}
 
-                  {project.liveUrl && (
-                    <Link
-                      href={project.liveUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="group/btn inline-flex h-12 items-center justify-center gap-2.5 rounded-full border border-[#6fbd68]/30 bg-[#6fbd68] px-6 text-sm font-semibold text-[#030405] transition-all duration-300 hover:scale-[1.02] hover:bg-[#83ce7c] active:scale-[0.97]"
-                    >
-                      {project.actionLabel}
-                      <ArrowUpRight
-                        size={15}
-                        strokeWidth={2.5}
-                        className="transition-transform duration-300 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5"
-                      />
-                    </Link>
-                  )}
-                </div>
-
+                    {project.liveUrl && (
+                      <Link
+                        href={project.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="group/btn inline-flex h-12 items-center justify-center gap-2.5 rounded-full border border-[#6fbd68]/30 bg-[#6fbd68] px-6 text-sm font-semibold text-[#030405] transition-all duration-300 hover:scale-[1.02] hover:bg-[#83ce7c] active:scale-[0.97]"
+                      >
+                        {project.actionLabel}
+                        <ArrowUpRight
+                          size={15}
+                          strokeWidth={2.5}
+                          className="transition-transform duration-300 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5"
+                        />
+                      </Link>
+                    )}
+                  </div>
                 </div>
 
                 {/* Browser Preview */}

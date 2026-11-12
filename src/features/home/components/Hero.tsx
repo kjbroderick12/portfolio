@@ -1,3 +1,4 @@
+
 "use client";
 
 import Link from "next/link";
@@ -14,78 +15,84 @@ const heroFont = Bricolage_Grotesque({
 export default function Hero() {
   return (
     <section
-      className={`${heroFont.className} relative isolate flex min-h-[max(780px,100svh)] w-full items-center overflow-hidden bg-[#030405] px-6 pb-32 pt-36 text-white sm:px-10 lg:px-16`}
+      className={`${heroFont.className} relative isolate flex min-h-[max(780px,100svh)] w-full flex-col overflow-hidden bg-[#030405] px-6 pb-7 pt-32 text-white sm:px-10 sm:pb-8 sm:pt-36 lg:px-16`}
     >
-      {/* Background Stacking Canvas Architecture */}
+      {/* Background */}
       <div className={styles.background} aria-hidden="true">
-          <ParticleBackground />
+        <ParticleBackground />
       </div>
 
-      {/* Hero content */}
-      <div className="relative z-10 mx-auto w-full max-w-7xl">
-        {/* Eyebrow Status Badge */}
-        <div
-          className={`${styles.reveal} ${styles.delayEyebrow} mb-8 inline-flex items-center gap-2.5 text-[11px] font-medium uppercase tracking-[0.22em] text-white/50 sm:text-xs`}
-        >
-          <span className="h-1.5 w-1.5 rounded-full bg-[#6fbd68] shadow-[0_0_12px_rgba(111,189,104,0.85)]" />
-          Software Engineer / Full-Stack Development
-        </div>
-
-        {/* Headline Fluid Scaling */}
-        <h1
-          className={`${styles.reveal} ${styles.delayHeadlineOne} max-w-300 text-[clamp(2.5rem,7vw,6.8rem)] font-semibold leading-[1.02] tracking-tighter text-white`}
-        >
-          Architecting code <br className="hidden md:inline" />
-          without <span className="text-[#6fbd68]">compromise.</span>
-        </h1>
-
-        {/* Asymmetric Split Layout Area */}
-        <div className="mt-12 flex flex-col gap-10 lg:flex-row lg:items-end lg:justify-between border-t border-white/6 pt-10">
-          <p
-            className={`${styles.reveal} ${styles.delayDescription} max-w-130 text-base leading-[1.8] tracking-normal text-white/60 sm:text-lg`}
+      {/* Hero Content */}
+      <div className="relative z-10 flex w-full flex-1 items-center">
+        <div className="mx-auto w-full max-w-7xl">
+          {/* Eyebrow Status Badge */}
+          <div
+            className={`${styles.reveal} ${styles.delayEyebrow} mb-8 inline-flex items-center gap-2.5 text-[11px] font-medium uppercase tracking-[0.22em] text-white/50 sm:text-xs`}
           >
-            I design, build, and launch web applications with thoughtful
-            architecture, clean execution, and a focus on creating software
-            that lasts.
-          </p>
+            <span className="h-1.5 w-1.5 rounded-full bg-[#6fbd68] shadow-[0_0_12px_rgba(111,189,104,0.85)]" />
+            Software Engineer / Full-Stack Development
+          </div>
 
-          {/* Premium Easing Hover Interactions */}
-          <nav
-            className={`${styles.reveal} ${styles.delayActions} flex flex-wrap items-center gap-4`}
-            aria-label="Hero navigation"
+          {/* Headline */}
+          <h1
+            className={`${styles.reveal} ${styles.delayHeadlineOne} max-w-300 text-[clamp(2.5rem,7vw,6.8rem)] font-semibold leading-[1.02] tracking-tighter text-white`}
           >
-            <Link
-              href="#projects"
-              className="group inline-flex min-h-13 items-center gap-2.5 rounded-full bg-[#6fbd68] px-7 text-sm font-semibold text-[#030405] transition-all duration-300 hover:bg-[#83ce7c] hover:scale-[1.02] hover:shadow-[0_0_32px_rgba(111,189,104,0.25)] active:scale-[0.98]"
-              style={{ transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)" }}
-            >
-              Explore my work
-              <ArrowUpRight
-                size={16}
-                strokeWidth={2.5}
-                className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-              />
-            </Link>
+            Architecting code <br className="hidden md:inline" />
+            without <span className="text-[#6fbd68]">compromise.</span>
+          </h1>
 
-            <Link
-              href="/contact"
-              className="inline-flex min-h-13 items-center rounded-full border border-white/10 bg-white/1 px-7 text-sm font-semibold text-white/80 transition-all duration-300 hover:border-white/25 hover:bg-white/5 hover:scale-[1.02] hover:text-white active:scale-[0.98]"
-              style={{ transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)" }}
+          {/* Description and Actions */}
+          <div className="mt-10 flex flex-col gap-7 border-t border-white/[0.07] pt-7 sm:mt-12 sm:gap-8 sm:pt-8 lg:flex-row lg:items-end lg:justify-between lg:gap-12">
+            <p
+              className={`${styles.reveal} ${styles.delayDescription} max-w-130 text-base leading-[1.8] tracking-normal text-white/60 sm:text-lg`}
             >
-              Get in touch
-            </Link>
-          </nav>
+              I design, build, and launch web applications with thoughtful
+              architecture, clean execution, and a focus on creating software
+              that lasts.
+            </p>
+
+            {/* Navigation Actions */}
+            <nav
+              className={`${styles.reveal} ${styles.delayActions} flex flex-wrap items-center gap-3 sm:gap-4`}
+              aria-label="Hero navigation"
+            >
+              <Link
+                href="#projects"
+                className="group inline-flex min-h-13 items-center gap-2.5 rounded-full bg-[#6fbd68] px-6 text-sm font-semibold text-[#030405] transition-all duration-300 hover:scale-[1.02] hover:bg-[#83ce7c] hover:shadow-[0_0_32px_rgba(111,189,104,0.25)] active:scale-[0.98] sm:px-7"
+                style={{
+                  transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)",
+                }}
+              >
+                Explore my work
+                <ArrowUpRight
+                  size={16}
+                  strokeWidth={2.5}
+                  className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                />
+              </Link>
+
+              <Link
+                href="/contact"
+                className="inline-flex min-h-13 items-center rounded-full border border-white/10 bg-white/[0.01] px-6 text-sm font-semibold text-white/80 transition-all duration-300 hover:scale-[1.02] hover:border-white/25 hover:bg-white/5 hover:text-white active:scale-[0.98] sm:px-7"
+                style={{
+                  transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)",
+                }}
+              >
+                Get in touch
+              </Link>
+            </nav>
+          </div>
         </div>
       </div>
 
-      {/* Structural Metadata Footer Status Bar */}
+      {/* Footer Signature */}
       <div
-        className={`${styles.reveal} ${styles.delayDetails} absolute bottom-8 left-6 right-6 z-10 flex items-center justify-between border-t border-white/5 pt-6 sm:left-10 sm:right-10 lg:left-16 lg:right-16`}
+        className={`${styles.reveal} ${styles.delayDetails} relative z-10 mx-auto mt-12 flex w-full max-w-7xl flex-col items-center gap-2 border-t border-white/[0.07] pt-5 sm:mt-14 sm:flex-row sm:justify-between sm:gap-4 sm:pt-6 lg:mt-10`}
       >
-        <span className="text-[10px] font-medium tracking-[0.25em] text-white/30">
+        <span className="text-center text-[9px] font-medium tracking-[0.22em] text-white/35 sm:text-left sm:text-[10px] sm:tracking-[0.25em]">
           THOUGHTFUL BY DESIGN.
         </span>
-        <span className="text-[10px] font-medium tracking-[0.25em] text-white/30">
+        <span className="text-center text-[9px] font-medium tracking-[0.22em] text-white/35 sm:text-right sm:text-[10px] sm:tracking-[0.25em]">
           BUILT WITH INTENTION.
         </span>
       </div>
