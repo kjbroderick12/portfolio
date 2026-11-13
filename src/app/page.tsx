@@ -2,19 +2,9 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { Bricolage_Grotesque } from "next/font/google";
 
-
-import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
-import { Bricolage_Grotesque } from "next/font/google";
-
 import FeaturedProjects from "@/features/home/components/FeaturedProjects";
 import Hero from "@/features/home/components/Hero";
 import AboutJourney from "@/features/home/components/AboutJourney";
-
-const sansFont = Bricolage_Grotesque({
-  subsets: ["latin"],
-  display: "swap",
-});
 
 const sansFont = Bricolage_Grotesque({
   subsets: ["latin"],
