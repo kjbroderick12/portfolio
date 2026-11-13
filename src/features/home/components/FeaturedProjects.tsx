@@ -13,7 +13,6 @@ const sansFont = Bricolage_Grotesque({
 });
 
 interface Project {
-  number: string;
   title: string;
   category: string;
   description: string;
@@ -28,7 +27,6 @@ interface Project {
 
 const projects: Project[] = [
   {
-    number: "01",
     title: "Teffie's Smoky BBQ",
     category: "Full-Stack Web Application",
     description:
@@ -51,7 +49,6 @@ const projects: Project[] = [
     actionLabel: "Visit Live Website",
   },
   {
-    number: "02",
     title: "Azure DevOps Point Sync",
     category: "Internal Application / Proof of Concept",
     description:
@@ -102,7 +99,7 @@ export default function FeaturedProjects({
 
       <div className="relative z-10 mx-auto w-full max-w-7xl">
         {/* Section Header */}
-        <div className="mb-10 flex flex-col gap-7 pb-6 md:mb-12 md:flex-row md:items-end md:justify-between md:gap-12">
+        <div className="mb-10 flex flex-col gap-6 pb-5 md:mb-12 md:flex-row md:items-end md:justify-between md:gap-12">
           <div>
             <div className="mb-5 inline-flex items-center gap-3 text-[10px] font-medium uppercase tracking-[0.24em] text-[#6fbd68] sm:text-[11px]">
               <span className="h-1.5 w-1.5 rounded-full bg-[#6fbd68] shadow-[0_0_10px_rgba(111,189,104,0.4)]" />
@@ -121,7 +118,7 @@ export default function FeaturedProjects({
         </div>
 
         {/* Projects */}
-        <div className="flex flex-col gap-12 sm:gap-10 lg:gap-12">
+        <div className="flex flex-col gap-8 sm:gap-9 lg:gap-10">
           {projectList.map((project) => (
             <ScrollReveal
               key={project.title}
@@ -129,25 +126,53 @@ export default function FeaturedProjects({
               threshold={0.1}
               duration={850}
             >
-              <article className="group grid gap-8 rounded-2xl border border-white/6 bg-white/1.5 p-5 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:border-[#6fbd68]/20 hover:bg-white/2.5 sm:p-8 lg:grid-cols-[0.95fr_1.05fr] lg:items-start lg:gap-10 lg:p-9">
+              <article className="group grid gap-6 rounded-2xl border border-white/6 bg-white/1.5 p-4 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:border-[#6fbd68]/20 hover:bg-white/2.5 sm:gap-8 sm:p-6 lg:grid-cols-[1.15fr_0.85fr] lg:items-center lg:gap-9 lg:p-7">
+                {/* Browser Preview */}
+                <div className="min-w-0 w-full overflow-hidden rounded-xl border border-white/8 bg-[#080d12]">
+                  <div className="flex h-9 items-center gap-2 border-b border-white/[0.07] bg-[#0b1016] px-3 sm:h-10 sm:px-4">
+                    <span className="h-2 w-2 rounded-full bg-white/20" />
+                    <span className="h-2 w-2 rounded-full bg-white/20" />
+                    <span className="h-2 w-2 rounded-full bg-white/20" />
+
+                    <div className="ml-2 flex h-5 min-w-0 flex-1 items-center rounded-md border border-white/6 bg-black/20 px-3">
+                      <span className="truncate text-[9px] tracking-wide text-white/25">
+                        {project.liveUrl
+                          ? project.liveUrl.replace("https://", "")
+                          : "github.com"}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="relative w-full overflow-hidden bg-[#080d12]">
+                    <Image
+                      src={project.image}
+                      alt={project.imageAlt}
+                      width={1600}
+                      height={1000}
+                      sizes="(max-width: 1024px) 100vw, 60vw"
+                      className="block h-auto w-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.015]"
+                    />
+                  </div>
+                </div>
+
                 {/* Project Information */}
-                <div className="flex min-w-0 flex-col">
-                  <div className="mb-5 flex items-center gap-3">
+                <div className="flex min-w-0 flex-col px-1 pb-1 sm:px-2 sm:pb-2 lg:px-0 lg:py-2">
+                  <div className="mb-4">
                     <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#6fbd68]">
                       {project.category}
                     </span>
                   </div>
 
-                  <h3 className="mb-4 text-2xl font-semibold tracking-[-0.045em] text-white transition-colors duration-300 group-hover:text-[#6fbd68] sm:text-3xl">
+                  <h3 className="mb-3 text-2xl font-semibold tracking-[-0.045em] text-white transition-colors duration-300 group-hover:text-[#6fbd68] sm:text-3xl">
                     {project.title}
                   </h3>
 
-                  <p className="mb-6 max-w-145 text-sm leading-[1.9] text-white/55 sm:text-base">
+                  <p className="mb-5 max-w-145 text-sm leading-[1.85] text-white/55 sm:text-base">
                     {project.description}
                   </p>
 
                   {/* Highlights */}
-                  <ul className="mb-7 flex flex-col gap-3">
+                  <ul className="mb-6 flex flex-col gap-2.5">
                     {project.highlights.map((highlight) => (
                       <li
                         key={highlight}
@@ -160,7 +185,7 @@ export default function FeaturedProjects({
                   </ul>
 
                   {/* Technology Tags */}
-                  <div className="mb-8 flex flex-wrap gap-2">
+                  <div className="mb-7 flex flex-wrap gap-2">
                     {project.tags.map((tag) => (
                       <span
                         key={tag}
@@ -211,43 +236,13 @@ export default function FeaturedProjects({
                     )}
                   </div>
                 </div>
-
-                {/* Browser Preview */}
-                <div className="order-last min-w-0 w-full overflow-hidden rounded-xl border border-white/8 bg-[#080d12] lg:order-0">
-                  {/* Browser Header */}
-                  <div className="flex h-10 items-center gap-2 border-b border-white/[0.07] bg-[#0b1016] px-4">
-                    <span className="h-2 w-2 rounded-full bg-white/20" />
-                    <span className="h-2 w-2 rounded-full bg-white/20" />
-                    <span className="h-2 w-2 rounded-full bg-white/20" />
-
-                    <div className="ml-3 flex h-5 min-w-0 flex-1 items-center rounded-md border border-white/6 bg-black/20 px-3">
-                      <span className="truncate text-[9px] tracking-wide text-white/25">
-                        {project.liveUrl
-                          ? project.liveUrl.replace("https://", "")
-                          : "github.com"}
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Screenshot */}
-                  <div className="relative w-full overflow-hidden bg-[#080d12]">
-                    <Image
-                      src={project.image}
-                      alt={project.imageAlt}
-                      width={1600}
-                      height={1000}
-                      sizes="(max-width: 1024px) 100vw, 50vw"
-                      className="block h-auto w-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.015]"
-                    />
-                  </div>
-                </div>
               </article>
             </ScrollReveal>
           ))}
         </div>
 
         {/* Explore All Projects */}
-        <div className="mt-14 flex justify-center">
+        <div className="mt-12 flex justify-center sm:mt-14">
           <Link
             href="/projects"
             className="group inline-flex h-12 items-center justify-center gap-3 rounded-full border border-white/10 bg-white/3 px-7 text-sm font-medium text-white/75 transition-all duration-300 hover:border-[#6fbd68]/40 hover:bg-[#6fbd68]/[0.07] hover:text-[#6fbd68] active:scale-[0.97]"

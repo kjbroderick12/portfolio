@@ -1,4 +1,3 @@
-
 "use client";
 
 import Link from "next/link";
@@ -17,15 +16,12 @@ export default function Hero() {
     <section
       className={`${heroFont.className} relative isolate flex min-h-[max(780px,100svh)] w-full flex-col overflow-hidden bg-[#030405] px-6 pb-7 pt-32 text-white sm:px-10 sm:pb-8 sm:pt-36 lg:px-16`}
     >
-      {/* Background */}
       <div className={styles.background} aria-hidden="true">
         <ParticleBackground />
       </div>
 
-      {/* Hero Content */}
       <div className="relative z-10 flex w-full flex-1 items-center">
         <div className="mx-auto w-full max-w-7xl">
-          {/* Eyebrow Status Badge */}
           <div
             className={`${styles.reveal} ${styles.delayEyebrow} mb-8 inline-flex items-center gap-2.5 text-[11px] font-medium uppercase tracking-[0.22em] text-white/50 sm:text-xs`}
           >
@@ -33,7 +29,6 @@ export default function Hero() {
             Software Engineer / Full-Stack Development
           </div>
 
-          {/* Headline */}
           <h1
             className={`${styles.reveal} ${styles.delayHeadlineOne} max-w-300 text-[clamp(2.5rem,7vw,6.8rem)] font-semibold leading-[1.02] tracking-tighter text-white`}
           >
@@ -41,8 +36,7 @@ export default function Hero() {
             without <span className="text-[#6fbd68]">compromise.</span>
           </h1>
 
-          {/* Description and Actions */}
-          <div className="mt-10 flex flex-col gap-7 border-t border-white/[0.07] pt-7 sm:mt-12 sm:gap-8 sm:pt-8 lg:flex-row lg:items-end lg:justify-between lg:gap-12">
+          <div className="mt-9 flex flex-col gap-6 pt-7 sm:mt-11 sm:gap-7 sm:pt-8 lg:flex-row lg:items-end lg:justify-between lg:gap-12">
             <p
               className={`${styles.reveal} ${styles.delayDescription} max-w-130 text-base leading-[1.8] tracking-normal text-white/60 sm:text-lg`}
             >
@@ -51,7 +45,6 @@ export default function Hero() {
               that lasts.
             </p>
 
-            {/* Navigation Actions */}
             <nav
               className={`${styles.reveal} ${styles.delayActions} flex flex-wrap items-center gap-3 sm:gap-4`}
               aria-label="Hero navigation"
@@ -73,7 +66,7 @@ export default function Hero() {
 
               <Link
                 href="/contact"
-                className="inline-flex min-h-13 items-center rounded-full border border-white/10 bg-white/[0.01] px-6 text-sm font-semibold text-white/80 transition-all duration-300 hover:scale-[1.02] hover:border-white/25 hover:bg-white/5 hover:text-white active:scale-[0.98] sm:px-7"
+                className="inline-flex min-h-13 items-center rounded-full border border-white/10 bg-white/1 px-6 text-sm font-semibold text-white/80 transition-all duration-300 hover:scale-[1.02] hover:border-white/25 hover:bg-white/5 hover:text-white active:scale-[0.98] sm:px-7"
                 style={{
                   transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)",
                 }}
@@ -85,16 +78,9 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Footer Signature */}
       <div
-        className={`${styles.reveal} ${styles.delayDetails} relative z-10 mx-auto mt-12 flex w-full max-w-7xl flex-col items-center gap-2 border-t border-white/[0.07] pt-5 sm:mt-14 sm:flex-row sm:justify-between sm:gap-4 sm:pt-6 lg:mt-10`}
+        className={`${styles.reveal} ${styles.delayDetails} relative z-10 mx-auto mt-12 flex w-full max-w-7xl flex-col items-center gap-2 pt-5 sm:mt-14 sm:flex-row sm:justify-between sm:gap-4 sm:pt-6 lg:mt-10`}
       >
-        <span className="text-center text-[9px] font-medium tracking-[0.22em] text-white/35 sm:text-left sm:text-[10px] sm:tracking-[0.25em]">
-          THOUGHTFUL BY DESIGN.
-        </span>
-        <span className="text-center text-[9px] font-medium tracking-[0.22em] text-white/35 sm:text-right sm:text-[10px] sm:tracking-[0.25em]">
-          BUILT WITH INTENTION.
-        </span>
       </div>
     </section>
   );

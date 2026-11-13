@@ -1,11 +1,6 @@
-
 "use client";
 
-import {
-  Lightbulb,
-  Layers3,
-  TrendingUp,
-} from "lucide-react";
+import { Lightbulb, Layers3, TrendingUp } from "lucide-react";
 import { Bricolage_Grotesque } from "next/font/google";
 import ScrollReveal from "@/shared/components/ScrollReveal";
 
@@ -65,14 +60,9 @@ export default function AboutJourney() {
   return (
     <section
       id="about"
-      className={`${sansFont.className} relative isolate w-full overflow-hidden bg-[#080d12] px-6 pb-24 pt-10 text-white sm:px-10 sm:pb-28 sm:pt-14 lg:px-16 lg:pt-20`}
+      className={`${sansFont.className} relative isolate w-full overflow-hidden bg-[#080d12] px-6 pb-10 pt-10 text-white sm:px-10 sm:pb-12 sm:pt-14 lg:px-16 lg:pt-20`}
     >
-      {/* Background Atmosphere */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 z-0 bg-linear-to-b from-[#080d12] via-[#090f14] to-[#080d12]"
-      />
-
+      {/* Ambient Lighting */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute -left-48 top-40 z-0 h-125 w-125 rounded-full bg-[#6fbd68]/[0.035] blur-[150px]"
@@ -81,7 +71,7 @@ export default function AboutJourney() {
       <div className="relative z-10 mx-auto w-full max-w-7xl">
         {/* About Introduction */}
         <ScrollReveal variant="up" threshold={0.1} duration={800}>
-          <div className="mb-16 grid gap-8 border-b border-white/8 pb-12 md:mb-20 md:grid-cols-[1.1fr_0.9fr] md:items-end md:gap-16 md:pb-14">
+          <div className="mb-14 grid gap-8 border-b border-white/8 pb-10 md:mb-16 md:grid-cols-[1.1fr_0.9fr] md:items-center md:gap-16 md:pb-12">
             <div>
               <div className="mb-5 inline-flex items-center gap-3 text-[10px] font-medium uppercase tracking-[0.24em] text-[#6fbd68] sm:text-[11px]">
                 <span className="h-1.5 w-1.5 rounded-full bg-[#6fbd68] shadow-[0_0_10px_rgba(111,189,104,0.4)]" />
@@ -104,8 +94,8 @@ export default function AboutJourney() {
                 me a lot about problem-solving, working with people, and
                 paying attention to the details.
               </p>
-
-              <p className="mt-4 text-sm leading-[1.9] text-white/45 sm:text-base">
+              
+              <p className="mt-4 text-sm leading-[1.9] text-white/65 sm:text-base">
                 Eventually, I decided to turn my interest in technology into
                 a career. Since then, I've been learning, building projects,
                 and getting hands-on experience with different technologies.
@@ -116,7 +106,7 @@ export default function AboutJourney() {
         </ScrollReveal>
 
         {/* Professional Journey */}
-        <div className="mb-20 grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
+        <div className="mb-16 grid gap-10 lg:mb-18 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
           <ScrollReveal variant="up" threshold={0.1} duration={800}>
             <div className="lg:sticky lg:top-28 lg:self-start">
               <span className="mb-4 block text-[10px] font-medium uppercase tracking-[0.24em] text-[#6fbd68]">
@@ -135,7 +125,7 @@ export default function AboutJourney() {
               </p>
 
               {/* Current Focus */}
-              <div className="mt-9 border-t border-white/8 pt-6">
+              <div className="mt-8 border-t border-white/8 pt-6">
                 <span className="mb-3 block text-[10px] font-semibold uppercase tracking-[0.22em] text-[#6fbd68]">
                   What I'm Working With
                 </span>
@@ -167,9 +157,12 @@ export default function AboutJourney() {
               className="absolute bottom-8 left-1.25 top-2 w-px bg-white/10"
             />
 
-            <div className="absolute left-1.25 top-2 h-1/3 w-px bg-linear-to-b from-[#6fbd68] via-[#6fbd68]/50 to-transparent shadow-[0_0_12px_rgba(111,189,104,0.45)]" />
+            <div
+              aria-hidden="true"
+              className="absolute left-1.25 top-2 h-1/3 w-px bg-linear-to-b from-[#6fbd68] via-[#6fbd68]/50 to-transparent shadow-[0_0_12px_rgba(111,189,104,0.45)]"
+            />
 
-            <div className="flex flex-col gap-9">
+            <div className="flex flex-col gap-8 sm:gap-9">
               {journey.map((item, index) => (
                 <ScrollReveal
                   key={item.title}
@@ -213,7 +206,7 @@ export default function AboutJourney() {
         {/* Engineering Principles */}
         <div>
           <ScrollReveal variant="up" threshold={0.1} duration={800}>
-            <div className="mb-10 border-b border-white/8 pb-7 sm:mb-12 sm:flex sm:items-end sm:justify-between sm:gap-8">
+            <div className="mb-8 border-b border-white/8 pb-7 sm:mb-10 sm:flex sm:items-end sm:justify-between sm:gap-8">
               <div>
                 <span className="mb-4 block text-[10px] font-medium uppercase tracking-[0.24em] text-[#6fbd68]">
                   How I Work
@@ -243,8 +236,8 @@ export default function AboutJourney() {
                   duration={800}
                   delay={index * 100}
                 >
-                  <article className="group h-full rounded-2xl border border-white/[0.07] bg-white/1.5 p-6 transition-all duration-300 hover:border-[#6fbd68]/20 hover:bg-white/3 sm:p-7">
-                    <div className="mb-7 flex h-11 w-11 items-center justify-center rounded-xl border border-[#6fbd68]/20 bg-[#6fbd68]/[0.07] text-[#6fbd68] transition-colors duration-300 group-hover:bg-[#6fbd68]/12">
+                  <article className="group h-full rounded-2xl border border-white/[0.07] bg-white/1.5 p-5 transition-all duration-300 hover:border-[#6fbd68]/20 hover:bg-white/3 sm:p-6">
+                    <div className="mb-6 flex h-11 w-11 items-center justify-center rounded-xl border border-[#6fbd68]/20 bg-[#6fbd68]/[0.07] text-[#6fbd68] transition-colors duration-300 group-hover:bg-[#6fbd68]/12">
                       <Icon size={20} strokeWidth={1.7} />
                     </div>
 
