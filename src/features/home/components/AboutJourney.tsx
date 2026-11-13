@@ -1,4 +1,3 @@
-
 "use client";
 
 import { Lightbulb, Layers3, TrendingUp } from "lucide-react";
@@ -96,6 +95,7 @@ export default function AboutJourney() {
                 paying attention to the details.
               </p>
 
+              <p className="mt-4 text-sm leading-[1.9] text-white/65 sm:text-base">
               <p className="mt-4 text-sm leading-[1.9] text-white/65 sm:text-base">
                 Eventually, I decided to turn my interest in technology into
                 a career. Since then, I've been learning, building projects,
