@@ -14,6 +14,7 @@ const sansFont = Bricolage_Grotesque({
 
 interface Project {
   title: string;
+  slug: string;
   category: string;
   description: string;
   highlights: string[];
@@ -28,6 +29,7 @@ interface Project {
 const projects: Project[] = [
   {
     title: "Teffie's Smoky BBQ",
+    slug: "teffies-smoky-bbq",
     category: "Full-Stack Web Application",
     description:
       "A custom website built for a BBQ catering business to showcase its offerings, connect with customers, and manage online inquiries. The platform combines a responsive public-facing experience with an administrative dashboard for managing website content.",
@@ -50,6 +52,7 @@ const projects: Project[] = [
   },
   {
     title: "Azure DevOps Point Sync",
+    slug: "pointsync",
     category: "Internal Application / Proof of Concept",
     description:
       "A .NET application designed to simplify monthly development-point reporting by retrieving completed work items directly from Azure DevOps and synchronizing them with a centralized reporting dashboard.",
@@ -126,9 +129,16 @@ export default function FeaturedProjects({
               threshold={0.1}
               duration={850}
             >
-              <article className="group grid gap-6 rounded-2xl border border-white/6 bg-white/1.5 p-4 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:border-[#6fbd68]/20 hover:bg-white/2.5 sm:gap-8 sm:p-6 lg:grid-cols-[1.15fr_0.85fr] lg:items-center lg:gap-9 lg:p-7">
+              <article className="group relative grid gap-6 rounded-2xl border border-white/6 bg-white/1.5 p-4 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:border-[#6fbd68]/20 hover:bg-white/2.5 sm:gap-8 sm:p-6 lg:grid-cols-[1.15fr_0.85fr] lg:items-center lg:gap-9 lg:p-7">
+                {/* Full Card Link */}
+                <Link
+                  href={`/projects/${project.slug}`}
+                  aria-label={`View ${project.title} project details`}
+                  className="absolute inset-0 z-0 rounded-2xl focus-visible:outline focus-visible:outline-offset-4 focus-visible:outline-[#6fbd68]"
+                />
+
                 {/* Browser Preview */}
-                <div className="min-w-0 w-full overflow-hidden rounded-xl border border-white/8 bg-[#080d12]">
+                <div className="relative z-10 pointer-events-none min-w-0 w-full overflow-hidden rounded-xl border border-white/8 bg-[#080d12]">
                   <div className="flex h-9 items-center gap-2 border-b border-white/[0.07] bg-[#0b1016] px-3 sm:h-10 sm:px-4">
                     <span className="h-2 w-2 rounded-full bg-white/20" />
                     <span className="h-2 w-2 rounded-full bg-white/20" />
@@ -156,7 +166,7 @@ export default function FeaturedProjects({
                 </div>
 
                 {/* Project Information */}
-                <div className="flex min-w-0 flex-col px-1 pb-1 sm:px-2 sm:pb-2 lg:px-0 lg:py-2">
+                <div className="relative z-10 pointer-events-none flex min-w-0 flex-col px-1 pb-1 sm:px-2 sm:pb-2 lg:px-0 lg:py-2">
                   <div className="mb-4">
                     <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#6fbd68]">
                       {project.category}
@@ -197,7 +207,7 @@ export default function FeaturedProjects({
                   </div>
 
                   {/* Actions */}
-                  <div className="flex flex-wrap items-center gap-3">
+                  <div className="pointer-events-auto flex flex-wrap items-center gap-3">
                     {project.githubUrl && (
                       <Link
                         href={project.githubUrl}
