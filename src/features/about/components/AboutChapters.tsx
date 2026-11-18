@@ -21,13 +21,13 @@ export default function AboutChapters({ experiences }: AboutChaptersProps) {
   const current = experiences[activeChapter];
 
   return (
-    <div className="rounded-2xl border border-white/[0.08] bg-[#0b1117]/70 p-5 sm:p-8">
+    <div className="rounded-2xl border border-white/8 bg-[#0b1117]/70 p-5 sm:p-8">
       <div className="flex flex-col justify-between gap-4 border-b border-white/[0.07] pb-5 sm:flex-row sm:items-end sm:pb-6">
         <div>
           <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-[#6fbd68]">
             Experience
           </span>
-          <h2 className="mt-2 font-[family-name:var(--font-bricolage)] text-2xl font-semibold tracking-[-0.04em] sm:text-3xl">
+          <h2 className="mt-2 font-(family-name:--font-bricolage) text-2xl font-semibold tracking-[-0.04em] sm:text-3xl">
             My journey.
           </h2>
         </div>
@@ -41,7 +41,7 @@ export default function AboutChapters({ experiences }: AboutChaptersProps) {
               className={`rounded-lg px-3 py-1.5 text-xs font-medium transition-all ${
                 activeChapter === idx
                   ? "bg-[#6fbd68] text-[#081009]"
-                  : "border border-white/10 bg-white/[0.02] text-white/50 hover:border-white/25 hover:text-white"
+                  : "border border-white/10 bg-white/2 text-white/50 hover:border-white/25 hover:text-white"
               }`}
             >
               {item.role.split("·")[0].trim()}
@@ -58,12 +58,12 @@ export default function AboutChapters({ experiences }: AboutChaptersProps) {
           </span>
           <span className="text-white/20">•</span>
           <span className="font-medium text-white/75">{current.role}</span>
-          <span className="rounded-md border border-white/10 bg-white/[0.03] px-2 py-0.5 text-[10px] uppercase tracking-wider text-white/45">
+          <span className="rounded-md border border-white/10 bg-white/3 px-2 py-0.5 text-[10px] uppercase tracking-wider text-white/45">
             {current.badge}
           </span>
         </div>
 
-        <h3 className="mt-4 font-[family-name:var(--font-bricolage)] text-xl font-medium tracking-[-0.03em] text-white sm:text-2xl">
+        <h3 className="mt-4 font-(family-name:--font-bricolage) text-xl font-medium tracking-[-0.03em] text-white sm:text-2xl">
           {current.title}
         </h3>
 
@@ -77,7 +77,7 @@ export default function AboutChapters({ experiences }: AboutChaptersProps) {
           {current.highlights.map((tag) => (
             <span
               key={tag}
-              className="rounded-md border border-[#6fbd68]/20 bg-[#6fbd68]/[0.06] px-2.5 py-1 text-xs text-[#83ce7b]"
+              className="rounded-md border border-[#6fbd68]/20 bg-[#6fbd68]/6 px-2.5 py-1 text-xs text-[#83ce7b]"
             >
               {tag}
             </span>
@@ -93,8 +93,8 @@ export default function AboutChapters({ experiences }: AboutChaptersProps) {
             onClick={() => setActiveChapter(idx)}
             className={`rounded-xl border p-3 text-left transition-all ${
               activeChapter === idx
-                ? "border-[#6fbd68]/40 bg-[#6fbd68]/[0.05]"
-                : "border-white/[0.05] bg-white/[0.01] hover:border-white/15"
+                ? "border-[#6fbd68]/40 bg-[#6fbd68]/5"
+                : "border-white/5 bg-white/1 hover:border-white/15"
             }`}
           >
             <p className="font-mono text-[10px] text-[#6fbd68]">
@@ -108,4 +108,4 @@ export default function AboutChapters({ experiences }: AboutChaptersProps) {
       </div>
     </div>
   );
-}
+}0

@@ -115,11 +115,11 @@ function RevealContent({
             ? "translate-x-0 translate-y-0 opacity-100 blur-0"
             : `opacity-0 ${hiddenVariants[variant]}`
         }
-        motion-reduce:!opacity-100
-        motion-reduce:!translate-x-0
-        motion-reduce:!translate-y-0
-        motion-reduce:!blur-0
-        motion-reduce:!transition-none
+        motion-reduce:opacity-100!
+        motion-reduce:translate-x-0!
+        motion-reduce:translate-y-0!
+        motion-reduce:blur-0!
+        motion-reduce:transition-none!
         ${className}
       `}
       style={animationStyle}
