@@ -1,11 +1,12 @@
+
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Bricolage_Grotesque } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/shared/components/navbar/Navbar";
 import Footer from "@/shared/components/Footer";
 
-const inter = Inter({
-  variable: "--font-inter",
+const bricolage = Bricolage_Grotesque({
+  variable: "--font-bricolage",
   subsets: ["latin"],
 });
 
@@ -22,9 +23,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.variable}>
+      <body className={bricolage.variable}>
         <Navbar />
-          {children}
+        {children}
         <Footer />
       </body>
     </html>

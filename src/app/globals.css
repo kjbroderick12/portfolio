@@ -20,7 +20,7 @@ body {
   color: var(--foreground);
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
-  font-family: var(--font-inter), sans-serif;
+  font-family: var(--font-bricolage), sans-serif;
 }
 
 ::selection {
