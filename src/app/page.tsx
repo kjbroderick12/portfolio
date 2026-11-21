@@ -36,10 +36,6 @@ export default function Home() {
           <ScrollReveal variant="up">
             <div className="grid grid-cols-1 gap-8 rounded-2xl border border-white/8 bg-linear-to-br from-[#0b1117] via-[#0b1117] to-[#6fbd68]/6 p-6 sm:p-10 lg:grid-cols-12 lg:items-end lg:gap-12 lg:p-14">
               <div className="lg:col-span-8">
-                <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-[#6fbd68]/25 bg-[#6fbd68]/8 px-3.5 py-1 text-xs font-medium text-[#6fbd68]">
-                  <span className="h-1.5 w-1.5 rounded-full bg-[#6fbd68]" />
-                  <span>Get in Touch</span>
-                </div>
 
                 <h2 className="text-3xl font-semibold leading-[1.02] tracking-[-0.04em] text-white sm:text-5xl lg:text-6xl">
                   Have a project{" "}

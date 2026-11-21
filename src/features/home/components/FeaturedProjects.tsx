@@ -112,10 +112,6 @@ export default function FeaturedProjects({
         <ScrollReveal variant="up">
           <div className="mb-8 flex flex-col gap-4 border-b border-white/8 pb-7 md:mb-10 md:flex-row md:items-end md:justify-between md:gap-12">
             <div>
-              <div className="mb-3.5 inline-flex items-center gap-2 rounded-full border border-[#6fbd68]/25 bg-[#6fbd68]/8 px-3.5 py-1 text-xs font-medium text-[#6fbd68]">
-                <span className="h-1.5 w-1.5 rounded-full bg-[#6fbd68]" />
-                <span>Selected Work</span>
-              </div>
 
               <h2 className="text-3xl font-semibold leading-[0.98] tracking-[-0.04em] text-white sm:text-5xl">
                 Featured Projects
