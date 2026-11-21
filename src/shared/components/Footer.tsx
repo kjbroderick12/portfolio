@@ -1,77 +1,85 @@
-
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
+import { Bricolage_Grotesque } from "next/font/google";
 
-const navigation = [
+const bricolage = Bricolage_Grotesque({
+  subsets: ["latin"],
+  variable: "--font-bricolage",
+  display: "swap",
+});
+
+const footerLinks = [
   { label: "Home", href: "/" },
   { label: "Projects", href: "/projects" },
-  { label: "About", href: "/#about" },
+  { label: "Services", href: "/services" },
+  { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
 ];
 
 export default function Footer() {
   return (
-    <footer className="w-full border-t border-white/[0.07] bg-[#06090d] px-6 py-10 text-white sm:px-10 sm:py-12 lg:px-16">
-      <div className="mx-auto w-full max-w-7xl">
-        <div className="flex flex-col items-center gap-8 sm:flex-row sm:items-center sm:justify-between">
-          {/* Branding */}
-          <div className="flex items-center gap-3">
-            <Link href="/" aria-label="Go to homepage">
-              <Image
-                src="/images/logo/kb-logo.png"
-                alt="KB"
-                width={50}
-                height={50}
-                className="h-9 w-9 object-contain"
-              />
+    <footer
+      className={`${bricolage.variable} w-full border-t border-white/[0.08] bg-[#080d12] px-5 py-8 font-[family-name:var(--font-bricolage)] text-white sm:px-10 sm:py-10 lg:px-16`}
+    >
+      <div className="mx-auto flex w-full max-w-7xl flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
+        {/* Left: Brand Identity + Integrated Copyright */}
+        <div className="flex items-start gap-3.5 sm:items-center">
+          <Link
+            href="/"
+            aria-label="Go to homepage"
+            className="group flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-white/[0.08] bg-[#0b1117] transition-colors group-hover:border-[#6fbd68]/45 sm:h-10 sm:w-10"
+          >
+            <Image
+              src="/images/logo/kb-logo.png"
+              alt="KB logo"
+              width={36}
+              height={36}
+              className="h-6 w-6 object-contain"
+            />
+          </Link>
+
+          <div className="min-w-0">
+            <Link
+              href="/"
+              className="block text-base font-semibold tracking-tight text-white transition-colors hover:text-[#6fbd68]"
+            >
+              Kaitlynn Broderick
             </Link>
-
-            <div>
-              <Link
-                href="/"
-                className="text-base font-semibold tracking-tight transition-colors duration-300 hover:text-[#6fbd68]"
-              >
-                Kaitlynn Broderick
-              </Link>
-
-              <p className="mt-1 text-xs tracking-wide text-white/40">
-                Software Developer
-              </p>
-            </div>
+            <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-[#6fbd68]/85">
+              Software Developer
+            </p>
+            <p className="mt-1.5 text-xs text-white/45 sm:mt-1 sm:text-white/40">
+              © {new Date().getFullYear()} Kaitlynn Broderick. All rights reserved.
+            </p>
           </div>
+        </div>
 
-          {/* Navigation */}
+        {/* Right: Navigation + Direct CTA */}
+        <div className="flex flex-col gap-4 border-t border-white/[0.07] pt-5 sm:items-end sm:border-t-0 sm:pt-0">
           <nav
             aria-label="Footer navigation"
-            className="flex flex-wrap items-center justify-center gap-x-7 gap-y-4 sm:justify-end sm:gap-x-6"
+            className="flex flex-wrap items-center gap-x-5 gap-y-1.5 sm:justify-end sm:gap-x-6"
           >
-            {navigation.map((item) => (
+            {footerLinks.map((link) => (
               <Link
-                key={item.label}
-                href={item.href}
-                className="text-xs font-medium text-white/45 transition-colors duration-300 hover:text-[#6fbd68]"
+                key={link.label}
+                href={link.href}
+                className="inline-flex min-h-10 items-center text-sm font-medium text-white/60 transition-colors hover:text-[#6fbd68] sm:min-h-9 sm:text-white/55"
               >
-                {item.label}
+                {link.label}
               </Link>
             ))}
           </nav>
-        </div>
-
-        {/* Bottom Row */}
-        <div className="mt-8 flex flex-col items-center gap-4 border-t border-white/[0.07] pt-6 text-center text-[10px] font-medium tracking-wide text-white/40 sm:mt-9 sm:flex-row sm:items-center sm:justify-between sm:text-left">
-          <p>
-            © {new Date().getFullYear()} Kaitlynn Broderick. All rights reserved.
-          </p>
 
           <Link
             href="/contact"
-            className="group inline-flex items-center gap-1.5 transition-colors duration-300 hover:text-[#6fbd68]"
+            className="group inline-flex min-h-10 w-full items-center justify-between rounded-xl border border-[#6fbd68]/25 bg-[#6fbd68]/[0.06] px-4 font-mono text-xs uppercase tracking-[0.14em] text-[#6fbd68] transition-colors hover:border-[#6fbd68]/45 hover:bg-[#6fbd68]/[0.1] hover:text-[#82cf7a] sm:min-h-9 sm:w-auto sm:justify-center sm:gap-1.5 sm:rounded-none sm:border-0 sm:bg-transparent sm:px-0"
           >
-            Let's connect
+            Start a conversation
             <ArrowUpRight
-              size={12}
-              className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+              size={15}
+              className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 sm:h-3.5 sm:w-3.5"
             />
           </Link>
         </div>
