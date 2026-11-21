@@ -14,49 +14,54 @@ const heroFont = Bricolage_Grotesque({
 export default function Hero() {
   return (
     <section
-      className={`${heroFont.className} relative isolate flex min-h-[max(780px,100svh)] w-full flex-col overflow-hidden bg-[#030405] px-6 pb-7 pt-32 text-white sm:px-10 sm:pb-8 sm:pt-36 lg:px-16`}
+      className={`${heroFont.className} relative isolate flex min-h-[82svh] w-full flex-col overflow-x-clip bg-[#080d12] px-5 pb-8 pt-28 text-white sm:min-h-[max(780px,100svh)] sm:px-10 sm:pb-10 sm:pt-36 lg:px-16`}
     >
       <div className={styles.background} aria-hidden="true">
         <ParticleBackground />
       </div>
 
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 bottom-0 z-1 h-32 bg-linear-to-t from-[#080d12] to-transparent"
+      />
+
       <div className="relative z-10 flex w-full flex-1 items-center">
         <div className="mx-auto w-full max-w-7xl">
           <div
-            className={`${styles.reveal} ${styles.delayEyebrow} mb-8 inline-flex items-center gap-2.5 text-[11px] font-medium uppercase tracking-[0.22em] text-white/50 sm:text-xs`}
+            className={`${styles.reveal} ${styles.delayEyebrow} mb-6 inline-flex items-center gap-2.5 text-[11px] font-medium uppercase tracking-[0.22em] text-white/55 sm:mb-8 sm:text-xs`}
           >
             <span className="h-1.5 w-1.5 rounded-full bg-[#6fbd68] shadow-[0_0_12px_rgba(111,189,104,0.85)]" />
-            Software Engineer / Full-Stack Development
+            <span>Software Engineer / Full-Stack Development</span>
           </div>
 
           <h1
-            className={`${styles.reveal} ${styles.delayHeadlineOne} max-w-300 text-[clamp(2.5rem,7vw,6.8rem)] font-semibold leading-[1.02] tracking-tighter text-white`}
+            className={`${styles.reveal} ${styles.delayHeadlineOne} max-w-4xl text-4xl font-semibold leading-[1.03] tracking-[-0.045em] text-white sm:text-6xl lg:text-7xl`}
           >
             Architecting code <br className="hidden md:inline" />
             without <span className="text-[#6fbd68]">compromise.</span>
           </h1>
 
-          <div className="mt-9 flex flex-col gap-6 pt-7 sm:mt-11 sm:gap-7 sm:pt-8 lg:flex-row lg:items-end lg:justify-between lg:gap-12">
+          <div className="mt-7 flex flex-col gap-6 pt-6 sm:mt-10 sm:gap-7 sm:pt-8 lg:flex-row lg:items-end lg:justify-between lg:gap-12">
             <p
-              className={`${styles.reveal} ${styles.delayDescription} max-w-130 text-base leading-[1.8] tracking-normal text-white/60 sm:text-lg`}
+              className={`${styles.reveal} ${styles.delayDescription} max-w-xl text-sm leading-7 text-white/65 sm:text-lg sm:leading-[1.8]`}
             >
               I design, build, and launch web applications with thoughtful
-              architecture, clean execution, and a focus on creating software
-              that lasts.
+              architecture, clean execution, and a focus on creating software that
+              lasts.
             </p>
 
             <nav
-              className={`${styles.reveal} ${styles.delayActions} flex flex-wrap items-center gap-3 sm:gap-4`}
+              className={`${styles.reveal} ${styles.delayActions} flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4`}
               aria-label="Hero navigation"
             >
               <Link
                 href="#projects"
-                className="group inline-flex min-h-13 items-center gap-2.5 rounded-full bg-[#6fbd68] px-6 text-sm font-semibold text-[#030405] transition-all duration-300 hover:scale-[1.02] hover:bg-[#83ce7c] hover:shadow-[0_0_32px_rgba(111,189,104,0.25)] active:scale-[0.98] sm:px-7"
+                className="group inline-flex min-h-12 w-full items-center justify-center gap-2.5 rounded-full bg-[#6fbd68] px-6 text-xs font-semibold text-[#080d12] transition-all duration-300 hover:scale-[1.02] hover:bg-[#83ce7c] hover:shadow-[0_0_32px_rgba(111,189,104,0.25)] active:scale-[0.98] sm:min-h-13 sm:w-auto sm:px-7 sm:text-sm"
                 style={{
                   transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)",
                 }}
               >
-                Explore my work
+                <span>Explore my work</span>
                 <ArrowUpRight
                   size={16}
                   strokeWidth={2.5}
@@ -66,7 +71,7 @@ export default function Hero() {
 
               <Link
                 href="/contact"
-                className="inline-flex min-h-13 items-center rounded-full border border-white/10 bg-white/1 px-6 text-sm font-semibold text-white/80 transition-all duration-300 hover:scale-[1.02] hover:border-white/25 hover:bg-white/5 hover:text-white active:scale-[0.98] sm:px-7"
+                className="inline-flex min-h-12 w-full items-center justify-center rounded-full border border-white/10 bg-white/2 px-6 text-xs font-semibold text-white/80 transition-all duration-300 hover:scale-[1.02] hover:border-white/25 hover:bg-white/6 hover:text-white active:scale-[0.98] sm:min-h-13 sm:w-auto sm:px-7 sm:text-sm"
                 style={{
                   transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)",
                 }}
@@ -76,11 +81,6 @@ export default function Hero() {
             </nav>
           </div>
         </div>
-      </div>
-
-      <div
-        className={`${styles.reveal} ${styles.delayDetails} relative z-10 mx-auto mt-12 flex w-full max-w-7xl flex-col items-center gap-2 pt-5 sm:mt-14 sm:flex-row sm:justify-between sm:gap-4 sm:pt-6 lg:mt-10`}
-      >
       </div>
     </section>
   );

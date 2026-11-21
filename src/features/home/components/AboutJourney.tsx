@@ -1,13 +1,8 @@
 "use client";
 
-import { Lightbulb, Layers3, TrendingUp } from "lucide-react";
-import { Bricolage_Grotesque } from "next/font/google";
+import Link from "next/link";
+import { ArrowUpRight, Layers3, Lightbulb, TrendingUp } from "lucide-react";
 import ScrollReveal from "@/shared/components/ScrollReveal";
-
-const sansFont = Bricolage_Grotesque({
-  subsets: ["latin"],
-  display: "swap",
-});
 
 const journey = [
   {
@@ -60,199 +55,113 @@ export default function AboutJourney() {
   return (
     <section
       id="about"
-      className={`${sansFont.className} relative isolate w-full overflow-hidden bg-[#080d12] px-6 pb-10 pt-10 text-white sm:px-10 sm:pb-12 sm:pt-14 lg:px-16 lg:pt-20`}
+      className="relative isolate w-full overflow-x-clip bg-[#080d12] px-5 py-12 text-white sm:px-10 sm:py-16 lg:px-16 lg:py-20"
     >
-      {/* Ambient Lighting */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -left-48 top-40 z-0 h-125 w-125 rounded-full bg-[#6fbd68]/[0.035] blur-[150px]"
+        className="pointer-events-none absolute -left-40 top-36 z-0 h-90 w-90 rounded-full bg-[#6fbd68]/4 blur-[120px] sm:h-125 sm:w-125 sm:blur-[150px]"
       />
 
       <div className="relative z-10 mx-auto w-full max-w-7xl">
-        {/* About Introduction */}
-        <ScrollReveal variant="up" threshold={0.1} duration={800}>
-          <div className="mb-14 grid gap-8 border-b border-white/8 pb-10 md:mb-16 md:grid-cols-[1.1fr_0.9fr] md:items-center md:gap-16 md:pb-12">
-            <div>
-              <div className="mb-5 inline-flex items-center gap-3 text-[10px] font-medium uppercase tracking-[0.24em] text-[#6fbd68] sm:text-[11px]">
-                <span className="h-1.5 w-1.5 rounded-full bg-[#6fbd68] shadow-[0_0_10px_rgba(111,189,104,0.4)]" />
-                About Me
+        {/* Sticky Chapter Intro + Timeline Ledger */}
+        <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:items-start lg:gap-14">
+          <div className="lg:sticky lg:top-28 lg:col-span-5">
+            <ScrollReveal variant="up" threshold={0.1}>
+              <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-[#6fbd68]/25 bg-[#6fbd68]/8 px-3.5 py-1 text-xs font-medium text-[#6fbd68]">
+                <span className="h-1.5 w-1.5 rounded-full bg-[#6fbd68]" />
+                <span>About Me</span>
               </div>
 
-              <h2 className="max-w-2xl text-[clamp(2.5rem,5vw,4.25rem)] font-semibold leading-[0.98] tracking-[-0.055em]">
-                More than just
-                <span className="block text-[#6fbd68]">
-                  writing code.
-                </span>
+              <h2 className="text-3xl font-semibold leading-[0.98] tracking-[-0.04em] text-white sm:text-5xl lg:text-6xl">
+                More than just{" "}
+                <span className="block text-[#6fbd68]">writing code.</span>
               </h2>
-            </div>
 
-            <div className="max-w-xl md:pb-1">
-              <p className="text-sm leading-[1.9] text-white/65 sm:text-base">
-                My path into software development wasn't exactly
-                straightforward. Before getting into development, I spent
-                years working in the optical industry. That experience taught
-                me a lot about problem-solving, working with people, and
-                paying attention to the details.
-              </p>
-              
-              <p className="mt-4 text-sm leading-[1.9] text-white/65 sm:text-base">
-                Eventually, I decided to turn my interest in technology into
-                a career. Since then, I've been learning, building projects,
-                and getting hands-on experience with different technologies.
-                I'm excited to keep growing and see where it takes me.
-              </p>
-            </div>
-          </div>
-        </ScrollReveal>
-
-        {/* Professional Journey */}
-        <div className="mb-16 grid gap-10 lg:mb-18 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
-          <ScrollReveal variant="up" threshold={0.1} duration={800}>
-            <div className="lg:sticky lg:top-28 lg:self-start">
-              <span className="mb-4 block text-[10px] font-medium uppercase tracking-[0.24em] text-[#6fbd68]">
-                The Journey
-              </span>
-
-              <h3 className="max-w-md text-3xl font-semibold leading-tight tracking-[-0.045em] sm:text-4xl">
-                A little about how I got here.
-              </h3>
-
-              <p className="mt-5 max-w-sm text-sm leading-[1.9] text-white/45 sm:text-base">
-                My background might be a little different from most
-                developers, but each step has helped me get to where I am
-                today. I'm bringing those experiences with me as I continue
-                building my career in software development.
+              <p className="mt-5 text-sm leading-7 text-white/65 sm:text-base sm:leading-8">
+                My path into software development wasn&apos;t straight-line.
+                Years in the optical industry trained me to catch small
+                details, solve practical problems, and listen carefully to what
+                people need.
               </p>
 
-              {/* Current Focus */}
-              <div className="mt-8 border-t border-white/8 pt-6">
-                <span className="mb-3 block text-[10px] font-semibold uppercase tracking-[0.22em] text-[#6fbd68]">
-                  What I'm Working With
-                </span>
-
-                <p className="max-w-sm text-sm leading-[1.85] text-white/55">
-                  I'm especially interested in backend development, but I
-                  enjoy working across the stack and seeing how everything
-                  comes together.
-                </p>
-
-                <div className="mt-5 flex flex-wrap gap-2">
-                  {currentFocus.map((item) => (
-                    <span
-                      key={item}
-                      className="rounded-full border border-white/8 bg-white/2.5 px-3 py-1.5 text-[10px] font-medium tracking-wide text-white/55"
-                    >
-                      {item}
-                    </span>
-                  ))}
-                </div>
+              <div className="mt-5 flex flex-wrap items-center gap-2">
+                {currentFocus.map((item) => (
+                  <span
+                    key={item}
+                    className="rounded-lg border border-white/8 bg-[#0b1117]/80 px-3 py-1 font-mono text-xs text-[#6fbd68]"
+                  >
+                    {item}
+                  </span>
+                ))}
               </div>
-            </div>
-          </ScrollReveal>
+            </ScrollReveal>
+          </div>
 
-          {/* Timeline */}
-          <div className="relative">
-            <div
-              aria-hidden="true"
-              className="absolute bottom-8 left-1.25 top-2 w-px bg-white/10"
-            />
+          <div className="divide-y divide-white/8 border-y border-white/8 lg:col-span-7">
+            {journey.map((item, index) => (
+              <ScrollReveal key={item.title} variant="up" delay={index * 60}>
+                <article className="py-8 first:pt-8 last:pb-8 sm:py-10">
+                  <div className="flex flex-wrap items-center justify-between gap-2">
+                    <span className="font-mono text-xs uppercase tracking-[0.18em] text-[#6fbd68]">
+                      {item.period}
+                    </span>
+                    <span className="font-mono text-[11px] text-white/40">
+                      {item.status}
+                    </span>
+                  </div>
 
-            <div
-              aria-hidden="true"
-              className="absolute left-1.25 top-2 h-1/3 w-px bg-linear-to-b from-[#6fbd68] via-[#6fbd68]/50 to-transparent shadow-[0_0_12px_rgba(111,189,104,0.45)]"
-            />
+                  <h3 className="mt-2.5 text-xl font-semibold tracking-tight text-white sm:text-2xl">
+                    {item.title}
+                  </h3>
 
-            <div className="flex flex-col gap-8 sm:gap-9">
-              {journey.map((item, index) => (
-                <ScrollReveal
-                  key={item.title}
-                  variant="up"
-                  threshold={0.1}
-                  duration={800}
-                >
-                  <article className="relative pl-9">
-                    <span
-                      className={`absolute left-0 top-1.5 h-2.75 w-2.75 rounded-full border ${
-                        index === journey.length - 1
-                          ? "border-[#6fbd68] bg-[#6fbd68] shadow-[0_0_12px_rgba(111,189,104,0.5)]"
-                          : "border-white/30 bg-[#080d12]"
-                      }`}
-                    />
-
-                    <div className="mb-3 flex flex-wrap items-center gap-x-4 gap-y-2">
-                      <span className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#6fbd68]">
-                        {item.period}
-                      </span>
-
-                      <span className="text-[10px] text-white/30">
-                        {item.status}
-                      </span>
-                    </div>
-
-                    <h4 className="mb-3 text-xl font-semibold tracking-[-0.035em] text-white sm:text-2xl">
-                      {item.title}
-                    </h4>
-
-                    <p className="max-w-xl text-sm leading-[1.9] text-white/50 sm:text-base">
-                      {item.description}
-                    </p>
-                  </article>
-                </ScrollReveal>
-              ))}
-            </div>
+                  <p className="mt-3 text-sm leading-7 text-white/60 sm:text-base sm:leading-8">
+                    {item.description}
+                  </p>
+                </article>
+              </ScrollReveal>
+            ))}
           </div>
         </div>
 
-        {/* Engineering Principles */}
-        <div>
-          <ScrollReveal variant="up" threshold={0.1} duration={800}>
-            <div className="mb-8 border-b border-white/8 pb-7 sm:mb-10 sm:flex sm:items-end sm:justify-between sm:gap-8">
-              <div>
-                <span className="mb-4 block text-[10px] font-medium uppercase tracking-[0.24em] text-[#6fbd68]">
-                  How I Work
-                </span>
-
-                <h3 className="text-3xl font-semibold tracking-[-0.045em] sm:text-4xl">
-                  What matters to me.
-                </h3>
-              </div>
-
-              <p className="mt-4 max-w-md text-sm leading-[1.9] text-white/45 sm:mt-0 sm:text-base">
-                A few things I try to keep in mind whenever I'm working on
-                something new.
-              </p>
-            </div>
-          </ScrollReveal>
-
-          <div className="grid gap-4 md:grid-cols-3">
-            {principles.map((principle, index) => {
-              const Icon = principle.icon;
-
-              return (
-                <ScrollReveal
-                  key={principle.title}
-                  variant="up"
-                  threshold={0.1}
-                  duration={800}
-                  delay={index * 100}
-                >
-                  <article className="group h-full rounded-2xl border border-white/[0.07] bg-white/1.5 p-5 transition-all duration-300 hover:border-[#6fbd68]/20 hover:bg-white/3 sm:p-6">
-                    <div className="mb-6 flex h-11 w-11 items-center justify-center rounded-xl border border-[#6fbd68]/20 bg-[#6fbd68]/[0.07] text-[#6fbd68] transition-colors duration-300 group-hover:bg-[#6fbd68]/12">
-                      <Icon size={20} strokeWidth={1.7} />
+        {/* Principles */}
+        <div className="mt-14 grid grid-cols-1 gap-5 sm:mt-16 md:grid-cols-3 md:gap-6">
+          {principles.map((principle, index) => {
+            const Icon = principle.icon;
+            return (
+              <ScrollReveal
+                key={principle.title}
+                variant="up"
+                delay={index * 60}
+              >
+                <div className="group flex h-full flex-col justify-between rounded-2xl border border-white/8 bg-[#0b1117]/80 p-6 transition-all duration-300 hover:border-[#6fbd68]/35 hover:bg-[#0b1117]">
+                  <div>
+                    <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/3 text-[#6fbd68]">
+                      <Icon size={18} strokeWidth={1.7} />
                     </div>
-
-                    <h4 className="mb-3 text-lg font-semibold tracking-tight text-white">
+                    <h3 className="mt-5 text-lg font-semibold tracking-tight text-white sm:text-xl">
                       {principle.title}
-                    </h4>
-
-                    <p className="text-sm leading-[1.9] text-white/45">
+                    </h3>
+                    <p className="mt-2.5 text-sm leading-7 text-white/55">
                       {principle.description}
                     </p>
-                  </article>
-                </ScrollReveal>
-              );
-            })}
-          </div>
+                  </div>
+                </div>
+              </ScrollReveal>
+            );
+          })}
+        </div>
+
+        <div className="mt-10 flex justify-end">
+          <Link
+            href="/about"
+            className="group inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.16em] text-[#6fbd68] transition-colors hover:text-[#82cf7a]"
+          >
+            <span>More about me</span>
+            <ArrowUpRight
+              size={15}
+              className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+            />
+          </Link>
         </div>
       </div>
     </section>

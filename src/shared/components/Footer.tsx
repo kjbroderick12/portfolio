@@ -20,7 +20,7 @@ const footerLinks = [
 export default function Footer() {
   return (
     <footer
-      className={`${bricolage.variable} w-full border-t border-white/[0.08] bg-[#080d12] px-5 py-8 font-[family-name:var(--font-bricolage)] text-white sm:px-10 sm:py-10 lg:px-16`}
+      className={`${bricolage.variable} w-full border-t border-white/8 bg-[#080d12] px-5 py-8 font-(family-name:--font-bricolage) text-white sm:px-10 sm:py-10 lg:px-16`}
     >
       <div className="mx-auto flex w-full max-w-7xl flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
         {/* Left: Brand Identity + Integrated Copyright */}
@@ -28,7 +28,7 @@ export default function Footer() {
           <Link
             href="/"
             aria-label="Go to homepage"
-            className="group flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-white/[0.08] bg-[#0b1117] transition-colors group-hover:border-[#6fbd68]/45 sm:h-10 sm:w-10"
+            className="group flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-white/8 bg-[#0b1117] transition-colors group-hover:border-[#6fbd68]/45 sm:h-10 sm:w-10"
           >
             <Image
               src="/images/logo/kb-logo.png"
@@ -74,7 +74,7 @@ export default function Footer() {
 
           <Link
             href="/contact"
-            className="group inline-flex min-h-10 w-full items-center justify-between rounded-xl border border-[#6fbd68]/25 bg-[#6fbd68]/[0.06] px-4 font-mono text-xs uppercase tracking-[0.14em] text-[#6fbd68] transition-colors hover:border-[#6fbd68]/45 hover:bg-[#6fbd68]/[0.1] hover:text-[#82cf7a] sm:min-h-9 sm:w-auto sm:justify-center sm:gap-1.5 sm:rounded-none sm:border-0 sm:bg-transparent sm:px-0"
+            className="group inline-flex min-h-10 w-full items-center justify-between rounded-xl border border-[#6fbd68]/25 bg-[#6fbd68]/6 px-4 font-mono text-xs uppercase tracking-[0.14em] text-[#6fbd68] transition-colors hover:border-[#6fbd68]/45 hover:bg-[#6fbd68]/10 hover:text-[#82cf7a] sm:min-h-9 sm:w-auto sm:justify-center sm:gap-1.5 sm:rounded-none sm:border-0 sm:bg-transparent sm:px-0"
           >
             Start a conversation
             <ArrowUpRight

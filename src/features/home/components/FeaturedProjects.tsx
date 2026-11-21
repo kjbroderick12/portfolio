@@ -1,21 +1,22 @@
-
 "use client";
 
+import { useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight, GitBranch } from "lucide-react";
-import { Bricolage_Grotesque } from "next/font/google";
+import {
+  ArrowUpRight,
+  Check,
+  ChevronDown,
+  FolderGit2,
+  Globe,
+} from "lucide-react";
 import ScrollReveal from "@/shared/components/ScrollReveal";
-
-const sansFont = Bricolage_Grotesque({
-  subsets: ["latin"],
-  display: "swap",
-});
 
 interface Project {
   title: string;
   slug: string;
   category: string;
+  year: string;
   description: string;
   highlights: string[];
   tags: string[];
@@ -31,20 +32,15 @@ const projects: Project[] = [
     title: "Teffie's Smoky BBQ",
     slug: "teffies-smoky-bbq",
     category: "Full-Stack Web Application",
+    year: "Production",
     description:
-      "A custom website built for a BBQ catering business to showcase its offerings, connect with customers, and manage online inquiries. The platform combines a responsive public-facing experience with an administrative dashboard for managing website content.",
+      "A custom website built for a BBQ catering business to showcase its offerings, connect with customers, and manage online inquiries. Combines a responsive public site with an administrative dashboard for managing content.",
     highlights: [
       "Dynamic menu, events, and gallery management",
       "Administrative dashboard with content CRUD operations",
       "Customer support and catering inquiry forms",
     ],
-    tags: [
-      "Next.js",
-      "TypeScript",
-      "React",
-      "MongoDB",
-      "Tailwind CSS",
-    ],
+    tags: ["Next.js", "TypeScript", "React", "MongoDB", "Tailwind CSS"],
     image: "/images/projects/teffiessmokybbq.png",
     imageAlt: "Teffie's Smoky BBQ website preview",
     liveUrl: "https://teffiesmokybbq.com/",
@@ -54,10 +50,11 @@ const projects: Project[] = [
     title: "Azure DevOps Point Sync",
     slug: "pointsync",
     category: "Internal Application / Proof of Concept",
+    year: "Backend & Automation",
     description:
       "A .NET application designed to simplify monthly development-point reporting by retrieving completed work items directly from Azure DevOps and synchronizing them with a centralized reporting dashboard.",
     highlights: [
-      "Azure DevOps API integration and automated work-item synchronization",
+      "Azure DevOps API integration and automated work-item sync",
       "Database-backed tracking with Entity Framework Core",
       "Manual entry and fallback workflows for reporting flexibility",
     ],
@@ -83,187 +80,253 @@ interface FeaturedProjectsProps {
 export default function FeaturedProjects({
   projects: projectList = projects,
 }: FeaturedProjectsProps) {
+  const [openIndex, setOpenIndex] = useState<number>(0);
+  const rowRefs = useRef<(HTMLElement | null)[]>([]);
+
+  const handleToggle = (index: number) => {
+    const isAlreadyOpen = index === openIndex;
+    setOpenIndex(index);
+
+    if (!isAlreadyOpen) {
+      requestAnimationFrame(() => {
+        rowRefs.current[index]?.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      });
+    }
+  };
+
   return (
     <section
       id="projects"
-      className={`${sansFont.className} relative isolate w-full overflow-hidden bg-[#030405] px-6 pb-10 pt-10 text-white sm:px-10 sm:pb-12 sm:pt-14 lg:px-16`}
+      className="relative isolate w-full overflow-x-clip bg-[#080d12] px-5 py-12 text-white sm:px-10 sm:py-16 lg:px-16 lg:py-20"
     >
-      {/* Ambient Lighting */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -right-48 top-40 z-0 h-125 w-125 rounded-full bg-[#6fbd68]/[0.035] blur-[140px]"
-      />
-
-      {/* Transition into About */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 bottom-0 z-0 h-64 bg-linear-to-b from-transparent via-[#080d12]/70 to-[#080d12]"
+        className="pointer-events-none absolute -right-40 top-24 z-0 h-90 w-90 rounded-full bg-[#6fbd68]/4 blur-[130px] sm:h-120 sm:w-120blur-[150px]"
       />
 
       <div className="relative z-10 mx-auto w-full max-w-7xl">
         {/* Section Header */}
-        <div className="mb-10 flex flex-col gap-6 pb-5 md:mb-12 md:flex-row md:items-end md:justify-between md:gap-12">
-          <div>
-            <div className="mb-5 inline-flex items-center gap-3 text-[10px] font-medium uppercase tracking-[0.24em] text-[#6fbd68] sm:text-[11px]">
-              <span className="h-1.5 w-1.5 rounded-full bg-[#6fbd68] shadow-[0_0_10px_rgba(111,189,104,0.4)]" />
-              Selected Work
+        <ScrollReveal variant="up">
+          <div className="mb-8 flex flex-col gap-4 border-b border-white/8 pb-7 md:mb-10 md:flex-row md:items-end md:justify-between md:gap-12">
+            <div>
+              <div className="mb-3.5 inline-flex items-center gap-2 rounded-full border border-[#6fbd68]/25 bg-[#6fbd68]/8 px-3.5 py-1 text-xs font-medium text-[#6fbd68]">
+                <span className="h-1.5 w-1.5 rounded-full bg-[#6fbd68]" />
+                <span>Selected Work</span>
+              </div>
+
+              <h2 className="text-3xl font-semibold leading-[0.98] tracking-[-0.04em] text-white sm:text-5xl">
+                Featured Projects
+              </h2>
             </div>
 
-            <h2 className="text-[clamp(2.5rem,5vw,4.25rem)] font-semibold leading-[0.95] tracking-[-0.055em]">
-              Featured Projects
-            </h2>
-          </div>
+            <div className="flex flex-col items-start gap-2.5 md:items-end">
+              <p className="max-w-md text-sm leading-7 text-white/55 md:text-right">
+                A selection of applications built with thoughtful architecture,
+                practical solutions, and clean execution.
+              </p>
 
-          <p className="max-w-102.5 text-sm leading-[1.9] text-white/50 sm:text-base md:pb-1">
-            A selection of applications built with an emphasis on thoughtful
-            architecture, practical solutions, and quality execution.
-          </p>
-        </div>
-
-        {/* Projects */}
-        <div className="flex flex-col gap-8 sm:gap-9 lg:gap-10">
-          {projectList.map((project) => (
-            <ScrollReveal
-              key={project.title}
-              variant="up"
-              threshold={0.1}
-              duration={850}
-            >
-              <article className="group relative grid gap-6 rounded-2xl border border-white/6 bg-white/1.5 p-4 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:border-[#6fbd68]/20 hover:bg-white/2.5 sm:gap-8 sm:p-6 lg:grid-cols-[1.15fr_0.85fr] lg:items-center lg:gap-9 lg:p-7">
-                {/* Full Card Link */}
-                <Link
-                  href={`/projects/${project.slug}`}
-                  aria-label={`View ${project.title} project details`}
-                  className="absolute inset-0 z-0 rounded-2xl focus-visible:outline focus-visible:outline-offset-4 focus-visible:outline-[#6fbd68]"
+              <Link
+                href="/projects"
+                className="group inline-flex items-center gap-1.5 font-mono text-xs uppercase tracking-[0.16em] text-[#6fbd68] transition-colors hover:text-[#82cf7a]"
+              >
+                <span>View all projects</span>
+                <ArrowUpRight
+                  size={14}
+                  className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
                 />
+              </Link>
+            </div>
+          </div>
+        </ScrollReveal>
 
-                {/* Browser Preview */}
-                <div className="relative z-10 pointer-events-none min-w-0 w-full overflow-hidden rounded-xl border border-white/8 bg-[#080d12]">
-                  <div className="flex h-9 items-center gap-2 border-b border-white/[0.07] bg-[#0b1016] px-3 sm:h-10 sm:px-4">
-                    <span className="h-2 w-2 rounded-full bg-white/20" />
-                    <span className="h-2 w-2 rounded-full bg-white/20" />
-                    <span className="h-2 w-2 rounded-full bg-white/20" />
+        {/* Unified Compact Expandable Ledger (Mobile & Desktop) */}
+        <div className="space-y-3 sm:space-y-4">
+          {projectList.map((project, index) => {
+            const isOpen = index === openIndex;
 
-                    <div className="ml-2 flex h-5 min-w-0 flex-1 items-center rounded-md border border-white/6 bg-black/20 px-3">
-                      <span className="truncate text-[9px] tracking-wide text-white/25">
-                        {project.liveUrl
-                          ? project.liveUrl.replace("https://", "")
-                          : "github.com"}
+            return (
+              <ScrollReveal
+                key={project.slug}
+                variant="up"
+                delay={index * 50}
+              >
+                <article
+                  ref={(el) => {
+                    rowRefs.current[index] = el;
+                  }}
+                  className={`scroll-mt-24 overflow-hidden rounded-2xl border transition-all duration-300 ${
+                    isOpen
+                      ? "border-[#6fbd68]/40 bg-[#0b1117]"
+                      : "border-white/8 bg-[#0b1117]/50 hover:border-white/20 hover:bg-[#0b1117]/80"
+                  }`}
+                >
+                  {/* Interactive Row Trigger */}
+                  <button
+                    type="button"
+                    aria-expanded={isOpen}
+                    onClick={() => handleToggle(index)}
+                    className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left sm:px-7 sm:py-5"
+                  >
+                    <div className="flex min-w-0 flex-col gap-1 sm:flex-row sm:items-baseline sm:gap-4">
+                      <h3
+                        className={`truncate text-lg font-semibold tracking-tight transition-colors sm:text-2xl ${
+                          isOpen ? "text-white" : "text-white/75"
+                        }`}
+                      >
+                        {project.title}
+                      </h3>
+
+                      <span className="truncate font-mono text-[11px] uppercase tracking-[0.16em] text-[#6fbd68]">
+                        {project.category}
                       </span>
                     </div>
-                  </div>
 
-                  <div className="relative w-full overflow-hidden bg-[#080d12]">
-                    <Image
-                      src={project.image}
-                      alt={project.imageAlt}
-                      width={1600}
-                      height={1000}
-                      sizes="(max-width: 1024px) 100vw, 60vw"
-                      className="block h-auto w-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.015]"
-                    />
-                  </div>
-                </div>
-
-                {/* Project Information */}
-                <div className="relative z-10 pointer-events-none flex min-w-0 flex-col px-1 pb-1 sm:px-2 sm:pb-2 lg:px-0 lg:py-2">
-                  <div className="mb-4">
-                    <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#6fbd68]">
-                      {project.category}
-                    </span>
-                  </div>
-
-                  <h3 className="mb-3 text-2xl font-semibold tracking-[-0.045em] text-white transition-colors duration-300 group-hover:text-[#6fbd68] sm:text-3xl">
-                    {project.title}
-                  </h3>
-
-                  <p className="mb-5 max-w-145 text-sm leading-[1.85] text-white/55 sm:text-base">
-                    {project.description}
-                  </p>
-
-                  {/* Highlights */}
-                  <ul className="mb-6 flex flex-col gap-2.5">
-                    {project.highlights.map((highlight) => (
-                      <li
-                        key={highlight}
-                        className="flex items-start gap-3 text-sm leading-[1.7] text-white/65"
-                      >
-                        <span className="mt-2.25 h-1 w-1 shrink-0 rounded-full bg-[#6fbd68]" />
-                        {highlight}
-                      </li>
-                    ))}
-                  </ul>
-
-                  {/* Technology Tags */}
-                  <div className="mb-7 flex flex-wrap gap-2">
-                    {project.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="rounded-full border border-white/[0.07] bg-black/20 px-3 py-1.5 text-[11px] font-medium text-white/50 transition-colors duration-300 group-hover:border-white/12 group-hover:text-white/65"
-                      >
-                        {tag}
+                    <div className="flex shrink-0 items-center gap-3 sm:gap-4">
+                      <span className="hidden font-mono text-xs text-white/40 sm:inline">
+                        {project.year}
                       </span>
-                    ))}
-                  </div>
 
-                  {/* Actions */}
-                  <div className="pointer-events-auto flex flex-wrap items-center gap-3">
-                    {project.githubUrl && (
-                      <Link
-                        href={project.githubUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="group/github inline-flex h-12 items-center justify-center gap-2.5 rounded-full border border-[#6fbd68]/30 bg-[#6fbd68]/[0.07] px-6 text-sm font-semibold text-[#6fbd68] transition-all duration-300 hover:border-[#6fbd68]/60 hover:bg-[#6fbd68]/[0.14] hover:shadow-[0_0_20px_rgba(111,189,104,0.08)] active:scale-[0.97]"
+                      <div
+                        className={`flex h-8 w-8 items-center justify-center rounded-lg border transition-colors ${
+                          isOpen
+                            ? "border-[#6fbd68]/30 bg-[#6fbd68]/10 text-[#6fbd68]"
+                            : "border-white/10 bg-white/2 text-white/45"
+                        }`}
                       >
-                        <GitBranch
-                          size={17}
-                          strokeWidth={1.8}
-                          className="transition-transform duration-300 group-hover/github:scale-110"
+                        <ChevronDown
+                          size={16}
+                          className={`transition-transform duration-200 ${
+                            isOpen ? "rotate-180" : ""
+                          }`}
                         />
-                        View on GitHub
-                        <ArrowUpRight
-                          size={15}
-                          strokeWidth={2}
-                          className="transition-transform duration-300 group-hover/github:translate-x-0.5 group-hover/github:-translate-y-0.5"
-                        />
-                      </Link>
-                    )}
+                      </div>
+                    </div>
+                  </button>
 
-                    {project.liveUrl && (
-                      <Link
-                        href={project.liveUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="group/btn inline-flex h-12 items-center justify-center gap-2.5 rounded-full border border-[#6fbd68]/30 bg-[#6fbd68] px-6 text-sm font-semibold text-[#030405] transition-all duration-300 hover:scale-[1.02] hover:bg-[#83ce7c] active:scale-[0.97]"
-                      >
-                        {project.actionLabel}
-                        <ArrowUpRight
-                          size={15}
-                          strokeWidth={2.5}
-                          className="transition-transform duration-300 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5"
-                        />
-                      </Link>
-                    )}
-                  </div>
-                </div>
-              </article>
-            </ScrollReveal>
-          ))}
-        </div>
+                  {/* Expanded Body */}
+                  {isOpen && (
+                    <div className="border-t border-white/8 p-5 sm:p-7">
+                      <div className="grid grid-cols-1 gap-6 lg:grid-cols-12 lg:items-center lg:gap-8">
+                        {/* Left: Full Uncropped Preview */}
+                        <div className="lg:col-span-5">
+                          <Link
+                            href={`/projects/${project.slug}`}
+                            aria-label={`Open ${project.title} case study`}
+                            className="group block overflow-hidden rounded-xl border border-white/8 bg-[#06090d]"
+                          >
+                            <div className="flex h-7 items-center gap-1.5 border-b border-white/6 bg-white/2 px-3">
+                              <span className="h-2 w-2 rounded-full bg-white/15" />
+                              <span className="h-2 w-2 rounded-full bg-white/15" />
+                              <span className="h-2 w-2 rounded-full bg-white/15" />
+                              <span className="ml-1.5 truncate font-mono text-[10px] text-white/35">
+                                {project.liveUrl
+                                  ? project.liveUrl.replace("https://", "")
+                                  : project.slug}
+                              </span>
+                            </div>
 
-        {/* Explore All Projects */}
-        <div className="mt-12 flex justify-center sm:mt-14">
-          <Link
-            href="/projects"
-            className="group inline-flex h-12 items-center justify-center gap-3 rounded-full border border-white/10 bg-white/3 px-7 text-sm font-medium text-white/75 transition-all duration-300 hover:border-[#6fbd68]/40 hover:bg-[#6fbd68]/[0.07] hover:text-[#6fbd68] active:scale-[0.97]"
-          >
-            Explore All Projects
-            <ArrowUpRight
-              size={16}
-              strokeWidth={1.8}
-              className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-            />
-          </Link>
+                            <div className="w-full overflow-hidden bg-[#06090d]">
+                              <Image
+                                src={project.image}
+                                alt={project.imageAlt}
+                                width={1600}
+                                height={1000}
+                                sizes="(max-width: 1024px) 100vw, 480px"
+                                className="block h-auto w-full object-contain transition-transform duration-500 ease-out group-hover:scale-[1.015]"
+                              />
+                            </div>
+                          </Link>
+                        </div>
+
+                        {/* Right: Overview, Highlights, Tags & Actions */}
+                        <div className="flex flex-col justify-between lg:col-span-7">
+                          <div>
+                            <p className="text-sm leading-7 text-white/65">
+                              {project.description}
+                            </p>
+
+                            <ul className="mt-4 space-y-2">
+                              {project.highlights.map((highlight) => (
+                                <li
+                                  key={highlight}
+                                  className="flex items-start gap-2.5 text-xs leading-6 text-white/75 sm:text-sm"
+                                >
+                                  <Check
+                                    size={15}
+                                    className="mt-1 shrink-0 text-[#6fbd68]"
+                                  />
+                                  <span>{highlight}</span>
+                                </li>
+                              ))}
+                            </ul>
+
+                            <div className="mt-4 flex flex-wrap gap-1.5">
+                              {project.tags.map((tag) => (
+                                <span
+                                  key={tag}
+                                  className="rounded-md border border-white/8 bg-white/3 px-2.5 py-1 font-mono text-[11px] text-white/65"
+                                >
+                                  {tag}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+
+                          <div className="mt-6 flex flex-col gap-2.5 border-t border-white/[0.07] pt-5 sm:flex-row sm:flex-wrap sm:items-center">
+                            <Link
+                              href={`/projects/${project.slug}`}
+                              className="group inline-flex h-10 w-full items-center justify-center gap-2 rounded-xl bg-[#6fbd68] px-5 text-xs font-semibold text-[#081009] transition-colors hover:bg-[#82cf7a] sm:w-auto"
+                            >
+                              <span>Case Study</span>
+                              <ArrowUpRight
+                                size={15}
+                                className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                              />
+                            </Link>
+
+                            {project.liveUrl && (
+                              <a
+                                href={project.liveUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="group inline-flex h-10 w-full items-center justify-center gap-2 rounded-xl border border-white/12 bg-white/3 px-5 text-xs font-medium text-white/85 transition-colors hover:border-[#6fbd68]/45 hover:bg-[#6fbd68]/8 hover:text-[#6fbd68] sm:w-auto"
+                              >
+                                <Globe size={14} />
+                                <span>{project.actionLabel}</span>
+                                <ArrowUpRight
+                                  size={14}
+                                  className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                                />
+                              </a>
+                            )}
+
+                            {project.githubUrl && (
+                              <a
+                                href={project.githubUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="group inline-flex h-10 w-full items-center justify-center gap-2 rounded-xl border border-white/12 bg-white/3 px-5 text-xs font-medium text-white/85 transition-colors hover:border-[#6fbd68]/45 hover:bg-[#6fbd68]/8 hover:text-[#6fbd68] sm:w-auto"
+                              >
+                                <FolderGit2 size={14} />
+                                <span>{project.actionLabel}</span>
+                                <ArrowUpRight
+                                  size={14}
+                                  className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                                />
+                              </a>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </article>
+              </ScrollReveal>
+            );
+          })}
         </div>
       </div>
     </section>

@@ -2,18 +2,22 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { Bricolage_Grotesque } from "next/font/google";
 
-import FeaturedProjects from "@/features/home/components/FeaturedProjects";
 import Hero from "@/features/home/components/Hero";
+import FeaturedProjects from "@/features/home/components/FeaturedProjects";
 import AboutJourney from "@/features/home/components/AboutJourney";
+import ScrollReveal from "@/shared/components/ScrollReveal";
 
-const sansFont = Bricolage_Grotesque({
+const bricolage = Bricolage_Grotesque({
   subsets: ["latin"],
+  variable: "--font-bricolage",
   display: "swap",
 });
 
 export default function Home() {
   return (
-    <main>
+    <main
+      className={`${bricolage.variable} relative min-h-screen w-full overflow-x-clip bg-[#080d12] font-(family-name:--font-bricolage) text-white selection:bg-[#6fbd68]/20 selection:text-[#83ce7b]`}
+    >
       <Hero />
       <FeaturedProjects />
       <AboutJourney />
@@ -21,65 +25,55 @@ export default function Home() {
       {/* Contact CTA */}
       <section
         id="contact"
-        className={`${sansFont.className} relative isolate w-full overflow-hidden bg-[#080d12] px-6 pb-14 pt-10 text-white sm:px-10 sm:pb-16 sm:pt-12 lg:px-16 lg:pb-20 lg:pt-14`}
+        className="relative isolate w-full overflow-x-clip bg-[#080d12] px-5 pb-14 pt-10 text-white sm:px-10 sm:pb-18 sm:pt-14 lg:px-16 lg:pb-20"
       >
-        {/* Background Atmosphere */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 z-0 bg-linear-to-b from-[#080d12] via-[#090f14] to-[#06090d]"
-        />
-
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute -right-48 top-0 z-0 h-125 w-125 rounded-full bg-[#6fbd68]/4 blur-[150px]"
+          className="pointer-events-none absolute -bottom-24 right-0 z-0 h-90 w-90 rounded-full bg-[#6fbd68]/5 blur-[130px] sm:h-130 sm:w-130 sm:blur-[160px]"
         />
 
         <div className="relative z-10 mx-auto w-full max-w-7xl">
-          <div className="border-t border-white/8 pt-8 sm:pt-10">
-            <div className="flex flex-col gap-9 md:flex-row md:items-end md:justify-between md:gap-16">
-              <div className="max-w-2xl">
-                <div className="mb-5 inline-flex items-center gap-3 text-[10px] font-medium uppercase tracking-[0.24em] text-[#6fbd68] sm:text-[11px]">
-                  <span className="h-1.5 w-1.5 rounded-full bg-[#6fbd68] shadow-[0_0_10px_rgba(111,189,104,0.4)]" />
-                  Get in Touch
+          <ScrollReveal variant="up">
+            <div className="grid grid-cols-1 gap-8 rounded-2xl border border-white/8 bg-linear-to-br from-[#0b1117] via-[#0b1117] to-[#6fbd68]/6 p-6 sm:p-10 lg:grid-cols-12 lg:items-end lg:gap-12 lg:p-14">
+              <div className="lg:col-span-8">
+                <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-[#6fbd68]/25 bg-[#6fbd68]/8 px-3.5 py-1 text-xs font-medium text-[#6fbd68]">
+                  <span className="h-1.5 w-1.5 rounded-full bg-[#6fbd68]" />
+                  <span>Get in Touch</span>
                 </div>
 
-                <h2 className="text-[clamp(2.75rem,5vw,4.5rem)] font-semibold leading-[0.98] tracking-[-0.055em]">
-                  Have a project
-                  <span className="block text-[#6fbd68]">
-                    in mind?
-                  </span>
+                <h2 className="text-3xl font-semibold leading-[1.02] tracking-[-0.04em] text-white sm:text-5xl lg:text-6xl">
+                  Have a project{" "}
+                  <span className="text-[#6fbd68]">in mind?</span>
                 </h2>
 
-                <p className="mt-6 max-w-xl text-sm leading-[1.9] text-white/55 sm:mt-7 sm:text-base">
-                  I'm always interested in new opportunities,
-                  interesting projects, and connecting with other
-                  people in tech. Whether you're looking for a
-                  developer or just want to talk about an idea,
-                  I'd love to hear from you.
+                <p className="mt-4 max-w-xl text-sm leading-7 text-white/60 sm:mt-5 sm:text-base sm:leading-8">
+                  I&apos;m always interested in new opportunities, interesting
+                  projects, and connecting with other people in tech. Whether
+                  you&apos;re looking for a developer or just want to talk
+                  about an idea, I&apos;d love to hear from you.
                 </p>
               </div>
 
-              <div className="flex shrink-0 flex-col items-start gap-4 md:items-end">
+              <div className="flex w-full flex-col items-stretch gap-3 sm:items-start lg:col-span-4 lg:items-end">
                 <Link
                   href="/contact"
-                  className="group inline-flex items-center gap-3 rounded-full border border-[#6fbd68]/30 bg-[#6fbd68]/10 px-7 py-4 text-sm font-semibold text-[#6fbd68] transition-all duration-300 hover:border-[#6fbd68]/60 hover:bg-[#6fbd68] hover:text-[#080d12]"
+                  className="group inline-flex w-full items-center justify-center gap-2.5 rounded-xl bg-[#6fbd68] px-7 py-4 text-xs font-semibold text-[#081009] transition-all duration-300 hover:bg-[#82cf7a] sm:w-auto sm:text-sm"
                 >
-                  Get in touch
+                  <span>Get in touch</span>
                   <ArrowUpRight
-                    size={18}
-                    className="transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1"
+                    size={17}
+                    className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
                   />
                 </Link>
 
-                <p className="text-[10px] tracking-wide text-white/30">
-                  I'd love to hear what you're working on.
+                <p className="text-center font-mono text-[11px] text-white/35 sm:text-left lg:text-right">
+                  I&apos;d love to hear what you&apos;re working on.
                 </p>
               </div>
             </div>
-          </div>
+          </ScrollReveal>
         </div>
       </section>
     </main>
   );
 }
-
