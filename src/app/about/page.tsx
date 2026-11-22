@@ -12,14 +12,18 @@ import {
   Briefcase,
   Headphones,
 } from "lucide-react";
-import { Bricolage_Grotesque } from "next/font/google";
 import ScrollReveal from "@/shared/components/ScrollReveal";
 import AboutChapters from "@/features/about/components/AboutChapters";
+import type { Metadata } from "next";
 
-const bricolage = Bricolage_Grotesque({
-  subsets: ["latin"],
-  variable: "--font-bricolage",
-});
+export const metadata: Metadata = {
+  title: "About Me",
+  description:
+    "Learn about Kaitlynn Broderick, a software developer focused on C#, .NET, backend development, and building practical, maintainable applications.",
+  alternates: {
+    canonical: "/about",
+  },
+};
 
 const EXPERIENCE = [
   {
@@ -120,7 +124,7 @@ const ALL_TECHNOLOGIES = [
 export default function AboutPage() {
   return (
     <main
-      className={`${bricolage.variable} relative min-h-screen w-full bg-[#080d12] text-white selection:bg-[#6fbd68]/20 selection:text-[#83ce7b]`}
+      className="relative min-h-screen w-full bg-[#080d12] text-white selection:bg-[#6fbd68]/20 selection:text-[#83ce7b]"
     >
       {/* Ambient background glow */}
       <div
