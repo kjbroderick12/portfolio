@@ -4,20 +4,10 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { ArrowUpRight, Menu, X } from "lucide-react";
 import { usePathname } from "next/navigation";
-import { Bricolage_Grotesque } from "next/font/google";
-
-const mobileNavFont = Bricolage_Grotesque({
-  subsets: ["latin"],
-  display: "swap",
-});
-
-type NavLink = {
-  label: string;
-  href: string;
-};
+import type { NavLink } from "@/shared/constants/navigation";
 
 type MobileNavbarProps = {
-  links: NavLink[];
+  links: readonly NavLink[];
 };
 
 export default function MobileNavbar({ links }: MobileNavbarProps) {
@@ -64,7 +54,7 @@ export default function MobileNavbar({ links }: MobileNavbarProps) {
       {/* Drawer Stage Container */}
       <div
         id="mobile-navigation"
-        className={`${mobileNavFont.className} fixed inset-0 z-40 md:hidden ${
+        className={`fixed inset-0 z-40 md:hidden ${
           isOpen ? "pointer-events-auto" : "pointer-events-none"
         }`}
         aria-hidden={!isOpen}
@@ -94,17 +84,17 @@ export default function MobileNavbar({ links }: MobileNavbarProps) {
             className="pointer-events-none absolute -bottom-32 -left-24 h-72 w-72 rounded-full bg-[#6fbd68]/4 blur-[80px]"
           />
 
-          {/* Adjusted padding top now that header logo is stripped out */}
           <div className="relative flex min-h-0 flex-1 flex-col px-6 pb-[max(24px,env(safe-area-inset-bottom))] pt-28 sm:px-8">
-            
             {/* Staggered Link Tracking Container Layout */}
             <nav
               className="my-auto flex min-h-0 flex-col justify-center py-6"
               aria-label="Mobile navigation routes"
             >
-              <p 
+              <p
                 className={`mb-4 pl-4 text-[10px] font-semibold uppercase tracking-[0.25em] text-[#6fbd68] transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-                  isOpen ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3"
+                  isOpen
+                    ? "translate-y-0 opacity-100"
+                    : "translate-y-3 opacity-0"
                 }`}
               >
                 Explore
@@ -122,8 +112,9 @@ export default function MobileNavbar({ links }: MobileNavbarProps) {
                     "delay-[150ms]",
                     "delay-[200ms]",
                     "delay-[250ms]",
-                    "delay-[300ms]"
+                    "delay-[300ms]",
                   ];
+
                   const activeDelay = delays[idx] || "delay-[0ms]";
 
                   return (
@@ -134,14 +125,16 @@ export default function MobileNavbar({ links }: MobileNavbarProps) {
                         aria-current={isActive ? "page" : undefined}
                         tabIndex={isOpen ? 0 : -1}
                         className={`group relative flex items-center gap-4 rounded-xl py-3 pl-4 pr-3 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${activeDelay} ${
-                          isOpen ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+                          isOpen
+                            ? "translate-y-0 opacity-100"
+                            : "translate-y-4 opacity-0"
                         } ${
                           isActive
                             ? "bg-[#6fbd68]/6"
                             : "hover:bg-white/2"
                         }`}
                       >
-                        {/* Active Line indicator pin */}
+                        {/* Active Line Indicator */}
                         <span
                           className={`absolute bottom-3 left-0 top-3 w-0.5 rounded-full transition-all duration-300 ${
                             isActive
@@ -161,7 +154,7 @@ export default function MobileNavbar({ links }: MobileNavbarProps) {
                           {link.label}
                         </span>
 
-                        {/* Arrow Link Vector Icon */}
+                        {/* Arrow Link Icon */}
                         <ArrowUpRight
                           size={18}
                           strokeWidth={2.5}
@@ -178,10 +171,12 @@ export default function MobileNavbar({ links }: MobileNavbarProps) {
               </ul>
             </nav>
 
-            {/* Bottom Contact CTA Area Footer Box */}
-            <div 
-              className={`shrink-0 pt-4 border-t border-white/4 transition-all duration-700 delay-350 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-                isOpen ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+            {/* Bottom Contact CTA */}
+            <div
+              className={`shrink-0 border-t border-white/4 pt-4 transition-all duration-700 delay-350 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+                isOpen
+                  ? "translate-y-0 opacity-100"
+                  : "translate-y-4 opacity-0"
               }`}
             >
               <Link
@@ -207,16 +202,16 @@ export default function MobileNavbar({ links }: MobileNavbarProps) {
                         Initiate project discussion
                       </p>
                     </div>
-                    <ArrowUpRight 
-                      size={16} 
-                      strokeWidth={2.5} 
+
+                    <ArrowUpRight
+                      size={16}
+                      strokeWidth={2.5}
                       className="text-white/30 transition-all duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-[#6fbd68]"
                     />
                   </div>
                 </div>
               </Link>
             </div>
-
           </div>
         </div>
       </div>

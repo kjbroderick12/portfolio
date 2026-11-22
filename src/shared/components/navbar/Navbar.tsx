@@ -5,19 +5,12 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Bricolage_Grotesque } from "next/font/google";
 import MobileNavbar from "./MobileNavbar";
+import { navLinks } from "@/shared/constants/navigation";
 
 const navFont = Bricolage_Grotesque({
   subsets: ["latin"],
   display: "swap",
 });
-
-const navLinks = [
-  { label: "Home", href: "/" },
-  { label: "Projects", href: "/projects" },
-  { label: "About Me", href: "/about" },
-  { label: "Services", href: "/services" },
-  { label: "Contact", href: "/contact" },
-];
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -25,8 +18,7 @@ export default function Navbar() {
   return (
     <header className={`${navFont.className} fixed inset-x-0 top-0 z-50`}>
       <nav className="mx-auto flex h-20 items-center justify-between border-b border-white/4 bg-[#030405]/40 px-6 backdrop-blur-md lg:px-16">
-        
-        {/* Logo - Kept visible across mobile, hidden state removed */}
+        {/* Logo */}
         <Link
           href="/"
           className="relative flex items-center transition-transform duration-300 hover:scale-[1.02]"
@@ -41,6 +33,7 @@ export default function Navbar() {
           />
         </Link>
 
+        {/* Desktop Navigation */}
         <div className="hidden items-center gap-8 md:flex">
           {navLinks.map((link) => {
             const isActive =
