@@ -11,12 +11,30 @@ const bricolage = Bricolage_Grotesque({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://kaitlynnbroderick.dev"),
+
   title: {
     default: "kaitlynn.b | Software Developer",
     template: "%s | Kaitlynn Broderick",
   },
+
   description:
     "Portfolio of Kaitlynn Broderick, a software developer focused on building thoughtful, reliable, and well-crafted software.",
+
+  openGraph: {
+    title: "Kaitlynn Broderick | Software Developer",
+    description:
+      "Building thoughtful, reliable, and well-crafted software.",
+    url: "https://kaitlynnbroderick.dev",
+    siteName: "kaitlynn.b",
+    type: "website",
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title: "Kaitlynn Broderick | Software Developer",
+    description:
+      "Building thoughtful, reliable, and well-crafted software.",
+  },
 };
 
 export default function RootLayout({
