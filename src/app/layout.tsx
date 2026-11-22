@@ -12,6 +12,10 @@ const bricolage = Bricolage_Grotesque({
 export const metadata: Metadata = {
   metadataBase: new URL("https://kaitlynnbroderick.dev"),
 
+  alternates: {
+    canonical: "/",
+  },
+
   title: {
     default: "kaitlynn.b | Software Developer",
     template: "%s | Kaitlynn Broderick",
