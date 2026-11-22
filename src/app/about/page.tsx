@@ -1,20 +1,23 @@
-
+import type { Metadata } from "next";
 import Link from "next/link";
 import {
   ArrowUpRight,
-  Code2,
-  Database,
-  Lightbulb,
-  Workflow,
-  Compass,
-  Terminal,
-  GraduationCap,
   Briefcase,
+  Code2,
+  Compass,
+  Database,
+  FileText,
+  GraduationCap,
   Headphones,
+  Lightbulb,
+  Terminal,
+  Workflow,
 } from "lucide-react";
+
+import { FaGithub, FaLinkedinIn } from "react-icons/fa";
+
 import ScrollReveal from "@/shared/components/ScrollReveal";
 import AboutChapters from "@/features/about/components/AboutChapters";
-import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "About Me",
@@ -121,11 +124,22 @@ const ALL_TECHNOLOGIES = [
   "Azure DevOps",
 ];
 
+const SOCIAL_LINKS = [
+  {
+    label: "GitHub",
+    href: "https://github.com/kjbroderick12",
+    icon: FaGithub,
+  },
+  {
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/in/kaitlynn-broderick",
+    icon: FaLinkedinIn,
+  },
+];
+
 export default function AboutPage() {
   return (
-    <main
-      className="relative min-h-screen w-full bg-[#080d12] text-white selection:bg-[#6fbd68]/20 selection:text-[#83ce7b]"
-    >
+    <main className="relative min-h-screen w-full bg-[#080d12] text-white selection:bg-[#6fbd68]/20 selection:text-[#83ce7b]">
       {/* Ambient background glow */}
       <div
         className="pointer-events-none fixed inset-0 z-0 overflow-hidden"
@@ -136,7 +150,6 @@ export default function AboutPage() {
       </div>
 
       <div className="relative z-10 mx-auto min-w-0 max-w-7xl px-4 pb-20 pt-28 sm:px-10 sm:pb-28 sm:pt-36 lg:px-16">
-        {/* Editorial Layout */}
         <div className="grid min-w-0 grid-cols-1 items-start gap-10 lg:grid-cols-12 lg:gap-14">
           {/* LEFT COLUMN: Sidebar */}
           <aside className="w-full min-w-0 lg:sticky lg:top-28 lg:col-span-4 lg:self-start">
@@ -158,9 +171,9 @@ export default function AboutPage() {
                 </h1>
 
                 <p className="mt-3 text-sm leading-relaxed text-white/55 sm:mt-4">
-                  Software developer focused on backend architecture with C# and
-                  .NET, bridging clean databases with intuitive full-stack
-                  interfaces.
+                  Software developer focused on backend development with C# and
+                  .NET, while building practical applications across the full
+                  stack.
                 </p>
 
                 {/* Quick Snapshot Metadata */}
@@ -206,22 +219,40 @@ export default function AboutPage() {
                   </div>
                 </div>
 
-                {/* Action Links */}
-                <div className="mt-5 flex flex-col gap-2.5 sm:mt-6 sm:flex-row lg:flex-col">
+                {/* Resume */}
+                <div className="mt-5 sm:mt-6">
+                  <a
+                    href="/resume.pdf"
+                    download="Kaitlynn-Broderick-Resume.pdf"
+                    className="group inline-flex w-full items-center justify-between rounded-xl bg-[#6fbd68] px-4 py-3 text-xs font-semibold text-[#081009] transition-all hover:bg-[#82cf7a] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6fbd68]/70"
+                  >
+                    <span className="inline-flex items-center gap-2">
+                      <FileText size={15} />
+                      Download Resume
+                    </span>
+                    <ArrowUpRight
+                      size={16}
+                      className="shrink-0 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                    />
+                  </a>
+                </div>
+
+                {/* Main Navigation Links */}
+                <div className="mt-2.5 flex flex-col gap-2.5">
                   <Link
                     href="/projects"
-                    className="group inline-flex w-full items-center justify-between rounded-xl bg-[#6fbd68] px-4 py-3 text-xs font-semibold text-[#081009] transition-all hover:bg-[#82cf7a]"
+                    className="group inline-flex w-full items-center justify-between rounded-xl border border-white/10 bg-white/2 px-4 py-3 text-xs font-medium text-white/75 transition-all hover:border-white/25 hover:bg-white/5 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6fbd68]/60"
                   >
                     <span>Explore selected projects</span>
                     <ArrowUpRight
                       size={16}
-                      className="shrink-0 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                      className="shrink-0 text-white/40 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-white"
                     />
                   </Link>
 
                   <Link
                     href="/contact"
-                    className="group inline-flex w-full items-center justify-between rounded-xl border border-white/10 bg-white/2 px-4 py-3 text-xs font-medium text-white/75 transition-all hover:border-white/25 hover:bg-white/5 hover:text-white"
+                    className="group inline-flex w-full items-center justify-between rounded-xl border border-white/10 bg-white/2 px-4 py-3 text-xs font-medium text-white/75 transition-all hover:border-white/25 hover:bg-white/5 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6fbd68]/60"
                   >
                     <span>Start a conversation</span>
                     <ArrowUpRight
@@ -229,6 +260,28 @@ export default function AboutPage() {
                       className="shrink-0 text-white/40 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-white"
                     />
                   </Link>
+                </div>
+
+                {/* Professional Profiles */}
+                <div className="mt-4 flex gap-2 border-t border-white/[0.07] pt-4">
+                  {SOCIAL_LINKS.map((link) => {
+                    const Icon = link.icon;
+
+                    return (
+                      <a
+                        key={link.label}
+                        href={link.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={`Visit my ${link.label} profile`}
+                        className="inline-flex flex-1 items-center justify-center gap-2 rounded-lg border border-white/8 bg-white/2 px-3 py-2.5 text-xs font-medium text-white/55 transition hover:border-[#6fbd68]/35 hover:bg-[#6fbd68]/5 hover:text-[#83ce7b] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6fbd68]/60"
+                      >
+                        <Icon size={15} />
+                        {link.label}
+                        <ArrowUpRight size={12} className="opacity-50" />
+                      </a>
+                    );
+                  })}
                 </div>
               </ScrollReveal>
             </div>
@@ -275,6 +328,7 @@ export default function AboutPage() {
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
                   {PRINCIPLES.map((principle) => {
                     const Icon = principle.icon;
+
                     return (
                       <article
                         key={principle.title}
@@ -320,6 +374,7 @@ export default function AboutPage() {
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
                   {TECHNICAL_AREAS.map((area) => {
                     const Icon = area.icon;
+
                     return (
                       <div
                         key={area.title}
@@ -381,9 +436,9 @@ export default function AboutPage() {
                       Technology is a big part of what I enjoy, but it’s not the
                       only thing that makes me who I am. Outside of writing
                       code, I spend my time with music, gaming, getting
-                      outdoors, and being with the people closest to me. Stepping
-                      away from the screen helps me recharge and bring a fresh
-                      perspective back to every project.
+                      outdoors, and being with the people closest to me.
+                      Stepping away from the screen helps me recharge and
+                      bring a fresh perspective back to every project.
                     </p>
                   </div>
 

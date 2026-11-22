@@ -1,7 +1,12 @@
+
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Link from "next/link";
+import {
+  Turnstile,
+  type TurnstileInstance,
+} from "@marsidev/react-turnstile";
 import {
   AlertCircle,
   ArrowLeft,
@@ -117,6 +122,10 @@ export default function ContactForm() {
     "idle"
   );
   const [serverError, setServerError] = useState("");
+  const [turnstileToken, setTurnstileToken] = useState("");
+  const turnstileRef = useRef<TurnstileInstance | null>(null);
+
+  const siteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
 
   const showPhoneInput =
     form.contactMethod === "Phone" || form.contactMethod === "Either";
@@ -198,6 +207,11 @@ export default function ContactForm() {
   const cardStyles =
     "rounded-2xl border border-white/[0.08] bg-white/[0.015] p-6 sm:p-8";
 
+  const resetTurnstile = () => {
+    setTurnstileToken("");
+    turnstileRef.current?.reset();
+  };
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -219,6 +233,14 @@ export default function ContactForm() {
       return;
     }
 
+    if (!turnstileToken) {
+      setStatus("error");
+      setServerError(
+        "Please complete the security check before sending your inquiry."
+      );
+      return;
+    }
+
     setStatus("loading");
     setServerError("");
 
@@ -228,7 +250,10 @@ export default function ContactForm() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(parsed.data),
+        body: JSON.stringify({
+          ...parsed.data,
+          turnstileToken,
+        }),
       });
 
       const result = (await response.json()) as {
@@ -259,6 +284,7 @@ export default function ContactForm() {
       setForm(initialForm);
       setTouched({});
       setErrors({});
+      resetTurnstile();
     } catch (error) {
       setStatus("error");
       setServerError(
@@ -266,6 +292,7 @@ export default function ContactForm() {
           ? error.message
           : "Unable to send your message. Please try again."
       );
+      resetTurnstile();
     }
   };
 
@@ -398,6 +425,7 @@ export default function ContactForm() {
               onClick={() => {
                 setStatus("idle");
                 setSubmittedSummary(null);
+                resetTurnstile();
               }}
               className="group inline-flex items-center gap-2 rounded-xl border border-white/9 bg-white/2 px-5 py-3 text-sm font-medium text-white/75 transition hover:border-white/18 hover:bg-white/4 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6fbd68]/60"
             >
@@ -897,10 +925,52 @@ export default function ContactForm() {
             </div>
           )}
 
+          {/* Security verification */}
+          <div className="mb-5">
+            <div className="mb-2 flex items-center gap-2">
+              <span className="text-[10px] font-medium uppercase tracking-[0.14em] text-white/35">
+                Security verification
+              </span>
+              <span className="h-px flex-1 bg-white/6" />
+            </div>
+
+            <div className="min-h-16.25">
+              {siteKey ? (
+                <Turnstile
+                  ref={turnstileRef}
+                  siteKey={siteKey}
+                  options={{
+                    theme: "dark",
+                    size: "flexible",
+                    action: "contact",
+                  }}
+                  onSuccess={(token) => {
+                    setTurnstileToken(token);
+                    setServerError("");
+                    if (status === "error") setStatus("idle");
+                  }}
+                  onExpire={() => setTurnstileToken("")}
+                  onError={() => {
+                    setTurnstileToken("");
+                    setServerError(
+                      "The security check couldn't load. Please refresh the page and try again."
+                    );
+                    setStatus("error");
+                  }}
+                />
+              ) : (
+                <p className="text-sm text-red-300">
+                  The security check is temporarily unavailable. Please try
+                  again later.
+                </p>
+              )}
+            </div>
+          </div>
+
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <button
               type="submit"
-              disabled={status === "loading"}
+              disabled={status === "loading" || !siteKey}
               className="group inline-flex w-full items-center justify-center gap-2.5 rounded-xl bg-[#6fbd68] px-7 py-4 text-sm font-semibold text-[#0b0e0d] transition hover:bg-[#82cd79] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6fbd68]/70 disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
             >
               {status === "loading" ? (

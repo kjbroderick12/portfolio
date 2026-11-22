@@ -42,6 +42,12 @@ export async function generateMetadata({
       description: project.description,
       url: `https://kaitlynnbroderick.dev/projects/${slug}`,
       type: "article",
+      images: [
+        {
+          url: project.image,
+          alt: project.imageAlt,
+        },
+      ],
     },
   };
 }
@@ -70,21 +76,19 @@ export default async function ProjectDetailPage({
   const ExternalIcon = project.externalType === "github" ? Code2 : Globe;
 
   return (
-    <main
-      className="relative min-h-screen w-full overflow-x-clip bg-[#080d12] text-white selection:bg-[#6fbd68]/30 selection:text-white"
-    >
-      {/* Subtle ambient background */}
+    <main className="relative min-h-screen w-full overflow-x-clip bg-[#080d12] text-white selection:bg-[#6fbd68]/30 selection:text-white">
+      {/* Ambient Background */}
       <div
         className="pointer-events-none fixed -top-48 left-1/2 z-0 h-112.5 w-175 -translate-x-1/2 rounded-full bg-[#6fbd68]/[0.035] blur-[150px]"
         aria-hidden="true"
       />
 
-      <article className="relative z-10 mx-auto max-w-5xl px-5 pb-24 pt-28 sm:px-8 sm:pt-32 lg:px-10">
-        {/* Back navigation */}
+      <article className="relative z-10 mx-auto max-w-5xl px-5 pb-20 pt-28 sm:px-8 sm:pb-24 sm:pt-32 lg:px-10">
+        {/* Back Navigation */}
         <ScrollReveal variant="up">
           <Link
             href="/projects"
-            className="group inline-flex items-center gap-2 text-sm text-white/45 transition-colors hover:text-[#6fbd68]"
+            className="group inline-flex items-center gap-2 rounded-sm text-sm text-white/45 transition-colors hover:text-[#6fbd68] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#6fbd68]"
           >
             <ArrowLeft
               size={15}
@@ -94,10 +98,10 @@ export default async function ProjectDetailPage({
           </Link>
         </ScrollReveal>
 
-        {/* Project introduction */}
-        <section className="mt-9 border-b border-white/9 pb-8 sm:mt-12 sm:pb-10">
+        {/* Project Introduction */}
+        <section className="mt-8 border-b border-white/9 pb-8 sm:mt-12 sm:pb-10">
           <ScrollReveal variant="up">
-            <div className="flex flex-wrap items-center gap-x-3 gap-y-2 text-[11px] font-medium uppercase tracking-[0.13em] text-[#6fbd68]">
+            <div className="flex flex-wrap items-center gap-x-3 gap-y-2 text-[10px] font-medium uppercase tracking-[0.13em] text-[#6fbd68] sm:text-[11px]">
               <span>{project.category}</span>
               <span className="text-white/20">/</span>
               <span className="text-white/45">{project.type}</span>
@@ -117,7 +121,8 @@ export default async function ProjectDetailPage({
                   href={project.externalUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group inline-flex w-fit shrink-0 items-center gap-2 rounded-md border border-[#6fbd68]/30 bg-[#6fbd68]/8 px-3.5 py-2.5 text-xs font-medium text-[#83ce7b] transition-colors hover:border-[#6fbd68]/60 hover:bg-[#6fbd68]/[0.14]"
+                  aria-label={`${project.externalLabel || "View project"} (opens in a new tab)`}
+                  className="group inline-flex w-fit shrink-0 items-center gap-2 rounded-md border border-[#6fbd68]/30 bg-[#6fbd68]/8 px-3.5 py-2.5 text-xs font-medium text-[#83ce7b] transition-colors hover:border-[#6fbd68]/60 hover:bg-[#6fbd68]/[0.14] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#6fbd68]"
                 >
                   <ExternalIcon size={14} />
                   {project.externalLabel || "View project"}
@@ -131,9 +136,9 @@ export default async function ProjectDetailPage({
           </ScrollReveal>
         </section>
 
-        {/* Project screenshot */}
+        {/* Project Screenshot */}
         <ScrollReveal variant="up" delay={80}>
-          <figure className="mt-8 overflow-hidden rounded-lg border border-white/9 bg-[#0a0f15] sm:mt-10">
+          <figure className="mt-7 overflow-hidden rounded-lg border border-white/9 bg-[#0a0f15] sm:mt-10">
             <div className="relative w-full overflow-hidden bg-[#080c11]">
               <Image
                 src={project.image}
@@ -145,23 +150,25 @@ export default async function ProjectDetailPage({
                 className="h-auto w-full object-contain"
               />
             </div>
-            <figcaption className="border-t border-white/[0.07] px-3 py-2 text-[11px] text-white/40 sm:px-4">
+
+            <figcaption className="border-t border-white/[0.07] px-3 py-2 text-[10px] text-white/40 sm:px-4 sm:text-[11px]">
               {project.imageAlt}
             </figcaption>
           </figure>
         </ScrollReveal>
 
-        {/* Project information */}
-        <div className="mt-12 grid grid-cols-1 gap-10 sm:mt-14 lg:grid-cols-[minmax(0,1fr)_220px] lg:gap-14">
-          {/* Main content */}
-          <div className="min-w-0 space-y-10 sm:space-y-12">
+        {/* Project Information */}
+        <div className="mt-10 grid grid-cols-1 gap-10 sm:mt-14 sm:gap-12 lg:grid-cols-[minmax(0,1fr)_220px] lg:gap-14">
+          {/* Main Content */}
+          <div className="min-w-0 space-y-9 sm:space-y-12">
             {/* Overview */}
             <ScrollReveal variant="up">
               <section>
                 <h2 className="text-lg font-semibold tracking-tight text-white sm:text-xl">
                   Overview
                 </h2>
-                <p className="mt-3 text-sm leading-7 text-white/65 sm:text-[14px]">
+
+                <p className="mt-3 text-sm leading-7 text-white/65">
                   {project.overview}
                 </p>
               </section>
@@ -169,11 +176,12 @@ export default async function ProjectDetailPage({
 
             {/* Challenge */}
             <ScrollReveal variant="up">
-              <section className="border-t border-white/8 pt-7">
+              <section className="border-t border-white/8 pt-6 sm:pt-7">
                 <h2 className="text-lg font-semibold tracking-tight text-white sm:text-xl">
                   The Challenge
                 </h2>
-                <p className="mt-3 text-sm leading-7 text-white/65 sm:text-[14px]">
+
+                <p className="mt-3 text-sm leading-7 text-white/65">
                   {project.challenge}
                 </p>
               </section>
@@ -181,11 +189,12 @@ export default async function ProjectDetailPage({
 
             {/* Approach */}
             <ScrollReveal variant="up">
-              <section className="border-t border-white/8 pt-7">
+              <section className="border-t border-white/8 pt-6 sm:pt-7">
                 <h2 className="text-lg font-semibold tracking-tight text-white sm:text-xl">
                   The Approach
                 </h2>
-                <p className="mt-3 text-sm leading-7 text-white/65 sm:text-[14px]">
+
+                <p className="mt-3 text-sm leading-7 text-white/65">
                   {project.solution}
                 </p>
               </section>
@@ -193,7 +202,7 @@ export default async function ProjectDetailPage({
 
             {/* Highlights */}
             <ScrollReveal variant="up">
-              <section className="border-t border-white/8 pt-7">
+              <section className="border-t border-white/8 pt-6 sm:pt-7">
                 <h2 className="text-lg font-semibold tracking-tight text-white sm:text-xl">
                   Key Features &amp; Implementation
                 </h2>
@@ -213,7 +222,7 @@ export default async function ProjectDetailPage({
             </ScrollReveal>
           </div>
 
-          {/* Project details */}
+          {/* Project Details */}
           <aside className="min-w-0">
             <ScrollReveal variant="up" delay={100}>
               <div className="border-t border-white/8 pt-5 lg:sticky lg:top-28">
@@ -237,16 +246,14 @@ export default async function ProjectDetailPage({
                   </div>
 
                   <div>
-                    <dt className="text-[11px] text-white/40">
-                      Technologies
-                    </dt>
+                    <dt className="text-[11px] text-white/40">Technologies</dt>
                     <dd className="mt-2 flex flex-wrap gap-1.5">
-                      {project.technologies.map((tech) => (
+                      {project.technologies.map((technology) => (
                         <span
-                          key={tech}
+                          key={technology}
                           className="rounded border border-white/9 bg-white/2.5 px-2 py-1 text-[11px] text-white/65"
                         >
-                          {tech}
+                          {technology}
                         </span>
                       ))}
                     </dd>
@@ -257,13 +264,13 @@ export default async function ProjectDetailPage({
           </aside>
         </div>
 
-        {/* Previous and next projects */}
-        <footer className="mt-14 border-t border-white/9 pt-6 sm:mt-16">
+        {/* Project Navigation */}
+        <footer className="mt-12 border-t border-white/9 pt-6 sm:mt-16">
           <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
             {prevProject ? (
               <Link
                 href={`/projects/${prevProject.slug}`}
-                className="group flex items-center gap-2 text-sm text-white/50 transition-colors hover:text-[#6fbd68]"
+                className="group flex items-center gap-2 rounded-sm text-sm text-white/50 transition-colors hover:text-[#6fbd68] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#6fbd68]"
               >
                 <ArrowLeft
                   size={15}
@@ -278,7 +285,7 @@ export default async function ProjectDetailPage({
             {nextProject && (
               <Link
                 href={`/projects/${nextProject.slug}`}
-                className="group flex items-center gap-2 text-sm text-white/50 transition-colors hover:text-[#6fbd68] sm:justify-end"
+                className="group flex items-center gap-2 rounded-sm text-sm text-white/50 transition-colors hover:text-[#6fbd68] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#6fbd68] sm:justify-end"
               >
                 <span>Next: {nextProject.name}</span>
                 <ArrowRight
@@ -287,6 +294,20 @@ export default async function ProjectDetailPage({
                 />
               </Link>
             )}
+          </div>
+
+          {/* Return to Projects */}
+          <div className="mt-8 border-t border-white/6 pt-6">
+            <Link
+              href="/projects"
+              className="group inline-flex items-center gap-2 rounded-sm text-sm font-medium text-[#83ce7b] transition-colors hover:text-[#a0e49a] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#6fbd68]"
+            >
+              <ArrowLeft
+                size={15}
+                className="transition-transform group-hover:-translate-x-1"
+              />
+              Explore all projects
+            </Link>
           </div>
         </footer>
       </article>

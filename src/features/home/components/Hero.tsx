@@ -2,20 +2,12 @@
 
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
-import { Bricolage_Grotesque } from "next/font/google";
 import styles from "./Hero.module.css";
 import ParticleBackground from "./ParticleBackground";
 
-const heroFont = Bricolage_Grotesque({
-  subsets: ["latin"],
-  display: "swap",
-});
-
 export default function Hero() {
   return (
-    <section
-      className={`${heroFont.className} relative isolate flex min-h-[82svh] w-full flex-col overflow-x-clip bg-[#080d12] px-5 pb-8 pt-28 text-white sm:min-h-[max(780px,100svh)] sm:px-10 sm:pb-10 sm:pt-36 lg:px-16`}
-    >
+    <section className="relative isolate flex min-h-[82svh] w-full flex-col overflow-x-clip bg-[#080d12] px-5 pb-10 pt-28 text-white sm:min-h-[max(780px,100svh)] sm:px-10 sm:pb-10 sm:pt-36 lg:px-16">
       <div className={styles.background} aria-hidden="true">
         <ParticleBackground />
       </div>
@@ -31,7 +23,7 @@ export default function Hero() {
             className={`${styles.reveal} ${styles.delayEyebrow} mb-6 inline-flex items-center gap-2.5 text-[11px] font-medium uppercase tracking-[0.22em] text-white/55 sm:mb-8 sm:text-xs`}
           >
             <span className="h-1.5 w-1.5 rounded-full bg-[#6fbd68] shadow-[0_0_12px_rgba(111,189,104,0.85)]" />
-            <span>Software Engineer / Full-Stack Development</span>
+            <span>Software Developer / Full-Stack Development</span>
           </div>
 
           <h1
@@ -41,13 +33,14 @@ export default function Hero() {
             without <span className="text-[#6fbd68]">compromise.</span>
           </h1>
 
-          <div className="mt-7 flex flex-col gap-6 pt-6 sm:mt-10 sm:gap-7 sm:pt-8 lg:flex-row lg:items-end lg:justify-between lg:gap-12">
+          <div className="mt-7 flex flex-col gap-6 pt-5 sm:mt-10 sm:gap-7 sm:pt-8 lg:flex-row lg:items-end lg:justify-between lg:gap-12">
             <p
               className={`${styles.reveal} ${styles.delayDescription} max-w-xl text-sm leading-7 text-white/65 sm:text-lg sm:leading-[1.8]`}
             >
-              I design, build, and launch web applications with thoughtful
-              architecture, clean execution, and a focus on creating software that
-              lasts.
+              I build web applications and backend features, working across
+              frontend interfaces, APIs, and databases. I care about
+              understanding the problem, writing maintainable code, and
+              delivering practical solutions.
             </p>
 
             <nav

@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useEffect, useRef } from "react";
@@ -26,8 +25,10 @@ export default function ParticleBackground() {
     let width = 0;
     let height = 0;
     let dpr = 1;
+    let isVisible = !document.hidden;
 
     const mouse = { x: -1000, y: -1000 };
+
     const reducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)"
     );
@@ -46,24 +47,6 @@ export default function ParticleBackground() {
           radius: Math.random() * 1.6 + 1.4,
         });
       }
-    };
-
-    const resize = () => {
-      const bounds = container.getBoundingClientRect();
-
-      width = bounds.width;
-      height = bounds.height;
-      dpr = Math.min(window.devicePixelRatio || 1, 2);
-
-      canvas.width = Math.round(width * dpr);
-      canvas.height = Math.round(height * dpr);
-      canvas.style.width = "100%";
-      canvas.style.height = "100%";
-
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-
-      createParticles();
-      draw();
     };
 
     const draw = () => {
@@ -117,12 +100,39 @@ export default function ParticleBackground() {
       });
     };
 
+    const stopAnimation = () => {
+      cancelAnimationFrame(animationFrameId);
+      animationFrameId = 0;
+    };
+
     const animate = () => {
+      stopAnimation();
+
+      if (!isVisible) return;
+
       draw();
 
       if (!reducedMotion.matches) {
         animationFrameId = requestAnimationFrame(animate);
       }
+    };
+
+    const resize = () => {
+      const bounds = container.getBoundingClientRect();
+
+      width = bounds.width;
+      height = bounds.height;
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+      canvas.width = Math.round(width * dpr);
+      canvas.height = Math.round(height * dpr);
+      canvas.style.width = "100%";
+      canvas.style.height = "100%";
+
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+      createParticles();
+      animate();
     };
 
     const handleMouseMove = (event: MouseEvent) => {
@@ -138,39 +148,46 @@ export default function ParticleBackground() {
     };
 
     const handleMotionPreferenceChange = () => {
-      cancelAnimationFrame(animationFrameId);
+      animate();
+    };
+
+    const handleVisibilityChange = () => {
+      isVisible = !document.hidden;
       animate();
     };
 
     const resizeObserver = new ResizeObserver(resize);
 
     resizeObserver.observe(container);
+
     window.addEventListener("mousemove", handleMouseMove);
     window.addEventListener("mouseleave", handleMouseLeave);
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
     reducedMotion.addEventListener("change", handleMotionPreferenceChange);
 
     resize();
 
-    if (!reducedMotion.matches) {
-      animationFrameId = requestAnimationFrame(animate);
-    }
-
     return () => {
       resizeObserver.disconnect();
+
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("mouseleave", handleMouseLeave);
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+
       reducedMotion.removeEventListener(
         "change",
         handleMotionPreferenceChange
       );
-      cancelAnimationFrame(animationFrameId);
+
+      stopAnimation();
     };
   }, []);
 
   return (
     <canvas
       ref={canvasRef}
-      className="absolute inset-0 z-0 block h-full w-full pointer-events-none"
+      className="pointer-events-none absolute inset-0 z-0 block h-full w-full"
       aria-hidden="true"
     />
   );
