@@ -275,7 +275,7 @@ export default function ContactForm() {
         <div
           role="status"
           aria-live="polite"
-          className="relative overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.015] p-6 sm:p-10"
+          className="relative overflow-hidden rounded-2xl border border-white/8 bg-white/1.5 p-6 sm:p-10"
         >
           <div className="pointer-events-none absolute -right-24 -top-24 h-64 w-64 rounded-full bg-[#6fbd68]/[0.07] blur-[80px]" />
 
@@ -296,7 +296,7 @@ export default function ContactForm() {
             </div>
 
             <div className="min-w-0 flex-1">
-              <h3 className="font-[family-name:var(--font-bricolage)] text-2xl font-semibold tracking-tight text-white sm:text-3xl">
+              <h3 className="font-(family-name:--font-bricolage) text-2xl font-semibold tracking-tight text-white sm:text-3xl">
                 Thanks for reaching out
                 {submittedSummary?.name
                   ? `, ${submittedSummary.name.split(" ")[0]}`
@@ -323,7 +323,7 @@ export default function ContactForm() {
 
               <div className="grid gap-4 sm:grid-cols-2">
                 <div className="flex items-start gap-3">
-                  <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-white/[0.07] bg-white/[0.03] text-[#6fbd68]">
+                  <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-white/[0.07] bg-white/3 text-[#6fbd68]">
                     <Mail size={15} />
                   </div>
                   <div className="min-w-0">
@@ -336,7 +336,7 @@ export default function ContactForm() {
 
                 {submittedSummary.phone ? (
                   <div className="flex items-start gap-3">
-                    <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-white/[0.07] bg-white/[0.03] text-[#6fbd68]">
+                    <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-white/[0.07] bg-white/3 text-[#6fbd68]">
                       <Phone size={15} />
                     </div>
                     <div className="min-w-0">
@@ -348,7 +348,7 @@ export default function ContactForm() {
                   </div>
                 ) : (
                   <div className="flex items-start gap-3">
-                    <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-white/[0.07] bg-white/[0.03] text-[#6fbd68]">
+                    <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-white/[0.07] bg-white/3 text-[#6fbd68]">
                       <Clock size={15} />
                     </div>
                     <div>
@@ -399,7 +399,7 @@ export default function ContactForm() {
                 setStatus("idle");
                 setSubmittedSummary(null);
               }}
-              className="group inline-flex items-center gap-2 rounded-xl border border-white/[0.09] bg-white/[0.02] px-5 py-3 text-sm font-medium text-white/75 transition hover:border-white/[0.18] hover:bg-white/[0.04] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6fbd68]/60"
+              className="group inline-flex items-center gap-2 rounded-xl border border-white/9 bg-white/2 px-5 py-3 text-sm font-medium text-white/75 transition hover:border-white/18 hover:bg-white/4 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6fbd68]/60"
             >
               Send another inquiry
               <ArrowUpRight
@@ -418,7 +418,7 @@ export default function ContactForm() {
       {/* Honeypot */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -left-[9999px] h-0 overflow-hidden"
+        className="pointer-events-none absolute left-[-9999px] h-0 overflow-hidden"
       >
         <label htmlFor="website">Leave this field empty</label>
         <input
@@ -435,7 +435,7 @@ export default function ContactForm() {
       <ScrollReveal>
         <section className={cardStyles}>
           <div className="mb-5 flex items-center justify-between">
-            <span className="inline-flex items-center rounded-full border border-[#6fbd68]/30 bg-[#6fbd68]/10 px-3 py-1 font-[family-name:var(--font-bricolage)] text-xs font-semibold tracking-wider text-[#7fd178]">
+            <span className="inline-flex items-center rounded-full border border-[#6fbd68]/30 bg-[#6fbd68]/10 px-3 py-1 font-(family-name:--font-bricolage) text-xs font-semibold tracking-wider text-[#7fd178]">
               01
             </span>
             <span className="text-xs font-medium uppercase tracking-[0.16em] text-white/40">
@@ -443,7 +443,7 @@ export default function ContactForm() {
             </span>
           </div>
 
-          <h2 className="mb-6 font-[family-name:var(--font-bricolage)] text-xl font-semibold text-white">
+          <h2 className="mb-6 font-(family-name:--font-bricolage) text-xl font-semibold text-white">
             Let's start with the basics.
           </h2>
 
@@ -515,7 +515,7 @@ export default function ContactForm() {
       <ScrollReveal>
         <section className={cardStyles}>
           <div className="mb-5 flex items-center justify-between">
-            <span className="inline-flex items-center rounded-full border border-[#6fbd68]/30 bg-[#6fbd68]/10 px-3 py-1 font-[family-name:var(--font-bricolage)] text-xs font-semibold tracking-wider text-[#7fd178]">
+            <span className="inline-flex items-center rounded-full border border-[#6fbd68]/30 bg-[#6fbd68]/10 px-3 py-1 font-(family-name:--font-bricolage) text-xs font-semibold tracking-wider text-[#7fd178]">
               02
             </span>
             <span className="text-xs font-medium uppercase tracking-[0.16em] text-white/40">
@@ -523,7 +523,7 @@ export default function ContactForm() {
             </span>
           </div>
 
-          <h2 className="font-[family-name:var(--font-bricolage)] text-xl font-semibold text-white">
+          <h2 className="font-(family-name:--font-bricolage) text-xl font-semibold text-white">
             What can I help you with?
           </h2>
 
@@ -544,15 +544,15 @@ export default function ContactForm() {
                   onClick={() => toggleService(service.id)}
                   className={`group relative flex items-start gap-3.5 rounded-xl border p-4 text-left transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6fbd68]/60 ${
                     selected
-                      ? "border-[#6fbd68]/50 bg-[#6fbd68]/[0.08]"
-                      : "border-white/[0.08] bg-[#0b0e0d]/50 hover:border-white/[0.18] hover:bg-white/[0.03]"
+                      ? "border-[#6fbd68]/50 bg-[#6fbd68]/8"
+                      : "border-white/8 bg-[#0b0e0d]/50 hover:border-white/18 hover:bg-white/3"
                   }`}
                 >
                   <div
                     className={`mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border transition-colors ${
                       selected
                         ? "border-[#6fbd68]/30 bg-[#6fbd68]/15 text-[#6fbd68]"
-                        : "border-white/[0.07] bg-white/[0.03] text-white/50 group-hover:text-white/80"
+                        : "border-white/[0.07] bg-white/3 text-white/50 group-hover:text-white/80"
                     }`}
                   >
                     <Icon size={17} />
@@ -591,7 +591,7 @@ export default function ContactForm() {
       <ScrollReveal>
         <section className={cardStyles}>
           <div className="mb-5 flex items-center justify-between">
-            <span className="inline-flex items-center rounded-full border border-[#6fbd68]/30 bg-[#6fbd68]/10 px-3 py-1 font-[family-name:var(--font-bricolage)] text-xs font-semibold tracking-wider text-[#7fd178]">
+            <span className="inline-flex items-center rounded-full border border-[#6fbd68]/30 bg-[#6fbd68]/10 px-3 py-1 font-(family-name:--font-bricolage) text-xs font-semibold tracking-wider text-[#7fd178]">
               03
             </span>
             <span className="text-xs font-medium uppercase tracking-[0.16em] text-white/40">
@@ -599,7 +599,7 @@ export default function ContactForm() {
             </span>
           </div>
 
-          <h2 className="mb-6 font-[family-name:var(--font-bricolage)] text-xl font-semibold text-white">
+          <h2 className="mb-6 font-(family-name:--font-bricolage) text-xl font-semibold text-white">
             Tell me a little more.
           </h2>
 
@@ -702,7 +702,7 @@ export default function ContactForm() {
       <ScrollReveal>
         <section className={cardStyles}>
           <div className="mb-5 flex items-center justify-between">
-            <span className="inline-flex items-center rounded-full border border-[#6fbd68]/30 bg-[#6fbd68]/10 px-3 py-1 font-[family-name:var(--font-bricolage)] text-xs font-semibold tracking-wider text-[#7fd178]">
+            <span className="inline-flex items-center rounded-full border border-[#6fbd68]/30 bg-[#6fbd68]/10 px-3 py-1 font-(family-name:--font-bricolage) text-xs font-semibold tracking-wider text-[#7fd178]">
               04
             </span>
             <span className="text-xs font-medium uppercase tracking-[0.16em] text-white/40">
@@ -710,7 +710,7 @@ export default function ContactForm() {
             </span>
           </div>
 
-          <h2 className="mb-1.5 font-[family-name:var(--font-bricolage)] text-xl font-semibold text-white">
+          <h2 className="mb-1.5 font-(family-name:--font-bricolage) text-xl font-semibold text-white">
             When would be a good time to reach you?
           </h2>
           <p className="mb-6 text-sm leading-6 text-white/50">
@@ -733,7 +733,7 @@ export default function ContactForm() {
                     className={`rounded-xl border px-3 py-3 text-sm font-medium transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6fbd68]/60 ${
                       selected
                         ? "border-[#6fbd68]/50 bg-[#6fbd68]/10 text-[#8ce085]"
-                        : "border-white/[0.08] bg-[#0b0e0d]/50 text-white/55 hover:border-white/20 hover:text-white/80"
+                        : "border-white/8 bg-[#0b0e0d]/50 text-white/55 hover:border-white/20 hover:text-white/80"
                     }`}
                   >
                     {method}
@@ -800,7 +800,7 @@ export default function ContactForm() {
                     className={`rounded-full border px-3.5 py-2 text-xs font-medium transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6fbd68]/60 ${
                       selected
                         ? "border-[#6fbd68]/50 bg-[#6fbd68]/10 text-[#8ce085]"
-                        : "border-white/[0.08] bg-[#0b0e0d]/50 text-white/50 hover:border-white/20 hover:text-white/75"
+                        : "border-white/8 bg-[#0b0e0d]/50 text-white/50 hover:border-white/20 hover:text-white/75"
                     }`}
                   >
                     {day}
@@ -890,7 +890,7 @@ export default function ContactForm() {
           {status === "error" && serverError && (
             <div
               role="alert"
-              className="mb-5 flex items-center gap-2 rounded-xl border border-red-400/25 bg-red-400/[0.06] px-4 py-3 text-sm text-red-300"
+              className="mb-5 flex items-center gap-2 rounded-xl border border-red-400/25 bg-red-400/6 px-4 py-3 text-sm text-red-300"
             >
               <AlertCircle size={16} className="shrink-0" />
               {serverError}

@@ -1,22 +1,16 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
-import { Bricolage_Grotesque } from "next/font/google";
 
 import Hero from "@/features/home/components/Hero";
 import FeaturedProjects from "@/features/home/components/FeaturedProjects";
 import AboutJourney from "@/features/home/components/AboutJourney";
 import ScrollReveal from "@/shared/components/ScrollReveal";
 
-const bricolage = Bricolage_Grotesque({
-  subsets: ["latin"],
-  variable: "--font-bricolage",
-  display: "swap",
-});
 
 export default function Home() {
   return (
     <main
-      className={`${bricolage.variable} relative min-h-screen w-full overflow-x-clip bg-[#080d12] font-(family-name:--font-bricolage) text-white selection:bg-[#6fbd68]/20 selection:text-[#83ce7b]`}
+      className="relative min-h-screen w-full overflow-x-clip bg-[#080d12] font-(family-name:--font-bricolage) text-white selection:bg-[#6fbd68]/20 selection:text-[#83ce7b]"
     >
       <Hero />
       <FeaturedProjects />

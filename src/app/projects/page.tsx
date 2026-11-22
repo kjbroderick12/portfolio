@@ -1,7 +1,16 @@
-import { Sparkles } from "lucide-react";
 import { projects } from "@/features/projects/data/projects";
 import ScrollReveal from "@/shared/components/ScrollReveal";
 import ProjectsGrid from "@/features/projects/components/ProjectsGrid";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Projects",
+  description:
+    "Explore software development projects by Kaitlynn Broderick, featuring real-world applications, technical challenges, and solutions built across frontend and backend development.",
+  alternates: {
+    canonical: "/projects",
+  },
+};
 
 export default function ProjectsPage() {
   return (

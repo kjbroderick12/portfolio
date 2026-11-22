@@ -42,7 +42,7 @@ export default function ContactInfo() {
           Prefer a direct approach?
         </p>
 
-        <h2 className="font-[family-name:var(--font-bricolage)] text-2xl font-semibold tracking-tight text-white sm:text-3xl">
+        <h2 className="font-(family-name:--font-bricolage) text-2xl font-semibold tracking-tight text-white sm:text-3xl">
           You can reach me directly.
         </h2>
 
@@ -54,7 +54,7 @@ export default function ContactInfo() {
 
       <nav
         aria-label="Direct contact links"
-        className="divide-y divide-white/[0.08] rounded-2xl border border-white/[0.08] bg-white/[0.015] px-4"
+        className="divide-y divide-white/8 rounded-2xl border border-white/8 bg-white/1.5 px-4"
       >
         {contacts.map((contact) => {
           const Icon = contact.icon;
@@ -67,7 +67,7 @@ export default function ContactInfo() {
               rel={contact.external ? "noopener noreferrer" : undefined}
               className="group flex items-center gap-4 py-4.5 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6fbd68]/60"
             >
-              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-white/[0.09] bg-white/[0.03] text-white/60 transition-all duration-200 group-hover:scale-[1.03] group-hover:border-[#6fbd68]/40 group-hover:bg-[#6fbd68]/10 group-hover:text-[#6fbd68]">
+              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-white/9 bg-white/3 text-white/60 transition-all duration-200 group-hover:scale-[1.03] group-hover:border-[#6fbd68]/40 group-hover:bg-[#6fbd68]/10 group-hover:text-[#6fbd68]">
                 <Icon size={18} />
               </div>
 
@@ -89,7 +89,7 @@ export default function ContactInfo() {
         })}
       </nav>
 
-      <div className="mt-7 rounded-xl border border-white/[0.07] bg-[#6fbd68]/[0.04] p-4">
+      <div className="mt-7 rounded-xl border border-white/[0.07] bg-[#6fbd68]/4 p-4">
         <p className="text-sm leading-6 text-white/65">
           Not sure what you need yet? No problem—the best projects often start
           with a quick conversation.
