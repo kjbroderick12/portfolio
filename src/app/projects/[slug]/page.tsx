@@ -1,4 +1,3 @@
-
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -9,21 +8,43 @@ import {
   Globe,
 } from "lucide-react";
 import { notFound } from "next/navigation";
-import { JetBrains_Mono } from "next/font/google";
+import type { Metadata } from "next";
 
 import { projects } from "@/features/projects/data/projects";
 import ScrollReveal from "@/shared/components/ScrollReveal";
-
-const jetbrainsMono = JetBrains_Mono({
-  subsets: ["latin"],
-  variable: "--font-mono",
-});
 
 type ProjectPageProps = {
   params: Promise<{
     slug: string;
   }>;
 };
+
+export async function generateMetadata({
+  params,
+}: ProjectPageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const project = projects.find((item) => item.slug === slug);
+
+  if (!project) {
+    return {
+      title: "Project Not Found",
+    };
+  }
+
+  return {
+    title: project.name,
+    description: project.description,
+    alternates: {
+      canonical: `/projects/${slug}`,
+    },
+    openGraph: {
+      title: `${project.name} | Kaitlynn Broderick`,
+      description: project.description,
+      url: `https://kaitlynnbroderick.dev/projects/${slug}`,
+      type: "article",
+    },
+  };
+}
 
 export function generateStaticParams() {
   return projects.map((project) => ({
@@ -50,7 +71,7 @@ export default async function ProjectDetailPage({
 
   return (
     <main
-      className={`${jetbrainsMono.variable} relative min-h-screen w-full overflow-x-clip bg-[#080d12] text-white selection:bg-[#6fbd68]/30 selection:text-white`}
+      className="relative min-h-screen w-full overflow-x-clip bg-[#080d12] text-white selection:bg-[#6fbd68]/30 selection:text-white"
     >
       {/* Subtle ambient background */}
       <div

@@ -131,8 +131,8 @@ export default function AboutPage() {
         className="pointer-events-none fixed inset-0 z-0 overflow-hidden"
         aria-hidden="true"
       >
-        <div className="absolute -top-40 right-4 h-[280px] w-[280px] rounded-full bg-[#6fbd68]/[0.04] blur-[100px] sm:right-1/4 sm:h-[500px] sm:w-[500px] sm:blur-[150px]" />
-        <div className="absolute bottom-0 left-4 h-[250px] w-[250px] rounded-full bg-[#6fbd68]/[0.03] blur-[90px] sm:left-10 sm:h-[400px] sm:w-[400px] sm:blur-[140px]" />
+        <div className="absolute -top-40 right-4 h-70 w-70 rounded-full bg-[#6fbd68]/4 blur-[100px] sm:right-1/4 sm:h-125 sm:w-125 sm:blur-[150px]" />
+        <div className="absolute bottom-0 left-4 h-62.5 w-62.5 rounded-full bg-[#6fbd68]/3 blur-[90px] sm:left-10 sm:h-100 sm:w-100 sm:blur-[140px]" />
       </div>
 
       <div className="relative z-10 mx-auto min-w-0 max-w-7xl px-4 pb-20 pt-28 sm:px-10 sm:pb-28 sm:pt-36 lg:px-16">
@@ -140,10 +140,10 @@ export default function AboutPage() {
         <div className="grid min-w-0 grid-cols-1 items-start gap-10 lg:grid-cols-12 lg:gap-14">
           {/* LEFT COLUMN: Sidebar */}
           <aside className="w-full min-w-0 lg:sticky lg:top-28 lg:col-span-4 lg:self-start">
-            <div className="rounded-2xl border border-white/[0.08] bg-[#0b1117]/95 p-5 shadow-2xl backdrop-blur-sm sm:p-7">
+            <div className="rounded-2xl border border-white/8 bg-[#0b1117]/95 p-5 shadow-2xl backdrop-blur-sm sm:p-7">
               <ScrollReveal variant="up">
                 {/* Status Indicator */}
-                <div className="inline-flex items-center gap-2 rounded-full border border-[#6fbd68]/25 bg-[#6fbd68]/[0.08] px-3 py-1 text-[11px] font-medium text-[#6fbd68]">
+                <div className="inline-flex items-center gap-2 rounded-full border border-[#6fbd68]/25 bg-[#6fbd68]/8 px-3 py-1 text-[11px] font-medium text-[#6fbd68]">
                   <span className="relative flex h-2 w-2">
                     <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#6fbd68] opacity-75" />
                     <span className="relative inline-flex h-2 w-2 rounded-full bg-[#6fbd68]" />
@@ -152,7 +152,7 @@ export default function AboutPage() {
                 </div>
 
                 {/* Core Statement */}
-                <h1 className="mt-4 font-[family-name:var(--font-bricolage)] text-2xl font-semibold leading-[1.15] tracking-[-0.04em] sm:mt-5 sm:text-3xl">
+                <h1 className="mt-4 font-(family-name:--font-bricolage) text-2xl font-semibold leading-[1.15] tracking-[-0.04em] sm:mt-5 sm:text-3xl">
                   Making complicated things{" "}
                   <span className="text-[#6fbd68]">feel clear.</span>
                 </h1>
@@ -170,7 +170,7 @@ export default function AboutPage() {
                       <Briefcase size={14} className="text-[#6fbd68]" />
                       Current Role
                     </span>
-                    <span className="min-w-0 break-words text-right font-medium text-white/80">
+                    <span className="min-w-0 wrap-break-word text-right font-medium text-white/80">
                       Full-Stack Dev (Volunteer)
                     </span>
                   </div>
@@ -180,7 +180,7 @@ export default function AboutPage() {
                       <GraduationCap size={14} className="text-[#6fbd68]" />
                       Education
                     </span>
-                    <span className="min-w-0 break-words text-right font-medium text-white/80">
+                    <span className="min-w-0 wrap-break-word text-right font-medium text-white/80">
                       B.S. IT (4.0 GPA)
                     </span>
                   </div>
@@ -190,7 +190,7 @@ export default function AboutPage() {
                       <Terminal size={14} className="text-[#6fbd68]" />
                       Primary Stack
                     </span>
-                    <span className="min-w-0 break-words text-right font-medium text-white/80">
+                    <span className="min-w-0 wrap-break-word text-right font-medium text-white/80">
                       C# · .NET · Next.js
                     </span>
                   </div>
@@ -200,7 +200,7 @@ export default function AboutPage() {
                       <Headphones size={14} className="text-[#6fbd68]" />
                       Offline
                     </span>
-                    <span className="min-w-0 break-words text-right font-medium text-white/80">
+                    <span className="min-w-0 wrap-break-word text-right font-medium text-white/80">
                       Music · Gaming · Outdoors
                     </span>
                   </div>
@@ -221,7 +221,7 @@ export default function AboutPage() {
 
                   <Link
                     href="/contact"
-                    className="group inline-flex w-full items-center justify-between rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3 text-xs font-medium text-white/75 transition-all hover:border-white/25 hover:bg-white/[0.05] hover:text-white"
+                    className="group inline-flex w-full items-center justify-between rounded-xl border border-white/10 bg-white/2 px-4 py-3 text-xs font-medium text-white/75 transition-all hover:border-white/25 hover:bg-white/5 hover:text-white"
                   >
                     <span>Start a conversation</span>
                     <ArrowUpRight
@@ -267,7 +267,7 @@ export default function AboutPage() {
                   <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-[#6fbd68]">
                     Engineering Philosophy
                   </span>
-                  <h2 className="mt-2 font-[family-name:var(--font-bricolage)] text-2xl font-semibold tracking-[-0.04em] sm:text-3xl">
+                  <h2 className="mt-2 font-(family-name:--font-bricolage) text-2xl font-semibold tracking-[-0.04em] sm:text-3xl">
                     It’s not just about getting it to work.
                   </h2>
                 </div>
@@ -278,14 +278,14 @@ export default function AboutPage() {
                     return (
                       <article
                         key={principle.title}
-                        className="flex flex-col justify-between rounded-2xl border border-white/[0.08] bg-[#0b1117]/60 p-5 transition-colors hover:border-white/20"
+                        className="flex flex-col justify-between rounded-2xl border border-white/8 bg-[#0b1117]/60 p-5 transition-colors hover:border-white/20"
                       >
                         <div>
-                          <div className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/10 bg-white/[0.02] text-[#6fbd68]">
+                          <div className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/10 bg-white/2 text-[#6fbd68]">
                             <Icon size={17} strokeWidth={1.6} />
                           </div>
 
-                          <h3 className="mt-4 font-[family-name:var(--font-bricolage)] text-base font-medium tracking-[-0.02em] text-white sm:mt-5">
+                          <h3 className="mt-4 font-(family-name:--font-bricolage) text-base font-medium tracking-[-0.02em] text-white sm:mt-5">
                             {principle.title}
                           </h3>
 
@@ -302,12 +302,12 @@ export default function AboutPage() {
 
             {/* Technical Capabilities & Stack */}
             <ScrollReveal variant="up">
-              <section className="rounded-2xl border border-white/[0.08] bg-[#0b1117]/70 p-5 sm:p-8">
+              <section className="rounded-2xl border border-white/8 bg-[#0b1117]/70 p-5 sm:p-8">
                 <div className="mb-6 sm:mb-7">
                   <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-[#6fbd68]">
                     Technical Stack
                   </span>
-                  <h2 className="mt-2 font-[family-name:var(--font-bricolage)] text-2xl font-semibold tracking-[-0.04em] sm:text-3xl">
+                  <h2 className="mt-2 font-(family-name:--font-bricolage) text-2xl font-semibold tracking-[-0.04em] sm:text-3xl">
                     What I’m building with.
                   </h2>
                   <p className="mt-2 text-sm leading-7 text-white/50">
@@ -323,7 +323,7 @@ export default function AboutPage() {
                     return (
                       <div
                         key={area.title}
-                        className="rounded-xl border border-white/[0.06] bg-white/[0.015] p-4"
+                        className="rounded-xl border border-white/6 bg-white/1.5 p-4"
                       >
                         <div className="flex items-center gap-2.5 text-white/90">
                           <Icon size={16} className="shrink-0 text-[#6fbd68]" />
@@ -336,7 +336,7 @@ export default function AboutPage() {
                           {area.stack.map((tech) => (
                             <span
                               key={tech}
-                              className="rounded bg-white/[0.04] px-2 py-0.5 font-mono text-[10px] text-white/65"
+                              className="rounded bg-white/4 px-2 py-0.5 font-mono text-[10px] text-white/65"
                             >
                               {tech}
                             </span>
@@ -356,7 +356,7 @@ export default function AboutPage() {
                     {ALL_TECHNOLOGIES.map((tech) => (
                       <span
                         key={tech}
-                        className="rounded-lg border border-white/[0.08] bg-white/[0.02] px-2.5 py-1 text-xs text-white/60 transition-colors hover:border-[#6fbd68]/40 hover:text-white sm:px-3 sm:py-1.5"
+                        className="rounded-lg border border-white/8 bg-white/2 px-2.5 py-1 text-xs text-white/60 transition-colors hover:border-[#6fbd68]/40 hover:text-white sm:px-3 sm:py-1.5"
                       >
                         {tech}
                       </span>
@@ -368,13 +368,13 @@ export default function AboutPage() {
 
             {/* Outside the Code */}
             <ScrollReveal variant="up">
-              <section className="rounded-2xl border border-white/[0.08] bg-gradient-to-br from-[#0b1117] to-[#080d12] p-5 sm:p-8">
+              <section className="rounded-2xl border border-white/8 bg-linear-to-br from-[#0b1117] to-[#080d12] p-5 sm:p-8">
                 <div className="flex flex-col justify-between gap-6 sm:flex-row sm:items-center">
                   <div className="max-w-xl">
                     <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-[#6fbd68]">
                       Outside the Code
                     </span>
-                    <h2 className="mt-2 font-[family-name:var(--font-bricolage)] text-xl font-semibold tracking-[-0.03em] sm:text-2xl">
+                    <h2 className="mt-2 font-(family-name:--font-bricolage) text-xl font-semibold tracking-[-0.03em] sm:text-2xl">
                       A little more human.
                     </h2>
                     <p className="mt-3 text-sm leading-7 text-white/55">
