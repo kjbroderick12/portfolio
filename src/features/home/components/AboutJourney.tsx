@@ -1,7 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowUpRight, Layers3, Lightbulb, TrendingUp } from "lucide-react";
+import {
+  ArrowUpRight,
+  Layers3,
+  Lightbulb,
+  TrendingUp,
+} from "lucide-react";
+
 import ScrollReveal from "@/shared/components/ScrollReveal";
 
 const journey = [
@@ -9,21 +15,21 @@ const journey = [
     period: "2018 — Present",
     title: "Optical Industry",
     description:
-      "I've spent several years working in the optical industry, helping people find the right solutions for their vision needs. It's taught me to pay attention to details, think through problems, and understand that sometimes the smallest things make the biggest difference.",
+      "I've spent several years working in the optical industry, helping people find the right solutions for their vision needs. That experience has taught me to pay attention to details, work through problems carefully, and understand what people actually need.",
     status: "Where it started",
   },
   {
     period: "2024",
     title: "B.S. in Information Technology",
     description:
-      "I graduated with a 4.0 GPA and a concentration in Programming and Software Development. My degree gave me a solid foundation in programming and helped me turn my interest in technology into something I wanted to pursue as a career.",
+      "I graduated with a 4.0 GPA and a concentration in Programming and Software Development. My degree gave me a foundation in programming and helped turn my interest in technology into a career I wanted to pursue.",
     status: "A new direction",
   },
   {
     period: "2025 — Present",
     title: "Full-Stack Developer — Web Surfing Studios",
     description:
-      "I've been volunteering with Web Surfing Studios, where I get to work on real projects and continue building my development skills. Most of my work has involved C# and .NET, ASP.NET Core MVC, Entity Framework, and MySQL. I've also worked on API integrations, backend features, and improvements to existing applications. It's given me the opportunity to take what I've learned and put it into practice while learning from other developers.",
+      "I've been volunteering with Web Surfing Studios, contributing to real projects while continuing to develop my skills. My work has primarily involved C#, .NET, ASP.NET Core MVC, Entity Framework, and MySQL, along with API integrations, backend features, and improvements to existing applications. It's given me the opportunity to apply what I've learned and collaborate with other developers.",
     status: "Where I am now",
   },
 ];
@@ -63,7 +69,6 @@ export default function AboutJourney() {
       />
 
       <div className="relative z-10 mx-auto w-full max-w-7xl">
-        {/* Sticky Chapter Intro + Timeline Ledger */}
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:items-start lg:gap-14">
           <div className="lg:sticky lg:top-28 lg:col-span-5">
             <ScrollReveal variant="up" threshold={0.1}>
@@ -78,10 +83,10 @@ export default function AboutJourney() {
               </h2>
 
               <p className="mt-5 text-sm leading-7 text-white/65 sm:text-base sm:leading-8">
-                My path into software development wasn&apos;t straight-line.
-                Years in the optical industry trained me to catch small
-                details, solve practical problems, and listen carefully to what
-                people need.
+                My path into software development wasn&apos;t a straight line.
+                Years in the optical industry taught me to pay attention to
+                details, solve practical problems, and listen carefully to
+                what people need.
               </p>
 
               <div className="mt-5 flex flex-wrap items-center gap-2">
@@ -105,6 +110,7 @@ export default function AboutJourney() {
                     <span className="font-mono text-xs uppercase tracking-[0.18em] text-[#6fbd68]">
                       {item.period}
                     </span>
+
                     <span className="font-mono text-[11px] text-white/40">
                       {item.status}
                     </span>
@@ -123,32 +129,47 @@ export default function AboutJourney() {
           </div>
         </div>
 
-        {/* Principles */}
-        <div className="mt-14 grid grid-cols-1 gap-5 sm:mt-16 md:grid-cols-3 md:gap-6">
-          {principles.map((principle, index) => {
-            const Icon = principle.icon;
-            return (
-              <ScrollReveal
-                key={principle.title}
-                variant="up"
-                delay={index * 60}
-              >
-                <div className="group flex h-full flex-col justify-between rounded-2xl border border-white/8 bg-[#0b1117]/80 p-6 transition-all duration-300 hover:border-[#6fbd68]/35 hover:bg-[#0b1117]">
-                  <div>
+        {/* Development Principles */}
+        <div className="mt-16 sm:mt-20">
+          <ScrollReveal variant="up">
+            <div className="mb-7 max-w-xl">
+              <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-[#6fbd68]">
+                My approach
+              </p>
+
+              <h3 className="mt-2 text-2xl font-semibold tracking-tight text-white sm:text-3xl">
+                How I approach development.
+              </h3>
+            </div>
+          </ScrollReveal>
+
+          <div className="grid grid-cols-1 gap-5 md:grid-cols-3 md:gap-6">
+            {principles.map((principle, index) => {
+              const Icon = principle.icon;
+
+              return (
+                <ScrollReveal
+                  key={principle.title}
+                  variant="up"
+                  delay={index * 60}
+                >
+                  <div className="group flex h-full flex-col rounded-2xl border border-white/8 bg-[#0b1117]/80 p-6 transition-all duration-300 hover:border-[#6fbd68]/35 hover:bg-[#0b1117]">
                     <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/3 text-[#6fbd68]">
                       <Icon size={18} strokeWidth={1.7} />
                     </div>
-                    <h3 className="mt-5 text-lg font-semibold tracking-tight text-white sm:text-xl">
+
+                    <h4 className="mt-5 text-lg font-semibold tracking-tight text-white sm:text-xl">
                       {principle.title}
-                    </h3>
+                    </h4>
+
                     <p className="mt-2.5 text-sm leading-7 text-white/55">
                       {principle.description}
                     </p>
                   </div>
-                </div>
-              </ScrollReveal>
-            );
-          })}
+                </ScrollReveal>
+              );
+            })}
+          </div>
         </div>
 
         <div className="mt-10 flex justify-end">

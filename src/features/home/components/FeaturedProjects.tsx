@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useId, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -10,68 +10,11 @@ import {
   FolderGit2,
   Globe,
 } from "lucide-react";
+
+import { projects } from "@/features/projects/data/projects";
+import type { Project } from "@/features/projects/types/project";
 import ScrollReveal from "@/shared/components/ScrollReveal";
 
-interface Project {
-  title: string;
-  slug: string;
-  category: string;
-  year: string;
-  description: string;
-  highlights: string[];
-  tags: string[];
-  image: string;
-  imageAlt: string;
-  liveUrl?: string;
-  githubUrl?: string;
-  actionLabel: string;
-}
-
-const projects: Project[] = [
-  {
-    title: "Teffie's Smoky BBQ",
-    slug: "teffies-smoky-bbq",
-    category: "Full-Stack Web Application",
-    year: "Production",
-    description:
-      "A custom website built for a BBQ catering business to showcase its offerings, connect with customers, and manage online inquiries. Combines a responsive public site with an administrative dashboard for managing content.",
-    highlights: [
-      "Dynamic menu, events, and gallery management",
-      "Administrative dashboard with content CRUD operations",
-      "Customer support and catering inquiry forms",
-    ],
-    tags: ["Next.js", "TypeScript", "React", "MongoDB", "Tailwind CSS"],
-    image: "/images/projects/teffiessmokybbq.png",
-    imageAlt: "Teffie's Smoky BBQ website preview",
-    liveUrl: "https://teffiesmokybbq.com/",
-    actionLabel: "Visit Live Website",
-  },
-  {
-    title: "Azure DevOps Point Sync",
-    slug: "pointsync",
-    category: "Internal Application / Proof of Concept",
-    year: "Backend & Automation",
-    description:
-      "A .NET application designed to simplify monthly development-point reporting by retrieving completed work items directly from Azure DevOps and synchronizing them with a centralized reporting dashboard.",
-    highlights: [
-      "Azure DevOps API integration and automated work-item sync",
-      "Database-backed tracking with Entity Framework Core",
-      "Manual entry and fallback workflows for reporting flexibility",
-    ],
-    tags: [
-      "C#",
-      ".NET 8",
-      "ASP.NET Core MVC",
-      "Entity Framework Core",
-      "MySQL",
-      "Azure DevOps API",
-    ],
-    image: "/images/projects/pointsync.png",
-    imageAlt: "Azure DevOps Point Sync dashboard preview",
-    githubUrl: "https://github.com/kjbroderick12/PointSyncPOC",
-    actionLabel: "View on GitHub",
-  },
-];
 
 interface FeaturedProjectsProps {
   projects?: Project[];
@@ -80,18 +23,23 @@ interface FeaturedProjectsProps {
 export default function FeaturedProjects({
   projects: projectList = projects,
 }: FeaturedProjectsProps) {
-  const [openIndex, setOpenIndex] = useState<number>(0);
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
   const rowRefs = useRef<(HTMLElement | null)[]>([]);
+  const panelId = useId();
 
   const handleToggle = (index: number) => {
     const isAlreadyOpen = index === openIndex;
-    setOpenIndex(index);
+
+    setOpenIndex(isAlreadyOpen ? null : index);
 
     if (!isAlreadyOpen) {
       requestAnimationFrame(() => {
         rowRefs.current[index]?.scrollIntoView({
-          behavior: "smooth",
-          block: "start",
+          behavior: window.matchMedia("(prefers-reduced-motion: reduce)")
+            .matches
+            ? "auto"
+            : "smooth",
+          block: "nearest",
         });
       });
     }
@@ -104,15 +52,13 @@ export default function FeaturedProjects({
     >
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -right-40 top-24 z-0 h-90 w-90 rounded-full bg-[#6fbd68]/4 blur-[130px] sm:h-120 sm:w-120blur-[150px]"
+        className="pointer-events-none absolute -right-40 top-24 z-0 h-90 w-90 rounded-full bg-[#6fbd68]/4 blur-[130px] sm:h-120 sm:w-120 sm:blur-[150px]"
       />
 
       <div className="relative z-10 mx-auto w-full max-w-7xl">
-        {/* Section Header */}
         <ScrollReveal variant="up">
           <div className="mb-8 flex flex-col gap-4 border-b border-white/8 pb-7 md:mb-10 md:flex-row md:items-end md:justify-between md:gap-12">
             <div>
-
               <h2 className="text-3xl font-semibold leading-[0.98] tracking-[-0.04em] text-white sm:text-5xl">
                 Featured Projects
               </h2>
@@ -138,10 +84,17 @@ export default function FeaturedProjects({
           </div>
         </ScrollReveal>
 
-        {/* Unified Compact Expandable Ledger (Mobile & Desktop) */}
         <div className="space-y-3 sm:space-y-4">
           {projectList.map((project, index) => {
             const isOpen = index === openIndex;
+            const currentPanelId = `${panelId}-project-${index}`;
+            const visibleHighlights = project.highlights.slice(0, 3);
+            const visibleTechnologies = project.technologies.slice(0, 5);
+            const remainingTechnologies =
+              project.technologies.length - visibleTechnologies.length;
+
+            const isGithub = project.externalType === "github";
+            const ExternalIcon = isGithub ? FolderGit2 : Globe;
 
             return (
               <ScrollReveal
@@ -159,12 +112,12 @@ export default function FeaturedProjects({
                       : "border-white/8 bg-[#0b1117]/50 hover:border-white/20 hover:bg-[#0b1117]/80"
                   }`}
                 >
-                  {/* Interactive Row Trigger */}
                   <button
                     type="button"
                     aria-expanded={isOpen}
+                    aria-controls={currentPanelId}
                     onClick={() => handleToggle(index)}
-                    className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left sm:px-7 sm:py-5"
+                    className="flex min-h-20 w-full items-center justify-between gap-4 px-5 py-4 text-left transition-colors hover:bg-white/2 sm:px-7 sm:py-5"
                   >
                     <div className="flex min-w-0 flex-col gap-1 sm:flex-row sm:items-baseline sm:gap-4">
                       <h3
@@ -172,54 +125,60 @@ export default function FeaturedProjects({
                           isOpen ? "text-white" : "text-white/75"
                         }`}
                       >
-                        {project.title}
+                        {project.name}
                       </h3>
 
-                      <span className="truncate font-mono text-[11px] uppercase tracking-[0.16em] text-[#6fbd68]">
-                        {project.category}
-                      </span>
+                      <div className="flex flex-wrap items-center gap-2">
+                        <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-[#6fbd68] sm:text-[11px] sm:tracking-[0.16em]">
+                          {project.category}
+                        </span>
+
+                        <span className="hidden text-white/20 sm:inline">
+                          /
+                        </span>
+
+                        <span className="hidden font-mono text-[11px] text-white/35 sm:inline">
+                          {project.type}
+                        </span>
+                      </div>
                     </div>
 
-                    <div className="flex shrink-0 items-center gap-3 sm:gap-4">
-                      <span className="hidden font-mono text-xs text-white/40 sm:inline">
-                        {project.year}
-                      </span>
-
-                      <div
-                        className={`flex h-8 w-8 items-center justify-center rounded-lg border transition-colors ${
-                          isOpen
-                            ? "border-[#6fbd68]/30 bg-[#6fbd68]/10 text-[#6fbd68]"
-                            : "border-white/10 bg-white/2 text-white/45"
+                    <div
+                      className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border transition-colors ${
+                        isOpen
+                          ? "border-[#6fbd68]/30 bg-[#6fbd68]/10 text-[#6fbd68]"
+                          : "border-white/10 bg-white/2 text-white/45"
+                      }`}
+                    >
+                      <ChevronDown
+                        size={16}
+                        className={`transition-transform duration-200 ${
+                          isOpen ? "rotate-180" : ""
                         }`}
-                      >
-                        <ChevronDown
-                          size={16}
-                          className={`transition-transform duration-200 ${
-                            isOpen ? "rotate-180" : ""
-                          }`}
-                        />
-                      </div>
+                      />
                     </div>
                   </button>
 
-                  {/* Expanded Body */}
                   {isOpen && (
-                    <div className="border-t border-white/8 p-5 sm:p-7">
+                    <div
+                      id={currentPanelId}
+                      className="border-t border-white/8 p-5 sm:p-7"
+                    >
                       <div className="grid grid-cols-1 gap-6 lg:grid-cols-12 lg:items-center lg:gap-8">
-                        {/* Left: Full Uncropped Preview */}
                         <div className="lg:col-span-5">
                           <Link
                             href={`/projects/${project.slug}`}
-                            aria-label={`Open ${project.title} case study`}
+                            aria-label={`Open ${project.name} case study`}
                             className="group block overflow-hidden rounded-xl border border-white/8 bg-[#06090d]"
                           >
                             <div className="flex h-7 items-center gap-1.5 border-b border-white/6 bg-white/2 px-3">
                               <span className="h-2 w-2 rounded-full bg-white/15" />
                               <span className="h-2 w-2 rounded-full bg-white/15" />
                               <span className="h-2 w-2 rounded-full bg-white/15" />
+
                               <span className="ml-1.5 truncate font-mono text-[10px] text-white/35">
-                                {project.liveUrl
-                                  ? project.liveUrl.replace("https://", "")
+                                {project.externalType === "live"
+                                  ? project.externalUrl.replace("https://", "")
                                   : project.slug}
                               </span>
                             </div>
@@ -237,7 +196,6 @@ export default function FeaturedProjects({
                           </Link>
                         </div>
 
-                        {/* Right: Overview, Highlights, Tags & Actions */}
                         <div className="flex flex-col justify-between lg:col-span-7">
                           <div>
                             <p className="text-sm leading-7 text-white/65">
@@ -245,7 +203,7 @@ export default function FeaturedProjects({
                             </p>
 
                             <ul className="mt-4 space-y-2">
-                              {project.highlights.map((highlight) => (
+                              {visibleHighlights.map((highlight) => (
                                 <li
                                   key={highlight}
                                   className="flex items-start gap-2.5 text-xs leading-6 text-white/75 sm:text-sm"
@@ -260,21 +218,27 @@ export default function FeaturedProjects({
                             </ul>
 
                             <div className="mt-4 flex flex-wrap gap-1.5">
-                              {project.tags.map((tag) => (
+                              {visibleTechnologies.map((technology) => (
                                 <span
-                                  key={tag}
-                                  className="rounded-md border border-white/8 bg-white/3 px-2.5 py-1 font-mono text-[11px] text-white/65"
+                                  key={technology}
+                                  className="rounded-md border border-white/8 bg-white/3 px-2.5 py-1 font-mono text-[10px] text-white/65 sm:text-[11px]"
                                 >
-                                  {tag}
+                                  {technology}
                                 </span>
                               ))}
+
+                              {remainingTechnologies > 0 && (
+                                <span className="rounded-md border border-white/8 bg-white/3 px-2.5 py-1 font-mono text-[10px] text-white/40 sm:text-[11px]">
+                                  +{remainingTechnologies} more
+                                </span>
+                              )}
                             </div>
                           </div>
 
                           <div className="mt-6 flex flex-col gap-2.5 border-t border-white/[0.07] pt-5 sm:flex-row sm:flex-wrap sm:items-center">
                             <Link
                               href={`/projects/${project.slug}`}
-                              className="group inline-flex h-10 w-full items-center justify-center gap-2 rounded-xl bg-[#6fbd68] px-5 text-xs font-semibold text-[#081009] transition-colors hover:bg-[#82cf7a] sm:w-auto"
+                              className="group inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-xl bg-[#6fbd68] px-5 text-xs font-semibold text-[#081009] transition-colors hover:bg-[#82cf7a] sm:w-auto"
                             >
                               <span>Case Study</span>
                               <ArrowUpRight
@@ -283,37 +247,19 @@ export default function FeaturedProjects({
                               />
                             </Link>
 
-                            {project.liveUrl && (
-                              <a
-                                href={project.liveUrl}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="group inline-flex h-10 w-full items-center justify-center gap-2 rounded-xl border border-white/12 bg-white/3 px-5 text-xs font-medium text-white/85 transition-colors hover:border-[#6fbd68]/45 hover:bg-[#6fbd68]/8 hover:text-[#6fbd68] sm:w-auto"
-                              >
-                                <Globe size={14} />
-                                <span>{project.actionLabel}</span>
-                                <ArrowUpRight
-                                  size={14}
-                                  className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                                />
-                              </a>
-                            )}
-
-                            {project.githubUrl && (
-                              <a
-                                href={project.githubUrl}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="group inline-flex h-10 w-full items-center justify-center gap-2 rounded-xl border border-white/12 bg-white/3 px-5 text-xs font-medium text-white/85 transition-colors hover:border-[#6fbd68]/45 hover:bg-[#6fbd68]/8 hover:text-[#6fbd68] sm:w-auto"
-                              >
-                                <FolderGit2 size={14} />
-                                <span>{project.actionLabel}</span>
-                                <ArrowUpRight
-                                  size={14}
-                                  className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                                />
-                              </a>
-                            )}
+                            <a
+                              href={project.externalUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="group inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-xl border border-white/12 bg-white/3 px-5 text-xs font-medium text-white/85 transition-colors hover:border-[#6fbd68]/45 hover:bg-[#6fbd68]/8 hover:text-[#6fbd68] sm:w-auto"
+                            >
+                              <ExternalIcon size={14} />
+                              <span>{project.externalLabel}</span>
+                              <ArrowUpRight
+                                size={14}
+                                className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                              />
+                            </a>
                           </div>
                         </div>
                       </div>
