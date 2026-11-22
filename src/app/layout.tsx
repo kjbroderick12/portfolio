@@ -1,4 +1,3 @@
-
 import type { Metadata } from "next";
 import { Bricolage_Grotesque } from "next/font/google";
 import "./globals.css";
@@ -11,7 +10,11 @@ const bricolage = Bricolage_Grotesque({
 });
 
 export const metadata: Metadata = {
-  title: "kaitlynn.b | Software Developer",
+  metadataBase: new URL("https://kaitlynnbroderick.dev"),
+  title: {
+    default: "kaitlynn.b | Software Developer",
+    template: "%s | Kaitlynn Broderick",
+  },
   description:
     "Portfolio of Kaitlynn Broderick, a software developer focused on building thoughtful, reliable, and well-crafted software.",
 };
