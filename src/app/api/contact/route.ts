@@ -1,41 +1,11 @@
-
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
-const allowedServices = [
-  "Website Development",
-  "Custom Software & Applications",
-  "Automation & Integrations",
-  "Updates & Improvements",
-  "Development Support",
-  "Something Else / Not Sure",
-];
-
-const allowedDays = [
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Flexible",
-];
-
-const allowedTimes = [
-  "Morning",
-  "Afternoon",
-  "Evening",
-  "Flexible",
-];
-
-const allowedContactMethods = ["Email", "Phone", "Either"];
-
-function cleanString(value: unknown, maxLength = 5000): string {
-  if (typeof value !== "string") return "";
-
-  return value.trim().slice(0, maxLength);
-}
+import {
+  contactSchema,
+  serviceLabels,
+  type ContactFieldErrors,
+} from "@/features/contact/schemas/contactSchema";
 
 function escapeHtml(value: string): string {
   return value
@@ -44,10 +14,6 @@ function escapeHtml(value: string): string {
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;")
     .replace(/'/g, "&#039;");
-}
-
-function isValidEmail(email: string): boolean {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
 function formatList(items: string[]): string {
@@ -89,99 +55,129 @@ function section(
   `;
 }
 
+function getFieldErrors(error: {
+  issues: { path: PropertyKey[]; message: string }[];
+}): ContactFieldErrors {
+  const errors: ContactFieldErrors = {};
+
+  for (const issue of error.issues) {
+    const field = issue.path[0] as keyof ContactFieldErrors | undefined;
+
+    if (field && !errors[field]) {
+      errors[field] = issue.message;
+    }
+  }
+
+  return errors;
+}
+
 export async function POST(request: Request) {
   try {
-    const body = await request.json();
+    let body: unknown;
+
+    try {
+      body = await request.json();
+    } catch {
+      return NextResponse.json(
+        { message: "Invalid request. Please try again." },
+        { status: 400 }
+      );
+    }
+
+    if (
+      typeof body !== "object" ||
+      body === null ||
+      Array.isArray(body)
+    ) {
+      return NextResponse.json(
+        { message: "Invalid request. Please try again." },
+        { status: 400 }
+      );
+    }
+
+    const payload = body as Record<string, unknown>;
 
     // Honeypot protection
-    if (body.website) {
-      return NextResponse.json({ success: true });
+    if (
+      typeof payload.website === "string" &&
+      payload.website.trim().length > 0
+    ) {
+      return NextResponse.json({
+        success: true,
+        message: "Your message has been sent successfully.",
+      });
     }
 
-    const name = cleanString(body.name, 100);
-    const email = cleanString(body.email, 254).toLowerCase();
-    const description = cleanString(body.description, 5000);
-    const timeline = cleanString(body.timeline, 300);
-    const contactMethod = cleanString(body.contactMethod, 30);
-    const availability = cleanString(body.availability, 1000);
-    const availabilityDays = Array.isArray(body.availabilityDays)
-      ? body.availabilityDays
-      : [];
-    const availabilityTime = cleanString(body.availabilityTime, 50);
+    // Validate the complete request on the server
+    const parsed = contactSchema.safeParse(payload);
 
-    const services = Array.isArray(body.services)
-      ? body.services.filter(
-          (service: unknown): service is string =>
-              typeof service === "string" &&
-              allowedServices.includes(service)
-        )
-      : [];
-
-    const days = availabilityDays.filter(
-      (day: unknown): day is string =>
-        typeof day === "string" && allowedDays.includes(day)
-    );
-
-    // Validation
-    if (!name || name.length < 2) {
-      return NextResponse.json(
-        { success: false, error: "Please enter your name." },
-        { status: 400 }
-      );
-    }
-
-    if (!email || !isValidEmail(email)) {
-      return NextResponse.json(
-        { success: false, error: "Please enter a valid email address." },
-        { status: 400 }
-      );
-    }
-
-    if (!description || description.length < 10) {
+    if (!parsed.success) {
       return NextResponse.json(
         {
-          success: false,
-          error: "Please provide a little more detail about your project.",
+          message: "Please review the highlighted fields and try again.",
+          errors: getFieldErrors(parsed.error),
         },
         { status: 400 }
       );
     }
 
-    if (
-      contactMethod &&
-      !allowedContactMethods.includes(contactMethod)
-    ) {
+    const {
+      name,
+      email,
+      phone,
+      services,
+      description,
+      contactMethod,
+      availabilityDays,
+      availabilityTime,
+      timeline,
+      availabilityDetails,
+    } = parsed.data;
+
+    // Check required environment variables
+    const apiKey = process.env.RESEND_API_KEY;
+    const fromEmail = process.env.RESEND_FROM_EMAIL;
+    const contactEmail = process.env.CONTACT_EMAIL;
+
+    if (!apiKey || !fromEmail || !contactEmail) {
+      console.error("Contact API configuration is incomplete.");
+
       return NextResponse.json(
-        { success: false, error: "Invalid contact method." },
-        { status: 400 }
+        {
+          message:
+            "Unable to send your message right now. Please try again later.",
+        },
+        { status: 500 }
       );
     }
 
-    if (
-      availabilityTime &&
-      !allowedTimes.includes(availabilityTime)
-    ) {
-      return NextResponse.json(
-        { success: false, error: "Invalid availability time." },
-        { status: 400 }
-      );
-    }
+    const resend = new Resend(apiKey);
 
     const safeName = escapeHtml(name);
     const safeEmail = escapeHtml(email);
+    const safePhone = escapeHtml(phone);
     const safeDescription = escapeHtml(description).replace(/\n/g, "<br />");
-    const safeTimeline = escapeHtml(timeline);
-    const safeServices = services.length
-      ? services.map(escapeHtml).join("<br />")
+
+    const selectedServices = services.map(
+      (service) => serviceLabels[service]
+    );
+
+    const safeServices = selectedServices.length
+      ? selectedServices.map(escapeHtml).join("<br />")
       : "Not specified";
-    const safeDays = days.length
-      ? days.map(escapeHtml).join(", ")
+
+    const safeDays = availabilityDays.length
+      ? availabilityDays.map(escapeHtml).join(", ")
       : "Not specified";
-    const safeContactMethod = escapeHtml(contactMethod || "Not specified");
+
+    const safeContactMethod = escapeHtml(contactMethod);
     const safeAvailabilityTime = escapeHtml(
       availabilityTime || "Not specified"
     );
-    const safeAvailability = escapeHtml(availability).replace(/\n/g, "<br />");
+    const safeTimeline = escapeHtml(timeline || "Not specified");
+    const safeAvailabilityDetails = escapeHtml(
+      availabilityDetails
+    ).replace(/\n/g, "<br />");
 
     const html = `
       <!DOCTYPE html>
@@ -208,7 +204,6 @@ export async function POST(request: Request) {
               margin: 0 auto;
               padding: 0 20px;
             ">
-              <!-- Header -->
               <div style="
                 padding: 12px 0 22px;
                 border-bottom: 2px solid #6fbd68;
@@ -235,7 +230,6 @@ export async function POST(request: Request) {
                 </h1>
               </div>
 
-              <!-- Introduction -->
               <div style="padding: 24px 0 10px;">
                 <p style="
                   margin: 0 0 6px;
@@ -256,7 +250,6 @@ export async function POST(request: Request) {
                 </p>
               </div>
 
-              <!-- Contact -->
               ${section(
                 "Contact Information",
                 `<a href="mailto:${safeEmail}" style="
@@ -267,41 +260,34 @@ export async function POST(request: Request) {
                 true
               )}
 
-              <!-- Services -->
+              ${
+                phone
+                  ? section("Phone Number", safePhone)
+                  : ""
+              }
+
               ${section("Services Requested", safeServices, true)}
 
-              <!-- Project Details -->
               ${section("Project Details", safeDescription, true)}
 
+              ${section("Project Timeline", safeTimeline)}
+
+              ${section("Preferred Contact Method", safeContactMethod)}
+
+              ${section("Best Days to Connect", safeDays)}
+
+              ${section("Preferred Time", safeAvailabilityTime)}
+
               ${
-                timeline
-                  ? section("Project Timeline", safeTimeline)
+                availabilityDetails
+                  ? section(
+                      "Additional Availability",
+                      safeAvailabilityDetails,
+                      true
+                    )
                   : ""
               }
 
-              <!-- Contact Preferences -->
-              ${section(
-                "Preferred Contact Method",
-                safeContactMethod
-              )}
-
-              ${section(
-                "Best Days to Connect",
-                safeDays
-              )}
-
-              ${section(
-                "Preferred Time",
-                safeAvailabilityTime
-              )}
-
-              ${
-                availability
-                  ? section("Additional Availability", safeAvailability, true)
-                  : ""
-              }
-
-              <!-- Footer -->
               <div style="padding: 22px 0 10px;">
                 <p style="
                   margin: 0;
@@ -310,7 +296,7 @@ export async function POST(request: Request) {
                   color: #8a938a;
                 ">
                   This message was submitted through your portfolio website.
-                You can reply directly to this email to contact ${safeName}.
+                  You can reply directly to this email to contact ${safeName}.
                 </p>
               </div>
             </div>
@@ -326,9 +312,10 @@ NEW PROJECT INQUIRY
 CONTACT INFORMATION
 Name: ${name}
 Email: ${email}
+Phone: ${phone || "Not provided"}
 
 SERVICES REQUESTED
-${services.length ? services.join(", ") : "Not specified"}
+${formatList(selectedServices)}
 
 PROJECT DETAILS
 ${description}
@@ -337,16 +324,16 @@ PROJECT TIMELINE
 ${timeline || "Not specified"}
 
 PREFERRED CONTACT METHOD
-${contactMethod || "Not specified"}
+${contactMethod}
 
 BEST DAYS TO CONNECT
-${days.length ? days.join(", ") : "Not specified"}
+${formatList(availabilityDays)}
 
 PREFERRED TIME
 ${availabilityTime || "Not specified"}
 
 ADDITIONAL AVAILABILITY
-${availability || "Not specified"}
+${availabilityDetails || "Not specified"}
 
 --------------------
 Submitted through your portfolio contact form.
@@ -354,8 +341,8 @@ Reply directly to this email to contact ${name}.
     `.trim();
 
     const { data, error } = await resend.emails.send({
-      from: process.env.RESEND_FROM_EMAIL!,
-      to: process.env.CONTACT_EMAIL!,
+      from: fromEmail,
+      to: contactEmail,
       replyTo: email,
       subject: `Portfolio Inquiry from ${name}`,
       html,
@@ -367,8 +354,8 @@ Reply directly to this email to contact ${name}.
 
       return NextResponse.json(
         {
-          success: false,
-          error: "Unable to send your message right now. Please try again later.",
+          message:
+            "Unable to send your message right now. Please try again later.",
         },
         { status: 500 }
       );
@@ -384,8 +371,7 @@ Reply directly to this email to contact ${name}.
 
     return NextResponse.json(
       {
-        success: false,
-        error: "Something went wrong. Please try again later.",
+        message: "Something went wrong. Please try again later.",
       },
       { status: 500 }
     );
