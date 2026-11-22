@@ -32,13 +32,18 @@ export default function AboutChapters({ experiences }: AboutChaptersProps) {
           </h2>
         </div>
 
-        {/* Chapter Switcher Tabs */}
-        <div className="flex flex-wrap gap-2">
+        <div
+          role="group"
+          aria-label="Select an experience"
+          className="flex flex-wrap gap-2"
+        >
           {experiences.map((item, idx) => (
             <button
               key={item.role}
+              type="button"
+              aria-pressed={activeChapter === idx}
               onClick={() => setActiveChapter(idx)}
-              className={`rounded-lg px-3 py-1.5 text-xs font-medium transition-all ${
+              className={`rounded-lg px-3 py-1.5 text-xs font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6fbd68]/60 ${
                 activeChapter === idx
                   ? "bg-[#6fbd68] text-[#081009]"
                   : "border border-white/10 bg-white/2 text-white/50 hover:border-white/25 hover:text-white"
@@ -50,8 +55,7 @@ export default function AboutChapters({ experiences }: AboutChaptersProps) {
         </div>
       </div>
 
-      {/* Active Chapter Content */}
-      <div className="pt-6">
+      <div className="pt-6" aria-live="polite">
         <div className="flex flex-wrap items-center gap-2.5 text-xs sm:gap-3">
           <span className="font-mono font-semibold text-[#6fbd68]">
             {current.period}
@@ -84,28 +88,6 @@ export default function AboutChapters({ experiences }: AboutChaptersProps) {
           ))}
         </div>
       </div>
-
-      {/* Quick Index Footer */}
-      <div className="mt-8 grid gap-2.5 border-t border-white/[0.07] pt-5 sm:grid-cols-3">
-        {experiences.map((item, idx) => (
-          <button
-            key={item.role}
-            onClick={() => setActiveChapter(idx)}
-            className={`rounded-xl border p-3 text-left transition-all ${
-              activeChapter === idx
-                ? "border-[#6fbd68]/40 bg-[#6fbd68]/5"
-                : "border-white/5 bg-white/1 hover:border-white/15"
-            }`}
-          >
-            <p className="font-mono text-[10px] text-[#6fbd68]">
-              {item.period.split(" ")[0]}
-            </p>
-            <p className="mt-1 truncate text-xs font-medium text-white/80">
-              {item.role}
-            </p>
-          </button>
-        ))}
-      </div>
     </div>
   );
-}0
+}
