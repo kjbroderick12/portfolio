@@ -15,7 +15,6 @@ import {
   Workflow,
   Wrench,
 } from "lucide-react";
-import { Bricolage_Grotesque } from "next/font/google";
 import ScrollReveal from "@/shared/components/ScrollReveal";
 import ServicesFaq from "@/features/services/components/ServicesFaq";
 import type { Metadata } from "next";

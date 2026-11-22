@@ -1,30 +1,29 @@
 import type { Metadata } from "next";
-import { Bricolage_Grotesque } from "next/font/google";
+
 import { ArrowDown } from "lucide-react";
 import ContactForm from "@/features/contact/components/ContactForm";
 import ContactInfo from "@/features/contact/components/ContactInfo";
 import ScrollReveal from "@/shared/components/ScrollReveal";
 
-const bricolage = Bricolage_Grotesque({
-  variable: "--font-bricolage",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
-  title: "Contact | Kaitlynn Broderick",
+  title: "Contact",
   description:
-    "Have a project in mind or need help with something? Let's talk about what you're building.",
+    "Have a project in mind? Get in touch with Kaitlynn Broderick to discuss custom software, website development, improvements, or your next idea.",
+  alternates: {
+    canonical: "/contact",
+  },
 };
 
 export default function ContactPage() {
   return (
     <main
-      className={`${bricolage.variable} relative min-h-screen overflow-hidden bg-[#0b0e0d] text-white`}
+      className="relative min-h-screen overflow-hidden bg-[#0b0e0d] text-white"
     >
       {/* Ambient background */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute -right-40 -top-40 h-[500px] w-[500px] rounded-full bg-[#6fbd68]/[0.045] blur-[130px]" />
-        <div className="absolute left-[-15%] top-[40%] h-[400px] w-[400px] rounded-full bg-[#6fbd68]/[0.03] blur-[120px]" />
+        <div className="absolute -right-40 -top-40 h-125 w-125 rounded-full bg-[#6fbd68]/4.5 blur-[130px]" />
+        <div className="absolute left-[-15%] top-[40%] h-100 w-100 rounded-full bg-[#6fbd68]/3 blur-[120px]" />
       </div>
 
       <div className="relative mx-auto max-w-7xl px-5 pb-24 pt-36 sm:px-8 sm:pt-40 lg:px-12">
@@ -38,7 +37,7 @@ export default function ContactPage() {
               </span>
             </div>
 
-            <h1 className="font-[family-name:var(--font-bricolage)] text-4xl font-semibold leading-[1.12] tracking-tight sm:text-6xl lg:text-7xl">
+            <h1 className="font-(family-name:--font-bricolage) text-4xl font-semibold leading-[1.12] tracking-tight sm:text-6xl lg:text-7xl">
               Let's talk about
               <span className="block text-[#6fbd68]"> what you're building.</span>
             </h1>
@@ -71,7 +70,7 @@ export default function ContactPage() {
                   Project inquiry
                 </p>
 
-                <h2 className="font-[family-name:var(--font-bricolage)] text-2xl font-semibold tracking-tight sm:text-3xl">
+                <h2 className="font-(family-name:--font-bricolage) text-2xl font-semibold tracking-tight sm:text-3xl">
                   Tell me what you have in mind.
                 </h2>
 
