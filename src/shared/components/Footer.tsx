@@ -72,16 +72,7 @@ export default function Footer() {
             ))}
           </nav>
 
-          <Link
-            href="/contact"
-            className="group inline-flex min-h-10 w-full items-center justify-between rounded-xl border border-[#6fbd68]/25 bg-[#6fbd68]/6 px-4 font-mono text-xs uppercase tracking-[0.14em] text-[#6fbd68] transition-colors hover:border-[#6fbd68]/45 hover:bg-[#6fbd68]/10 hover:text-[#82cf7a] sm:min-h-9 sm:w-auto sm:justify-center sm:gap-1.5 sm:rounded-none sm:border-0 sm:bg-transparent sm:px-0"
-          >
-            Start a conversation
-            <ArrowUpRight
-              size={15}
-              className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 sm:h-3.5 sm:w-3.5"
-            />
-          </Link>
+          
         </div>
       </div>
     </footer>
