@@ -4,8 +4,15 @@ import { Resend } from "resend";
 import {
   contactSchema,
   serviceLabels,
-  type ContactFieldErrors,
+  getFieldErrors,
 } from "@/features/contact/schemas/contactSchema";
+
+interface TurnstileVerification {
+  success: boolean;
+  hostname?: string;
+  action?: string;
+  "error-codes"?: string[];
+}
 
 function escapeHtml(value: string): string {
   return value
@@ -55,20 +62,46 @@ function section(
   `;
 }
 
-function getFieldErrors(error: {
-  issues: { path: PropertyKey[]; message: string }[];
-}): ContactFieldErrors {
-  const errors: ContactFieldErrors = {};
+async function verifyTurnstileToken(
+  token: string,
+  secret: string
+): Promise<boolean> {
+  const body = new URLSearchParams({
+    secret,
+    response: token,
+  });
 
-  for (const issue of error.issues) {
-    const field = issue.path[0] as keyof ContactFieldErrors | undefined;
-
-    if (field && !errors[field]) {
-      errors[field] = issue.message;
+  const response = await fetch(
+    "https://challenges.cloudflare.com/turnstile/v0/siteverify",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body,
+      signal: AbortSignal.timeout(10000),
+      cache: "no-store",
     }
+  );
+
+  if (!response.ok) {
+    throw new Error("Turnstile verification service returned an error.");
   }
 
-  return errors;
+  const result =
+    (await response.json()) as TurnstileVerification;
+
+  const allowedHostnames =
+    process.env.NODE_ENV === "production"
+      ? ["kaitlynnbroderick.dev"]
+      : ["kaitlynnbroderick.dev", "localhost", "127.0.0.1"];
+
+  return (
+    result.success === true &&
+    result.action === "contact" &&
+    typeof result.hostname === "string" &&
+    allowedHostnames.includes(result.hostname)
+  );
 }
 
 export async function POST(request: Request) {
@@ -108,16 +141,82 @@ export async function POST(request: Request) {
       });
     }
 
-    // Validate the complete request on the server
-    const parsed = contactSchema.safeParse(payload);
+    // Extract the Turnstile token before validating form fields
+    const turnstileToken = payload.turnstileToken;
+    const formPayload = { ...payload };
+    delete formPayload.turnstileToken;
+
+    if (
+      typeof turnstileToken !== "string" ||
+      turnstileToken.length === 0 ||
+      turnstileToken.length > 2048
+    ) {
+      return NextResponse.json(
+        {
+          message:
+            "Security verification is missing or invalid. Please try again.",
+        },
+        { status: 400 }
+      );
+    }
+
+    // Validate the submitted form fields
+    const parsed = contactSchema.safeParse(formPayload);
 
     if (!parsed.success) {
       return NextResponse.json(
         {
           message: "Please review the highlighted fields and try again.",
-          errors: getFieldErrors(parsed.error),
+          errors: getFieldErrors(formPayload),
         },
         { status: 400 }
+      );
+    }
+
+    const turnstileSecret = process.env.TURNSTILE_SECRET_KEY;
+    const apiKey = process.env.RESEND_API_KEY;
+    const fromEmail = process.env.RESEND_FROM_EMAIL;
+    const contactEmail = process.env.CONTACT_EMAIL;
+
+    if (!turnstileSecret || !apiKey || !fromEmail || !contactEmail) {
+      console.error("Contact API configuration is incomplete.");
+
+      return NextResponse.json(
+        {
+          message:
+            "Unable to send your message right now. Please try again later.",
+        },
+        { status: 500 }
+      );
+    }
+
+    // Verify the token with Cloudflare
+    let isVerified = false;
+
+    try {
+      isVerified = await verifyTurnstileToken(
+        turnstileToken,
+        turnstileSecret
+      );
+    } catch (error) {
+      console.error("Turnstile verification error:", error);
+
+      return NextResponse.json(
+        {
+          message:
+            "The security check is temporarily unavailable. Please try again.",
+        },
+        { status: 503 }
+      );
+    }
+
+    if (!isVerified) {
+      return NextResponse.json(
+        {
+          message:
+            "Security verification failed. Please complete the check again.",
+        },
+        { status: 403 }
       );
     }
 
@@ -133,23 +232,6 @@ export async function POST(request: Request) {
       timeline,
       availabilityDetails,
     } = parsed.data;
-
-    // Check required environment variables
-    const apiKey = process.env.RESEND_API_KEY;
-    const fromEmail = process.env.RESEND_FROM_EMAIL;
-    const contactEmail = process.env.CONTACT_EMAIL;
-
-    if (!apiKey || !fromEmail || !contactEmail) {
-      console.error("Contact API configuration is incomplete.");
-
-      return NextResponse.json(
-        {
-          message:
-            "Unable to send your message right now. Please try again later.",
-        },
-        { status: 500 }
-      );
-    }
 
     const resend = new Resend(apiKey);
 
@@ -260,11 +342,7 @@ export async function POST(request: Request) {
                 true
               )}
 
-              ${
-                phone
-                  ? section("Phone Number", safePhone)
-                  : ""
-              }
+              ${phone ? section("Phone Number", safePhone) : ""}
 
               ${section("Services Requested", safeServices, true)}
 
