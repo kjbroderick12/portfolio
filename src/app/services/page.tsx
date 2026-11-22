@@ -18,11 +18,7 @@ import {
 import { Bricolage_Grotesque } from "next/font/google";
 import ScrollReveal from "@/shared/components/ScrollReveal";
 import ServicesFaq from "@/features/services/components/ServicesFaq";
-
-const bricolage = Bricolage_Grotesque({
-  subsets: ["latin"],
-  variable: "--font-bricolage",
-});
+import type { Metadata } from "next";
 
 const ENGAGEMENT_TYPES = [
   {
@@ -144,10 +140,19 @@ const TECHNOLOGY_GROUPS = [
   },
 ];
 
+export const metadata: Metadata = {
+  title: "Software Development Services",
+  description:
+    "Custom software, website development, workflow automation, API integrations, and ongoing application improvements tailored to your business needs.",
+  alternates: {
+    canonical: "/services",
+  },
+};
+
 export default function ServicesPage() {
   return (
     <main
-      className={`${bricolage.variable} relative min-h-screen w-full overflow-x-clip bg-[#080d12] text-white selection:bg-[#6fbd68]/20 selection:text-[#83ce7b]`}
+      className="relative min-h-screen w-full overflow-x-clip bg-[#080d12] text-white selection:bg-[#6fbd68]/20 selection:text-[#83ce7b]"
     >
       {/* Background */}
       <div
