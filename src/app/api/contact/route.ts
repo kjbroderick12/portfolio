@@ -91,10 +91,22 @@ async function verifyTurnstileToken(
   const result =
     (await response.json()) as TurnstileVerification;
 
+  console.info("Turnstile verification result:", {
+    success: result.success,
+    hostname: result.hostname,
+    action: result.action,
+    errorCodes: result["error-codes"],
+  });
+
   const allowedHostnames =
-    process.env.NODE_ENV === "production"
-      ? ["kaitlynnbroderick.dev"]
-      : ["kaitlynnbroderick.dev", "localhost", "127.0.0.1"];
+  process.env.NODE_ENV === "production"
+    ? ["kaitlynnbroderick.dev", "www.kaitlynnbroderick.dev"]
+    : [
+        "kaitlynnbroderick.dev",
+        "www.kaitlynnbroderick.dev",
+        "localhost",
+        "127.0.0.1",
+      ];
 
   return (
     result.success === true &&
