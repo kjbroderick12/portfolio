@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useId, useRef, useState } from "react";
@@ -14,7 +15,6 @@ import {
 import { projects } from "@/features/projects/data/projects";
 import type { Project } from "@/features/projects/types/project";
 import ScrollReveal from "@/shared/components/ScrollReveal";
-
 
 interface FeaturedProjectsProps {
   projects?: Project[];
@@ -48,7 +48,7 @@ export default function FeaturedProjects({
   return (
     <section
       id="projects"
-      className="relative isolate w-full overflow-x-clip bg-[#080d12] px-5 py-12 text-white sm:px-10 sm:py-16 lg:px-16 lg:py-20"
+      className="relative isolate w-full overflow-x-clip bg-[#080d12] px-4 py-12 text-white sm:px-10 sm:py-16 lg:px-16 lg:py-20"
     >
       <div
         aria-hidden="true"
@@ -84,7 +84,7 @@ export default function FeaturedProjects({
           </div>
         </ScrollReveal>
 
-        <div className="space-y-3 sm:space-y-4">
+        <div className="space-y-4">
           {projectList.map((project, index) => {
             const isOpen = index === openIndex;
             const currentPanelId = `${panelId}-project-${index}`;
@@ -95,6 +95,10 @@ export default function FeaturedProjects({
 
             const isGithub = project.externalType === "github";
             const ExternalIcon = isGithub ? FolderGit2 : Globe;
+
+            const isPointSync = project.name
+              .toLowerCase()
+              .includes("pointsync");
 
             return (
               <ScrollReveal
@@ -109,7 +113,9 @@ export default function FeaturedProjects({
                   className={`scroll-mt-24 overflow-hidden rounded-2xl border transition-all duration-300 ${
                     isOpen
                       ? "border-[#6fbd68]/40 bg-[#0b1117]"
-                      : "border-white/8 bg-[#0b1117]/50 hover:border-white/20 hover:bg-[#0b1117]/80"
+                      : isPointSync
+                        ? "border-[#6fbd68]/25 bg-[#0b1117]/75 hover:border-[#6fbd68]/40"
+                        : "border-white/8 bg-[#0b1117]/50 hover:border-white/20 hover:bg-[#0b1117]/80"
                   }`}
                 >
                   <button
@@ -117,9 +123,9 @@ export default function FeaturedProjects({
                     aria-expanded={isOpen}
                     aria-controls={currentPanelId}
                     onClick={() => handleToggle(index)}
-                    className="flex min-h-20 w-full items-center justify-between gap-4 px-5 py-4 text-left transition-colors hover:bg-white/2 sm:px-7 sm:py-5"
+                    className="flex min-h-20 w-full items-center justify-between gap-3 px-4 py-4 text-left transition-colors hover:bg-white/2 sm:gap-4 sm:px-7 sm:py-5"
                   >
-                    <div className="flex min-w-0 flex-col gap-1 sm:flex-row sm:items-baseline sm:gap-4">
+                    <div className="flex min-w-0 flex-col gap-1.5 sm:flex-row sm:items-baseline sm:gap-4">
                       <h3
                         className={`truncate text-lg font-semibold tracking-tight transition-colors sm:text-2xl ${
                           isOpen ? "text-white" : "text-white/75"
@@ -128,7 +134,7 @@ export default function FeaturedProjects({
                         {project.name}
                       </h3>
 
-                      <div className="flex flex-wrap items-center gap-2">
+                      <div className="flex min-w-0 flex-wrap items-center gap-2">
                         <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-[#6fbd68] sm:text-[11px] sm:tracking-[0.16em]">
                           {project.category}
                         </span>
@@ -162,9 +168,9 @@ export default function FeaturedProjects({
                   {isOpen && (
                     <div
                       id={currentPanelId}
-                      className="border-t border-white/8 p-5 sm:p-7"
+                      className="border-t border-white/8 p-4 sm:p-7"
                     >
-                      <div className="grid grid-cols-1 gap-6 lg:grid-cols-12 lg:items-center lg:gap-8">
+                      <div className="grid grid-cols-1 gap-7 lg:grid-cols-12 lg:items-center lg:gap-8">
                         <div className="lg:col-span-5">
                           <Link
                             href={`/projects/${project.slug}`}
@@ -198,11 +204,17 @@ export default function FeaturedProjects({
 
                         <div className="flex flex-col justify-between lg:col-span-7">
                           <div>
+                            {isPointSync && (
+                              <p className="mb-3 font-mono text-[10px] uppercase tracking-[0.16em] text-[#6fbd68]">
+                                Workflow automation
+                              </p>
+                            )}
+
                             <p className="text-sm leading-7 text-white/65">
                               {project.description}
                             </p>
 
-                            <ul className="mt-4 space-y-2">
+                            <ul className="mt-5 space-y-3">
                               {visibleHighlights.map((highlight) => (
                                 <li
                                   key={highlight}
@@ -217,25 +229,25 @@ export default function FeaturedProjects({
                               ))}
                             </ul>
 
-                            <div className="mt-4 flex flex-wrap gap-1.5">
+                            <div className="mt-5 flex flex-wrap gap-2">
                               {visibleTechnologies.map((technology) => (
                                 <span
                                   key={technology}
-                                  className="rounded-md border border-white/8 bg-white/3 px-2.5 py-1 font-mono text-[10px] text-white/65 sm:text-[11px]"
+                                  className="rounded-md border border-white/8 bg-white/3 px-2.5 py-1.5 font-mono text-[10px] text-white/65 sm:text-[11px]"
                                 >
                                   {technology}
                                 </span>
                               ))}
 
                               {remainingTechnologies > 0 && (
-                                <span className="rounded-md border border-white/8 bg-white/3 px-2.5 py-1 font-mono text-[10px] text-white/40 sm:text-[11px]">
+                                <span className="rounded-md border border-white/8 bg-white/3 px-2.5 py-1.5 font-mono text-[10px] text-white/40 sm:text-[11px]">
                                   +{remainingTechnologies} more
                                 </span>
                               )}
                             </div>
                           </div>
 
-                          <div className="mt-6 flex flex-col gap-2.5 border-t border-white/[0.07] pt-5 sm:flex-row sm:flex-wrap sm:items-center">
+                          <div className="mt-7 flex flex-col gap-3 border-t border-white/[0.07] pt-5 sm:flex-row sm:flex-wrap sm:items-center">
                             <Link
                               href={`/projects/${project.slug}`}
                               className="group inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-xl bg-[#6fbd68] px-5 text-xs font-semibold text-[#081009] transition-colors hover:bg-[#82cf7a] sm:w-auto"
