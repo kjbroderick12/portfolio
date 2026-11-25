@@ -223,7 +223,7 @@ export default function AboutPage() {
                 <div className="mt-5 sm:mt-6">
                   <a
                     href="/resume.pdf"
-                    download="Kaitlynn-Broderick-Resume.pdf"
+                    download="KaitlynnBroderickResume.pdf"
                     className="group inline-flex w-full items-center justify-between rounded-xl bg-[#6fbd68] px-4 py-3 text-xs font-semibold text-[#081009] transition-all hover:bg-[#82cf7a] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6fbd68]/70"
                   >
                     <span className="inline-flex items-center gap-2">
