@@ -1,20 +1,16 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import {
+  ArrowDown,
   ArrowUpRight,
-  Briefcase,
   Code2,
   Compass,
   Database,
   FileText,
-  GraduationCap,
   Headphones,
   Lightbulb,
-  Terminal,
   Workflow,
 } from "lucide-react";
-
-import { FaGithub, FaLinkedinIn } from "react-icons/fa";
 
 import ScrollReveal from "@/shared/components/ScrollReveal";
 import AboutChapters from "@/features/about/components/AboutChapters";
@@ -32,7 +28,7 @@ const EXPERIENCE = [
   {
     period: "2018 — PRESENT",
     role: "Optical Industry",
-    badge: "Foundation",
+    badge: "The foundation",
     title: "Learning to understand the problem first.",
     description: [
       "Working in the optical industry has given me years of experience helping people find solutions that fit their needs. It taught me the importance of attention to detail, communication, patience, and taking the time to understand a problem before trying to solve it.",
@@ -54,7 +50,7 @@ const EXPERIENCE = [
   {
     period: "2025 — PRESENT",
     role: "Full-Stack Developer · Web Surfing Studios",
-    badge: "Current Focus",
+    badge: "Current focus",
     title: "Learning by building real software.",
     description: [
       "I began volunteering with Web Surfing Studios, contributing to real projects and collaborating with other developers.",
@@ -89,8 +85,9 @@ const TECHNICAL_AREAS = [
   {
     icon: Code2,
     title: "Development",
-    description: "Building application features across the frontend and backend.",
-    stack: ["C#", ".NET", "ASP.NET MVC", "React", "Next.js"],
+    description:
+      "Building application features across the frontend and backend.",
+    stack: ["C#", ".NET", "ASP.NET Core MVC", "React", "Next.js"],
   },
   {
     icon: Database,
@@ -124,339 +121,269 @@ const ALL_TECHNOLOGIES = [
   "Azure DevOps",
 ];
 
-const SOCIAL_LINKS = [
-  {
-    label: "GitHub",
-    href: "https://github.com/kjbroderick12",
-    icon: FaGithub,
-  },
-  {
-    label: "LinkedIn",
-    href: "https://www.linkedin.com/in/kaitlynn-broderick",
-    icon: FaLinkedinIn,
-  },
-];
-
 export default function AboutPage() {
   return (
-    <main className="relative min-h-screen w-full bg-[#080d12] text-white selection:bg-[#6fbd68]/20 selection:text-[#83ce7b]">
-      {/* Ambient background glow */}
+    <main className="relative min-h-screen w-full overflow-x-clip bg-[#080d12] text-white selection:bg-[#6fbd68]/20 selection:text-[#83ce7b]">
+      {/* Ambient background */}
       <div
         className="pointer-events-none fixed inset-0 z-0 overflow-hidden"
         aria-hidden="true"
       >
-        <div className="absolute -top-40 right-4 h-70 w-70 rounded-full bg-[#6fbd68]/4 blur-[100px] sm:right-1/4 sm:h-125 sm:w-125 sm:blur-[150px]" />
-        <div className="absolute bottom-0 left-4 h-62.5 w-62.5 rounded-full bg-[#6fbd68]/3 blur-[90px] sm:left-10 sm:h-100 sm:w-100 sm:blur-[140px]" />
+        <div className="absolute -top-40 right-0 h-72 w-72 rounded-full bg-[#6fbd68]/5 blur-[110px] sm:right-1/4 sm:h-125 sm:w-125 sm:blur-[150px]" />
+        <div className="absolute bottom-0 left-0 h-64 w-64 rounded-full bg-[#6fbd68]/3 blur-[100px] sm:left-10 sm:h-100 sm:w-100 sm:blur-[140px]" />
       </div>
 
-      <div className="relative z-10 mx-auto min-w-0 max-w-7xl px-4 pb-20 pt-28 sm:px-10 sm:pb-28 sm:pt-36 lg:px-16">
-        <div className="grid min-w-0 grid-cols-1 items-start gap-10 lg:grid-cols-12 lg:gap-14">
-          {/* LEFT COLUMN: Sidebar */}
-          <aside className="w-full min-w-0 lg:sticky lg:top-28 lg:col-span-4 lg:self-start">
-            <div className="rounded-2xl border border-white/8 bg-[#0b1117]/95 p-5 shadow-2xl backdrop-blur-sm sm:p-7">
-              <ScrollReveal variant="up">
-                {/* Status Indicator */}
-                <div className="inline-flex items-center gap-2 rounded-full border border-[#6fbd68]/25 bg-[#6fbd68]/8 px-3 py-1 text-[11px] font-medium text-[#6fbd68]">
-                  <span className="relative flex h-2 w-2">
-                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#6fbd68] opacity-75" />
-                    <span className="relative inline-flex h-2 w-2 rounded-full bg-[#6fbd68]" />
-                  </span>
-                  Building &amp; Collaborating
-                </div>
-
-                {/* Core Statement */}
-                <h1 className="mt-4 font-(family-name:--font-bricolage) text-2xl font-semibold leading-[1.15] tracking-[-0.04em] sm:mt-5 sm:text-3xl">
-                  Making complicated things{" "}
-                  <span className="text-[#6fbd68]">feel clear.</span>
-                </h1>
-
-                <p className="mt-3 text-sm leading-relaxed text-white/55 sm:mt-4">
-                  Software developer focused on backend development with C# and
-                  .NET, while building practical applications across the full
-                  stack.
-                </p>
-
-                {/* Quick Snapshot Metadata */}
-                <div className="mt-5 space-y-3 border-y border-white/[0.07] py-4 text-xs sm:mt-6 sm:space-y-3.5 sm:py-5">
-                  <div className="flex min-w-0 items-start justify-between gap-3">
-                    <span className="flex shrink-0 items-center gap-2 text-white/40">
-                      <Briefcase size={14} className="text-[#6fbd68]" />
-                      Current Role
-                    </span>
-                    <span className="min-w-0 wrap-break-word text-right font-medium text-white/80">
-                      Full-Stack Dev (Volunteer)
-                    </span>
-                  </div>
-
-                  <div className="flex min-w-0 items-start justify-between gap-3">
-                    <span className="flex shrink-0 items-center gap-2 text-white/40">
-                      <GraduationCap size={14} className="text-[#6fbd68]" />
-                      Education
-                    </span>
-                    <span className="min-w-0 wrap-break-word text-right font-medium text-white/80">
-                      B.S. IT (4.0 GPA)
-                    </span>
-                  </div>
-
-                  <div className="flex min-w-0 items-start justify-between gap-3">
-                    <span className="flex shrink-0 items-center gap-2 text-white/40">
-                      <Terminal size={14} className="text-[#6fbd68]" />
-                      Primary Stack
-                    </span>
-                    <span className="min-w-0 wrap-break-word text-right font-medium text-white/80">
-                      C# · .NET · Next.js
-                    </span>
-                  </div>
-
-                  <div className="flex min-w-0 items-start justify-between gap-3">
-                    <span className="flex shrink-0 items-center gap-2 text-white/40">
-                      <Headphones size={14} className="text-[#6fbd68]" />
-                      Offline
-                    </span>
-                    <span className="min-w-0 wrap-break-word text-right font-medium text-white/80">
-                      Music · Gaming · Outdoors
-                    </span>
-                  </div>
-                </div>
-
-                {/* Resume */}
-                <div className="mt-5 sm:mt-6">
-                  <a
-                    href="/resume.pdf"
-                    download="KaitlynnBroderickResume.pdf"
-                    className="group inline-flex w-full items-center justify-between rounded-xl bg-[#6fbd68] px-4 py-3 text-xs font-semibold text-[#081009] transition-all hover:bg-[#82cf7a] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6fbd68]/70"
-                  >
-                    <span className="inline-flex items-center gap-2">
-                      <FileText size={15} />
-                      Download Resume
-                    </span>
-                    <ArrowUpRight
-                      size={16}
-                      className="shrink-0 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                    />
-                  </a>
-                </div>
-
-                {/* Main Navigation Links */}
-                <div className="mt-2.5 flex flex-col gap-2.5">
-                  <Link
-                    href="/projects"
-                    className="group inline-flex w-full items-center justify-between rounded-xl border border-white/10 bg-white/2 px-4 py-3 text-xs font-medium text-white/75 transition-all hover:border-white/25 hover:bg-white/5 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6fbd68]/60"
-                  >
-                    <span>Explore selected projects</span>
-                    <ArrowUpRight
-                      size={16}
-                      className="shrink-0 text-white/40 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-white"
-                    />
-                  </Link>
-
-                  <Link
-                    href="/contact"
-                    className="group inline-flex w-full items-center justify-between rounded-xl border border-white/10 bg-white/2 px-4 py-3 text-xs font-medium text-white/75 transition-all hover:border-white/25 hover:bg-white/5 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6fbd68]/60"
-                  >
-                    <span>Start a conversation</span>
-                    <ArrowUpRight
-                      size={16}
-                      className="shrink-0 text-white/40 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-white"
-                    />
-                  </Link>
-                </div>
-
-                {/* Professional Profiles */}
-                <div className="mt-4 flex gap-2 border-t border-white/[0.07] pt-4">
-                  {SOCIAL_LINKS.map((link) => {
-                    const Icon = link.icon;
-
-                    return (
-                      <a
-                        key={link.label}
-                        href={link.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label={`Visit my ${link.label} profile`}
-                        className="inline-flex flex-1 items-center justify-center gap-2 rounded-lg border border-white/8 bg-white/2 px-3 py-2.5 text-xs font-medium text-white/55 transition hover:border-[#6fbd68]/35 hover:bg-[#6fbd68]/5 hover:text-[#83ce7b] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6fbd68]/60"
-                      >
-                        <Icon size={15} />
-                        {link.label}
-                        <ArrowUpRight size={12} className="opacity-50" />
-                      </a>
-                    );
-                  })}
-                </div>
-              </ScrollReveal>
+      <div className="relative z-10 mx-auto w-full max-w-5xl px-5 pb-12 pt-28 sm:px-8 sm:pb-16 sm:pt-32 lg:px-10 lg:pb-20 lg:pt-36">
+        {/* Introduction */}
+        <ScrollReveal variant="up">
+          <section className="border-b border-white/10 pb-10 sm:pb-12 lg:pb-14">
+            <div className="flex flex-wrap items-center gap-3">
+              <span className="text-xs text-white/35">
+                Software Developer · Utah
+              </span>
             </div>
-          </aside>
 
-          {/* RIGHT COLUMN: Narrative Stream & Bento Modules */}
-          <div className="min-w-0 space-y-10 lg:col-span-8 sm:space-y-14">
-            {/* Narrative Intro */}
-            <ScrollReveal variant="up">
-              <section className="space-y-4">
-                <p className="text-base leading-7 text-white/80 sm:text-xl sm:leading-9">
-                  I’m a software developer who enjoys solving problems,
-                  learning how systems fit together, and building practical
-                  applications that people actually want to use.
-                </p>
-                <p className="text-sm leading-7 text-white/50 sm:text-base">
+            <h1 className="mt-6 max-w-4xl font-(family-name:--font-bricolage) text-[2.65rem] leading-[1.05] font-semibold tracking-[-0.055em] sm:mt-8 sm:text-6xl lg:text-7xl">
+              Making complicated things{" "}
+              <span className="text-[#6fbd68]">feel clear.</span>
+            </h1>
+
+            <div className="mt-6 grid gap-5 sm:mt-8 sm:grid-cols-[1.2fr_0.8fr] sm:gap-8 lg:gap-10">
+              <p className="text-base leading-7 text-white/75 sm:text-lg sm:leading-8">
+                I’m a software developer who enjoys solving problems,
+                learning how systems fit together, and building practical
+                applications that people actually want to use.
+              </p>
+
+              <div className="space-y-3">
+                <p className="text-sm leading-7 text-white/50">
                   My path into software wasn’t a straight line—and that’s
                   exactly what shapes how I write code today. Years of helping
                   people navigate complex choices taught me to listen first,
                   diagnose the real issue, and keep solutions straightforward.
                 </p>
-              </section>
-            </ScrollReveal>
 
-            {/* Interactive Career Chapters */}
-            <ScrollReveal variant="up">
-              <section id="my-story">
-                <AboutChapters experiences={EXPERIENCE} />
-              </section>
-            </ScrollReveal>
-
-            {/* Engineering Principles */}
-            <ScrollReveal variant="up">
-              <section>
-                <div className="mb-5 sm:mb-6">
-                  <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-[#6fbd68]">
-                    Engineering Philosophy
-                  </span>
-                  <h2 className="mt-2 font-(family-name:--font-bricolage) text-2xl font-semibold tracking-[-0.04em] sm:text-3xl">
-                    It’s not just about getting it to work.
-                  </h2>
-                </div>
-
-                <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-                  {PRINCIPLES.map((principle) => {
-                    const Icon = principle.icon;
-
-                    return (
-                      <article
-                        key={principle.title}
-                        className="flex flex-col justify-between rounded-2xl border border-white/8 bg-[#0b1117]/60 p-5 transition-colors hover:border-white/20"
-                      >
-                        <div>
-                          <div className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/10 bg-white/2 text-[#6fbd68]">
-                            <Icon size={17} strokeWidth={1.6} />
-                          </div>
-
-                          <h3 className="mt-4 font-(family-name:--font-bricolage) text-base font-medium tracking-[-0.02em] text-white sm:mt-5">
-                            {principle.title}
-                          </h3>
-
-                          <p className="mt-2 text-xs leading-6 text-white/45 sm:mt-2.5">
-                            {principle.description}
-                          </p>
-                        </div>
-                      </article>
-                    );
-                  })}
-                </div>
-              </section>
-            </ScrollReveal>
-
-            {/* Technical Capabilities & Stack */}
-            <ScrollReveal variant="up">
-              <section className="rounded-2xl border border-white/8 bg-[#0b1117]/70 p-5 sm:p-8">
-                <div className="mb-6 sm:mb-7">
-                  <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-[#6fbd68]">
-                    Technical Stack
-                  </span>
-                  <h2 className="mt-2 font-(family-name:--font-bricolage) text-2xl font-semibold tracking-[-0.04em] sm:text-3xl">
-                    What I’m building with.
-                  </h2>
-                  <p className="mt-2 text-sm leading-7 text-white/50">
-                    My primary focus is backend development with C# and .NET,
-                    while continuing to build across the full stack—from
-                    relational schemas to responsive interfaces.
-                  </p>
-                </div>
-
-                <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-                  {TECHNICAL_AREAS.map((area) => {
-                    const Icon = area.icon;
-
-                    return (
-                      <div
-                        key={area.title}
-                        className="rounded-xl border border-white/6 bg-white/1.5 p-4"
-                      >
-                        <div className="flex items-center gap-2.5 text-white/90">
-                          <Icon size={16} className="shrink-0 text-[#6fbd68]" />
-                          <h3 className="text-sm font-medium">{area.title}</h3>
-                        </div>
-                        <p className="mt-2 text-xs leading-relaxed text-white/45">
-                          {area.description}
-                        </p>
-                        <div className="mt-3 flex min-w-0 flex-wrap gap-1.5">
-                          {area.stack.map((tech) => (
-                            <span
-                              key={tech}
-                              className="rounded bg-white/4 px-2 py-0.5 font-mono text-[10px] text-white/65"
-                            >
-                              {tech}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-
-                {/* Full Toolkit */}
-                <div className="mt-6 border-t border-white/[0.07] pt-5 sm:mt-7 sm:pt-6">
-                  <p className="mb-3 font-mono text-[10px] uppercase tracking-[0.2em] text-white/35">
-                    Core Toolkit &amp; Ecosystem
-                  </p>
-                  <div className="flex min-w-0 flex-wrap gap-1.5 sm:gap-2">
-                    {ALL_TECHNOLOGIES.map((tech) => (
-                      <span
-                        key={tech}
-                        className="rounded-lg border border-white/8 bg-white/2 px-2.5 py-1 text-xs text-white/60 transition-colors hover:border-[#6fbd68]/40 hover:text-white sm:px-3 sm:py-1.5"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </section>
-            </ScrollReveal>
-
-            {/* Outside the Code */}
-            <ScrollReveal variant="up">
-              <section className="rounded-2xl border border-white/8 bg-linear-to-br from-[#0b1117] to-[#080d12] p-5 sm:p-8">
-                <div className="flex flex-col justify-between gap-6 sm:flex-row sm:items-center">
-                  <div className="max-w-xl">
-                    <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-[#6fbd68]">
-                      Outside the Code
-                    </span>
-                    <h2 className="mt-2 font-(family-name:--font-bricolage) text-xl font-semibold tracking-[-0.03em] sm:text-2xl">
-                      A little more human.
-                    </h2>
-                    <p className="mt-3 text-sm leading-7 text-white/55">
-                      Technology is a big part of what I enjoy, but it’s not the
-                      only thing that makes me who I am. Outside of writing
-                      code, I spend my time with music, gaming, getting
-                      outdoors, and being with the people closest to me.
-                      Stepping away from the screen helps me recharge and
-                      bring a fresh perspective back to every project.
-                    </p>
-                  </div>
+                <div className="flex flex-wrap gap-3 pt-1">
+                  <a
+                    href="/resume.pdf"
+                    download="KaitlynnBroderickResume.pdf"
+                    className="inline-flex min-h-11 items-center gap-2 rounded-lg bg-[#6fbd68] px-4 py-2.5 text-xs font-semibold text-[#081009] transition-colors hover:bg-[#82cf7a] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6fbd68]/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#080d12]"
+                  >
+                    <FileText size={15} />
+                    Download resume
+                    <ArrowUpRight size={14} />
+                  </a>
 
                   <Link
-                    href="/contact"
-                    className="group inline-flex w-full shrink-0 items-center justify-center gap-2 rounded-xl border border-[#6fbd68]/30 bg-[#6fbd68]/10 px-5 py-3 text-xs font-semibold text-[#83ce7b] transition-all hover:bg-[#6fbd68] hover:text-[#081009] sm:w-auto sm:self-center"
+                    href="/projects"
+                    className="inline-flex min-h-11 items-center gap-2 rounded-lg border border-white/10 px-4 py-2.5 text-xs font-medium text-white/65 transition-colors hover:border-white/25 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6fbd68]/60"
                   >
-                    Say hello
-                    <ArrowUpRight
-                      size={15}
-                      className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                    />
+                    Explore projects
+                    <ArrowUpRight size={14} />
                   </Link>
                 </div>
-              </section>
-            </ScrollReveal>
-          </div>
-        </div>
+              </div>
+            </div>
+
+            <a
+              href="#my-story"
+              className="mt-8 inline-flex items-center gap-2 text-xs text-white/35 transition-colors hover:text-[#83ce7b] sm:mt-10"
+            >
+              A little more about my journey
+              <ArrowDown size={14} />
+            </a>
+          </section>
+        </ScrollReveal>
+
+        {/* Career journey */}
+        <ScrollReveal variant="up">
+          <section id="my-story" className="scroll-mt-28 py-10 sm:py-12 lg:py-14">
+            <div className="mb-7 max-w-2xl sm:mb-9">
+              <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-[#6fbd68]">
+                The journey so far
+              </span>
+
+              <h2 className="mt-3 font-(family-name:--font-bricolage) text-3xl font-semibold tracking-[-0.045em] sm:text-5xl">
+                A different path into tech.
+              </h2>
+
+              <p className="mt-3 text-sm leading-7 text-white/50 sm:mt-4 sm:text-base sm:leading-8">
+                Each step has shaped how I approach problems, work with others,
+                and build software today.
+              </p>
+            </div>
+
+            <AboutChapters experiences={EXPERIENCE} />
+          </section>
+        </ScrollReveal>
+
+        {/* Engineering philosophy */}
+        <ScrollReveal variant="up">
+          <section className="py-10 sm:py-12 lg:py-14">
+            <div className="mb-7 max-w-2xl sm:mb-9">
+              <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-[#6fbd68]">
+                Engineering philosophy
+              </span>
+
+              <h2 className="mt-3 font-(family-name:--font-bricolage) text-3xl font-semibold tracking-[-0.045em] sm:text-5xl">
+                It’s not just about getting it to work.
+              </h2>
+            </div>
+
+            <div className="divide-y divide-white/10">
+              {PRINCIPLES.map((principle) => {
+                const Icon = principle.icon;
+
+                return (
+                  <article
+                    key={principle.title}
+                    className="grid gap-3 py-5 sm:grid-cols-[48px_0.8fr_1.2fr] sm:items-start sm:gap-5 sm:py-6 lg:gap-6"
+                  >
+                    <div className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/10 text-[#6fbd68]">
+                      <Icon size={17} strokeWidth={1.6} />
+                    </div>
+
+                    <h3 className="font-(family-name:--font-bricolage) text-lg font-medium tracking-tight text-white sm:pt-1">
+                      {principle.title}
+                    </h3>
+
+                    <p className="max-w-xl text-sm leading-7 text-white/50 sm:pt-1">
+                      {principle.description}
+                    </p>
+                  </article>
+                );
+              })}
+            </div>
+          </section>
+        </ScrollReveal>
+
+        {/* Technical experience */}
+        <ScrollReveal variant="up">
+          <section className="py-10 sm:py-12 lg:py-14">
+            <div className="mb-7 max-w-2xl sm:mb-9">
+              <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-[#6fbd68]">
+                Technical experience
+              </span>
+
+              <h2 className="mt-3 font-(family-name:--font-bricolage) text-3xl font-semibold tracking-[-0.045em] sm:text-5xl">
+                What I’m building with.
+              </h2>
+
+              <p className="mt-3 text-sm leading-7 text-white/50 sm:mt-4 sm:text-base sm:leading-8">
+                My primary focus is backend development with C# and .NET,
+                while continuing to build across the full stack—from
+                relational schemas to responsive interfaces.
+              </p>
+            </div>
+
+            <div className="grid gap-7 sm:grid-cols-2 sm:gap-x-10 sm:gap-y-8 lg:grid-cols-3">
+              {TECHNICAL_AREAS.map((area) => {
+                const Icon = area.icon;
+
+                return (
+                  <div key={area.title}>
+                    <div className="flex items-center gap-2.5">
+                      <Icon size={17} className="text-[#6fbd68]" />
+                      <h3 className="text-sm font-semibold text-white/85">
+                        {area.title}
+                      </h3>
+                    </div>
+
+                    <p className="mt-2.5 text-xs leading-6 text-white/45">
+                      {area.description}
+                    </p>
+
+                    <div className="mt-3 flex flex-wrap gap-2">
+                      {area.stack.map((tech) => (
+                        <span
+                          key={tech}
+                          className="rounded-md border border-white/8 bg-white/2.5 px-2.5 py-1.5 font-mono text-[10px] text-white/65"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
+            <div className="mt-8 border-t border-white/10 pt-6 sm:mt-10 sm:pt-7">
+              <p className="mb-3 font-mono text-[10px] uppercase tracking-[0.2em] text-white/35">
+                Core toolkit &amp; ecosystem
+              </p>
+
+              <div className="flex flex-wrap gap-2">
+                {ALL_TECHNOLOGIES.map((tech) => (
+                  <span
+                    key={tech}
+                    className="rounded-lg border border-white/8 px-3 py-2 text-xs text-white/55 transition-colors hover:border-[#6fbd68]/35 hover:text-white/85"
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </section>
+        </ScrollReveal>
+
+        {/* Outside the code */}
+        <ScrollReveal variant="up">
+          <section className="py-10 sm:py-12 lg:py-14">
+            <div className="grid gap-5 sm:grid-cols-[1fr_auto] sm:items-end sm:gap-8 lg:gap-10">
+              <div className="max-w-2xl">
+                <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-[#6fbd68]">
+                  Outside the code
+                </span>
+
+                <h2 className="mt-3 font-(family-name:--font-bricolage) text-3xl font-semibold tracking-[-0.045em] sm:text-5xl">
+                  A little more human.
+                </h2>
+
+                <p className="mt-4 text-sm leading-7 text-white/55 sm:mt-5 sm:text-base sm:leading-8">
+                  Technology is a big part of what I enjoy, but it’s not the
+                  only thing that makes me who I am. Outside of writing code,
+                  I spend my time with music, gaming, getting outdoors, and
+                  being with the people closest to me. Stepping away from the
+                  screen helps me recharge and bring a fresh perspective back
+                  to every project.
+                </p>
+              </div>
+
+              <div className="flex flex-wrap gap-2 text-xs text-white/45 sm:justify-end">
+                <span className="inline-flex items-center gap-2 rounded-full border border-white/10 px-3 py-2">
+                  <Headphones size={14} className="text-[#6fbd68]" />
+                  Music
+                </span>
+                <span className="inline-flex items-center gap-2 rounded-full border border-white/10 px-3 py-2">
+                  <Code2 size={14} className="text-[#6fbd68]" />
+                  Gaming
+                </span>
+                <span className="inline-flex items-center gap-2 rounded-full border border-white/10 px-3 py-2">
+                  <Compass size={14} className="text-[#6fbd68]" />
+                  Outdoors
+                </span>
+              </div>
+            </div>
+
+            <div className="mt-7 flex flex-wrap items-center justify-between gap-4 border-t border-white/10 pt-5 sm:mt-8 sm:pt-6">
+              <p className="text-sm text-white/45">
+                Interested in working together?
+              </p>
+
+              <Link
+                href="/contact"
+                className="group inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-[#83ce7b] transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6fbd68]/60"
+              >
+                Let’s talk
+                <ArrowUpRight
+                  size={16}
+                  className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                />
+              </Link>
+            </div>
+          </section>
+        </ScrollReveal>
       </div>
     </main>
   );
