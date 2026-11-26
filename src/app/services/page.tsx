@@ -1,462 +1,468 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import {
   ArrowUpRight,
-  Check,
   Code2,
   Database,
   GitBranch,
   Globe,
-  Layers3,
   Lightbulb,
   Monitor,
   Search,
   Server,
-  Sparkles,
   Workflow,
   Wrench,
 } from "lucide-react";
+
 import ScrollReveal from "@/shared/components/ScrollReveal";
 import ServicesFaq from "@/features/services/components/ServicesFaq";
-import type { Metadata } from "next";
-
-const ENGAGEMENT_TYPES = [
-  {
-    title: "Project-Based Development",
-    detail: "Websites, applications, and tools built around a defined goal.",
-  },
-  {
-    title: "Features & Improvements",
-    detail: "New functionality, UI improvements, and updates to existing projects.",
-  },
-  {
-    title: "Collaborative Development",
-    detail: "Full-stack development support for teams and businesses.",
-  },
-];
-
-const SERVICES = [
-  {
-    icon: Code2,
-    tag: "Applications",
-    title: "Custom Software & Applications",
-    description:
-      "Need something that doesn't quite exist yet? I build custom applications around your workflow, goals, and requirements, with the flexibility to grow as your needs change.",
-    details: [
-      "Custom web applications",
-      "Frontend and backend development",
-      "Database design",
-      "API development",
-    ],
-  },
-  {
-    icon: Globe,
-    tag: "Websites",
-    title: "Website Development",
-    description:
-      "A good website should be easy to use, look intentional, and make a strong impression. I build modern, responsive websites that help businesses establish their online presence.",
-    details: [
-      "Business websites",
-      "Portfolio websites",
-      "Responsive design",
-      "User experience and accessibility",
-    ],
-  },
-  {
-    icon: Workflow,
-    tag: "Automation",
-    title: "Automation & Integrations",
-    description:
-      "Repetitive tasks and disconnected systems can slow things down. I develop tools and integrations that simplify workflows, reduce manual work, and help things run more efficiently.",
-    details: [
-      "Workflow automation",
-      "API integrations",
-      "System connectivity",
-      "Data synchronization",
-    ],
-  },
-  {
-    icon: Wrench,
-    tag: "Ongoing Development",
-    title: "Updates & Improvements",
-    description:
-      "Whether you have an existing application that needs attention or a project that has outgrown its original functionality, I can help improve, maintain, and build on what you already have.",
-    details: [
-      "Bug fixes and troubleshooting",
-      "New features",
-      "Code refactoring",
-      "Interface improvements",
-    ],
-  },
-];
-
-const PROCESS_STEPS = [
-  {
-    icon: Search,
-    title: "Understand",
-    description:
-      "We start with the problem, your goals, and what you need the solution to accomplish.",
-  },
-  {
-    icon: Lightbulb,
-    title: "Plan",
-    description:
-      "I explore the options and outline an approach that fits your requirements, priorities, and budget.",
-  },
-  {
-    icon: Layers3,
-    title: "Build",
-    description:
-      "Development begins. I focus on functionality, thoughtful implementation, and keeping you informed along the way.",
-  },
-  {
-    icon: Sparkles,
-    title: "Refine",
-    description:
-      "We test, review, and make adjustments to ensure the finished product works as intended.",
-  },
-];
-
-const TECHNOLOGY_GROUPS = [
-  {
-    icon: Monitor,
-    title: "Frontend",
-    technologies: ["React", "Next.js", "TypeScript", "JavaScript", "Tailwind CSS"],
-  },
-  {
-    icon: Server,
-    title: "Backend",
-    technologies: ["C#", ".NET", "ASP.NET MVC", "REST APIs"],
-  },
-  {
-    icon: Database,
-    title: "Data & Storage",
-    technologies: ["MySQL", "MongoDB", "SQL", "Entity Framework"],
-  },
-  {
-    icon: GitBranch,
-    title: "Development Tools",
-    technologies: ["Git", "GitHub", "Azure DevOps", "CI/CD"],
-  },
-];
 
 export const metadata: Metadata = {
   title: "Software Development Services",
   description:
-    "Custom software, website development, workflow automation, API integrations, and ongoing application improvements tailored to your business needs.",
+    "Custom software development, website development, workflow automation, API integrations, and improvements to existing applications.",
   alternates: {
     canonical: "/services",
   },
 };
 
+const ENGAGEMENT_TYPES = [
+  {
+    title: "Project-Based Development",
+    description:
+      "A defined project with a clear goal, scope, and deliverable.",
+  },
+  {
+    title: "Features & Improvements",
+    description:
+      "Enhancing an existing website or application with new functionality.",
+  },
+  {
+    title: "Collaborative Development",
+    description:
+      "Working alongside your team to contribute to an existing project.",
+  },
+];
+
+const SERVICES = [
+  {
+    title: "Custom Software & Applications",
+    description:
+      "Purpose-built applications designed around the way your business operates. From the initial idea to the underlying functionality, the focus is on creating something practical, maintainable, and useful.",
+    includes: [
+      "Custom web applications",
+      "Frontend and backend development",
+      "Database design and integration",
+      "API development and integrations",
+    ],
+    icon: Code2,
+  },
+  {
+    title: "Website Development",
+    description:
+      "Websites that give your business a professional presence while making it easy for visitors to find information, understand what you offer, and take action.",
+    includes: [
+      "Business and portfolio websites",
+      "Responsive layouts and interfaces",
+      "User experience improvements",
+      "Accessibility and performance considerations",
+    ],
+    icon: Globe,
+  },
+  {
+    title: "Automation & Integrations",
+    description:
+      "Reduce repetitive work by connecting systems and improving the way information moves between them. I can help identify opportunities to simplify workflows and build practical solutions.",
+    includes: [
+      "Workflow automation",
+      "Third-party API integrations",
+      "System-to-system communication",
+      "Data synchronization",
+    ],
+    icon: Workflow,
+  },
+  {
+    title: "Updates & Improvements",
+    description:
+      "Software doesn't have to be rebuilt to become better. I can work with existing applications to resolve problems, improve functionality, and make things easier to maintain.",
+    includes: [
+      "Bug fixes and troubleshooting",
+      "New features and functionality",
+      "Code refactoring and cleanup",
+      "Interface and usability improvements",
+    ],
+    icon: Wrench,
+  },
+];
+
+const PROCESS_STEPS = [
+  {
+    number: "01",
+    title: "Understand",
+    description:
+      "Start with the problem, your goals, and what you want the solution to accomplish.",
+    icon: Search,
+  },
+  {
+    number: "02",
+    title: "Plan",
+    description:
+      "Determine the right approach, establish priorities, and define the scope.",
+    icon: Lightbulb,
+  },
+  {
+    number: "03",
+    title: "Build",
+    description:
+      "Develop the solution with an emphasis on functionality, maintainability, and usability.",
+    icon: Code2,
+  },
+  {
+    number: "04",
+    title: "Refine",
+    description:
+      "Test, address feedback, and make improvements before wrapping things up.",
+    icon: GitBranch,
+  },
+];
+
+const TECHNOLOGY_GROUPS = [
+  {
+    title: "Frontend",
+    icon: Monitor,
+    technologies: [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "JavaScript",
+      "Tailwind CSS",
+    ],
+  },
+  {
+    title: "Backend",
+    icon: Server,
+    technologies: ["C#", ".NET", "ASP.NET MVC", "REST APIs"],
+  },
+  {
+    title: "Data & Storage",
+    icon: Database,
+    technologies: ["MySQL", "MongoDB", "SQL", "Entity Framework"],
+  },
+  {
+    title: "Development Tools",
+    icon: GitBranch,
+    technologies: ["Git", "GitHub", "Azure DevOps", "CI/CD"],
+  },
+];
+
 export default function ServicesPage() {
   return (
-    <main
-      className="relative min-h-screen w-full overflow-x-clip bg-[#080d12] text-white selection:bg-[#6fbd68]/20 selection:text-[#83ce7b]"
-    >
-      {/* Background */}
-      <div
-        className="pointer-events-none fixed inset-0 z-0 overflow-hidden"
-        aria-hidden="true"
-      >
-        <div className="absolute -top-40 right-0 h-80 w-[320px] rounded-full bg-[#6fbd68]/5 blur-[110px] sm:right-1/4 sm:h-130 sm:w-130 sm:blur-[150px]" />
-        <div className="absolute bottom-0 left-0 h-65 w-65 rounded-full bg-[#6fbd68]/3 blur-[100px] sm:left-10 sm:h-100 sm:w-100 sm:blur-[140px]" />
-      </div>
+    <main className="relative min-h-screen bg-[#080d12] text-white">
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,rgba(111,189,104,0.07),transparent_42%)]" />
 
-      <div className="relative z-10 mx-auto max-w-7xl px-5 pb-24 pt-28 sm:px-10 sm:pb-28 sm:pt-36 lg:px-16">
-        {/* Hero */}
-        <ScrollReveal variant="up">
-          <section className="grid grid-cols-1 gap-12 border-b border-white/8 pb-14 lg:grid-cols-12 lg:items-end lg:gap-14 lg:pb-20">
-            <div className="lg:col-span-7">
+      <div className="relative mx-auto grid w-full max-w-7xl items-start gap-14 px-5 pb-24 pt-28 sm:px-8 lg:grid-cols-[300px_minmax(0,1fr)] lg:gap-20 lg:px-12 lg:pb-32 lg:pt-36">
+        {/* Sticky sidebar */}
+        <aside className="self-start lg:sticky lg:top-28">
+          <div className="rounded-2xl border border-white/10 bg-[#0d141b]/90 p-6 shadow-[0_12px_40px_rgba(0,0,0,0.18)] sm:p-7">
+            <div className="flex flex-col">
+              <div className="mb-6 flex items-center gap-2">
+                <span className="h-2 w-2 rounded-full bg-[#6fbd68]" />
+                <span className="text-[11px] font-medium uppercase tracking-[0.2em] text-[#6fbd68]">
+                  Services
+                </span>
+              </div>
 
-              <h1 className="font-(family-name:--font-bricolage) text-4xl leading-[1.08] font-semibold tracking-[-0.045em] sm:text-6xl lg:text-7xl">
-                Software that makes
-                <span className="text-[#6fbd68]"> things easier.</span>
+              <h1 className="max-w-sm font-(family-name:--font-bricolage) text-3xl font-semibold leading-[1.08] tracking-tight sm:text-4xl">
+                Thoughtful development.{" "}
+                <span className="text-[#6fbd68]">Practical solutions.</span>
               </h1>
 
-              <p className="mt-6 max-w-xl text-sm leading-7 text-white/60 sm:text-base sm:leading-8">
-                From websites and custom applications to automation and ongoing
-                development, I build practical solutions to real-world problems.
+              <p className="mt-4 text-[13px] leading-6 text-white/55">
+                Whether you're starting with an idea or improving something
+                that already exists, I can help turn technical challenges into
+                solutions that make sense.
               </p>
 
-              <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
+              <div className="mt-7 border-t border-white/10 pt-5">
+                <p className="mb-4 text-[10px] font-medium uppercase tracking-[0.18em] text-white/35">
+                  Ways to work together
+                </p>
+
+                <div className="space-y-3">
+                  {ENGAGEMENT_TYPES.map((item) => (
+                    <div key={item.title}>
+                      <h2 className="text-[13px] font-medium text-white/85">
+                        {item.title}
+                      </h2>
+                      <p className="mt-0.5 text-[11px] leading-5 text-white/45">
+                        {item.description}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="mt-6 flex flex-col gap-2 border-t border-white/10 pt-5">
                 <Link
                   href="/contact"
-                  className="group inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[#6fbd68] px-6 py-3.5 text-sm font-semibold text-[#081009] transition-colors hover:bg-[#82cf7a] sm:w-auto"
+                  className="group inline-flex min-h-11 items-center justify-between gap-4 rounded-lg bg-[#6fbd68] px-4 text-[13px] font-semibold text-[#080d12] transition-colors hover:bg-[#83ce7c]"
                 >
-                  Discuss your project
+                  Discuss a project
                   <ArrowUpRight
                     size={16}
-                    className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                    className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
                   />
                 </Link>
 
                 <Link
                   href="/projects"
-                  className="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-white/10 bg-white/2 px-6 py-3.5 text-sm font-medium text-white/75 transition-colors hover:border-white/25 hover:bg-white/5 hover:text-white sm:w-auto"
+                  className="group inline-flex min-h-10 items-center justify-between gap-4 px-1 text-[13px] text-white/55 transition-colors hover:text-white"
                 >
                   Explore my work
+                  <ArrowUpRight
+                    size={15}
+                    className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                  />
                 </Link>
               </div>
             </div>
+          </div>
+        </aside>
 
-            {/* Ways to work together */}
-            <div className="lg:col-span-5 lg:border-l lg:border-white/8 lg:pl-10">
-              <p className="mb-5 text-xs font-medium tracking-[0.16em] text-white/35 uppercase">
-                Ways to work together
+        {/* Main content */}
+        <div className="min-w-0">
+          {/* Introduction */}
+          <ScrollReveal variant="up">
+            <section className="border-b border-white/10 pb-12 sm:pb-16">
+              <p className="mb-4 text-xs font-medium uppercase tracking-[0.18em] text-[#6fbd68]">
+                What I can help with
               </p>
 
-              <div className="divide-y divide-white/[0.07]">
-                {ENGAGEMENT_TYPES.map((item) => (
-                  <div key={item.title} className="py-4 first:pt-0 last:pb-0">
-                    <h2 className="text-sm font-medium text-white/85">
-                      {item.title}
-                    </h2>
-                    <p className="mt-1.5 text-sm leading-6 text-white/45">
-                      {item.detail}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </section>
-        </ScrollReveal>
+              <h2 className="max-w-2xl font-(family-name:--font-bricolage) text-2xl font-semibold leading-tight tracking-tight sm:text-3xl">
+                Development that starts with understanding the problem.
+              </h2>
 
-        {/* Services */}
-        <section className="mt-20 sm:mt-28">
-          <ScrollReveal variant="up">
-            <div className="mb-10 grid gap-6 lg:grid-cols-[1fr_1.15fr] lg:items-end">
-              <div>
-                <span className="text-xs font-medium tracking-[0.18em] text-[#6fbd68] uppercase">
-                  What I offer
-                </span>
-                <h2 className="mt-3 font-(family-name:--font-bricolage) text-3xl font-semibold tracking-[-0.04em] sm:text-5xl">
-                  Built around what you need.
+              <p className="mt-5 max-w-2xl text-sm leading-7 text-white/55 sm:text-[15px]">
+                Every project has different needs. My approach is to understand
+                what you're trying to accomplish first, then find a solution
+                that fits the problem rather than forcing the problem into a
+                predefined solution.
+              </p>
+            </section>
+          </ScrollReveal>
+
+          {/* Services */}
+          <section
+            id="services"
+            className="scroll-mt-24 border-b border-white/10 py-12 sm:py-16"
+          >
+            <ScrollReveal variant="up">
+              <div className="mb-9">
+                <p className="mb-3 text-xs font-medium uppercase tracking-[0.18em] text-[#6fbd68]">
+                  Areas of focus
+                </p>
+                <h2 className="font-(family-name:--font-bricolage) text-2xl font-semibold tracking-tight sm:text-3xl">
+                  How I can help
                 </h2>
               </div>
+            </ScrollReveal>
 
-              <p className="max-w-xl text-sm leading-7 text-white/55 lg:justify-self-end sm:text-base sm:leading-8">
-                No two projects are exactly alike. Whether you're starting with an
-                idea or improving something you've already built, we'll find an
-                approach that makes sense.
-              </p>
-            </div>
-          </ScrollReveal>
+            <div className="divide-y divide-white/10">
+              {SERVICES.map((service) => {
+                const Icon = service.icon;
 
-          <div className="divide-y divide-white/8 border-y border-white/8">
-            {SERVICES.map((service, index) => {
-              const Icon = service.icon;
-
-              return (
-                <ScrollReveal
-                  key={service.title}
-                  variant="up"
-                  delay={index * 50}
-                >
-                  <article className="group grid grid-cols-1 gap-6 py-8 sm:py-10 lg:grid-cols-12 lg:gap-12">
-                    <div className="lg:col-span-5">
-                      <div className="flex items-center gap-3">
-                        <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/3 text-white/60 transition-colors group-hover:border-[#6fbd68]/35 group-hover:bg-[#6fbd68]/8 group-hover:text-[#6fbd68]">
-                          <Icon size={18} strokeWidth={1.7} />
+                return (
+                  <article
+                    key={service.title}
+                    className="py-8 first:pt-0 last:pb-0 sm:py-10"
+                  >
+                    <ScrollReveal variant="up">
+                      <div className="flex items-start gap-4 sm:gap-6">
+                        <div className="mt-1 flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border border-white/10 bg-white/2.5 text-[#6fbd68]">
+                          <Icon size={20} strokeWidth={1.7} />
                         </div>
 
-                        <span className="text-xs font-medium tracking-[0.16em] text-[#6fbd68] uppercase">
-                          {service.tag}
+                        <div className="min-w-0 flex-1">
+                          <h3 className="font-(family-name:--font-bricolage) text-lg font-semibold tracking-tight sm:text-xl">
+                            {service.title}
+                          </h3>
+
+                          <p className="mt-3 max-w-2xl text-sm leading-7 text-white/55">
+                            {service.description}
+                          </p>
+
+                          <ul className="mt-5 grid gap-x-6 gap-y-3 sm:grid-cols-2">
+                            {service.includes.map((item) => (
+                              <li
+                                key={item}
+                                className="flex items-start gap-2.5 text-xs leading-6 text-white/65"
+                              >
+                                <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-[#6fbd68]" />
+                                {item}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      </div>
+                    </ScrollReveal>
+                  </article>
+                );
+              })}
+            </div>
+          </section>
+
+          {/* Process */}
+          <section className="border-b border-white/10 py-12 sm:py-16">
+            <ScrollReveal variant="up">
+              <div className="mb-9">
+                <p className="mb-3 text-xs font-medium uppercase tracking-[0.18em] text-[#6fbd68]">
+                  My approach
+                </p>
+                <h2 className="font-(family-name:--font-bricolage) text-2xl font-semibold tracking-tight sm:text-3xl">
+                  From idea to implementation.
+                </h2>
+                <p className="mt-4 max-w-xl text-sm leading-7 text-white/50">
+                  A straightforward process keeps the work focused while
+                  leaving room to adapt as a project takes shape.
+                </p>
+              </div>
+            </ScrollReveal>
+
+            <div className="relative grid gap-8 sm:grid-cols-2">
+              {PROCESS_STEPS.map((step) => {
+                const Icon = step.icon;
+
+                return (
+                  <ScrollReveal key={step.number} variant="up">
+                    <div className="relative">
+                      <div className="mb-4 flex items-center gap-3">
+                        <span className="text-xs font-medium text-[#6fbd68]">
+                          {step.number}
                         </span>
+                        <div className="h-px flex-1 bg-white/10" />
+                        <Icon
+                          size={17}
+                          strokeWidth={1.6}
+                          className="text-white/40"
+                        />
                       </div>
 
-                      <h3 className="mt-4 font-(family-name:--font-bricolage) text-2xl font-semibold tracking-tight text-white sm:text-3xl">
-                        {service.title}
+                      <h3 className="font-(family-name:--font-bricolage) text-lg font-semibold">
+                        {step.title}
                       </h3>
-                    </div>
-
-                    <div className="lg:col-span-7">
-                      <p className="text-sm leading-7 text-white/60 sm:text-base sm:leading-8">
-                        {service.description}
+                      <p className="mt-2 text-sm leading-7 text-white/50">
+                        {step.description}
                       </p>
-
-                      <ul className="mt-6 grid grid-cols-1 gap-3 border-t border-white/6 pt-5 sm:grid-cols-2">
-                        {service.details.map((detail) => (
-                          <li
-                            key={detail}
-                            className="flex items-center gap-2.5 text-sm text-white/70"
-                          >
-                            <Check
-                              size={15}
-                              className="shrink-0 text-[#6fbd68]"
-                            />
-                            <span>{detail}</span>
-                          </li>
-                        ))}
-                      </ul>
                     </div>
-                  </article>
-                </ScrollReveal>
-              );
-            })}
-          </div>
-        </section>
-
-        {/* Process */}
-        <section className="mt-20 sm:mt-28">
-          <ScrollReveal variant="up">
-            <div className="mb-10 max-w-2xl">
-              <span className="text-xs font-medium tracking-[0.18em] text-[#6fbd68] uppercase">
-                How I work
-              </span>
-              <h2 className="mt-3 font-(family-name:--font-bricolage) text-3xl font-semibold tracking-[-0.04em] sm:text-5xl">
-                From idea to implementation.
-              </h2>
-              <p className="mt-5 text-sm leading-7 text-white/55 sm:text-base sm:leading-8">
-                A straightforward process with room to collaborate, ask questions,
-                and make adjustments along the way.
-              </p>
+                  </ScrollReveal>
+                );
+              })}
             </div>
-          </ScrollReveal>
+          </section>
 
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
-            {PROCESS_STEPS.map((step, index) => {
-              const Icon = step.icon;
+          {/* Technologies */}
+          <section className="border-b border-white/10 py-12 sm:py-16">
+            <ScrollReveal variant="up">
+              <div className="mb-9">
+                <p className="mb-3 text-xs font-medium uppercase tracking-[0.18em] text-[#6fbd68]">
+                  Technical capabilities
+                </p>
+                <h2 className="font-(family-name:--font-bricolage) text-2xl font-semibold tracking-tight sm:text-3xl">
+                  The tools behind the work.
+                </h2>
+                <p className="mt-4 max-w-xl text-sm leading-7 text-white/50">
+                  My experience spans frontend and backend development,
+                  databases, and the tools used to build and maintain software.
+                </p>
+              </div>
+            </ScrollReveal>
 
-              return (
-                <ScrollReveal key={step.title} variant="up" delay={index * 60}>
-                  <article className="group flex h-full flex-col rounded-2xl border border-white/8 bg-[#0b1117]/80 p-6 transition-colors duration-300 hover:border-[#6fbd68]/35 hover:bg-[#0b1117] sm:p-7">
-                    <div className="flex items-center justify-between">
-                      <span className="font-mono text-xs tracking-wider text-white/30">
-                        {String(index + 1).padStart(2, "0")}
-                      </span>
-
-                      <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/3 text-white/50 transition-colors group-hover:border-[#6fbd68]/30 group-hover:text-[#6fbd68]">
-                        <Icon size={18} strokeWidth={1.7} />
-                      </div>
-                    </div>
-
-                    <h3 className="mt-7 font-(family-name:--font-bricolage) text-xl font-semibold tracking-tight text-white">
-                      {step.title}
-                    </h3>
-
-                    <p className="mt-3 text-sm leading-7 text-white/55">
-                      {step.description}
-                    </p>
-                  </article>
-                </ScrollReveal>
-              );
-            })}
-          </div>
-        </section>
-
-        {/* Technology */}
-        <section className="mt-20 sm:mt-28">
-          <ScrollReveal variant="up">
-            <div className="mb-10 max-w-2xl">
-              <span className="text-xs font-medium tracking-[0.18em] text-[#6fbd68] uppercase">
-                My toolkit
-              </span>
-              <h2 className="mt-3 font-(family-name:--font-bricolage) text-3xl font-semibold tracking-[-0.04em] sm:text-5xl">
-                Familiar tools.
-                <br className="hidden sm:block" />
-                Thoughtful implementation.
-              </h2>
-              <p className="mt-5 text-sm leading-7 text-white/55 sm:text-base sm:leading-8">
-                I work across the stack, building interfaces, developing backend
-                functionality, and connecting data. My tools vary with the project,
-                but these are the technologies I work with most.
-              </p>
-            </div>
-          </ScrollReveal>
-
-          <ScrollReveal variant="up" delay={60}>
-            <div className="grid grid-cols-1 gap-8 border-t border-white/8 pt-8 sm:grid-cols-2 lg:grid-cols-4 lg:gap-10">
+            <div className="space-y-7">
               {TECHNOLOGY_GROUPS.map((group) => {
                 const Icon = group.icon;
 
                 return (
-                  <div key={group.title}>
-                    <div className="flex items-center gap-2.5">
-                      <Icon size={17} className="text-[#6fbd68]" />
-                      <h3 className="text-xs font-medium tracking-[0.14em] text-white/80 uppercase">
-                        {group.title}
-                      </h3>
-                    </div>
+                  <ScrollReveal key={group.title} variant="up">
+                    <div className="grid gap-3 sm:grid-cols-[170px_minmax(0,1fr)] sm:gap-6">
+                      <div className="flex items-center gap-2.5">
+                        <Icon
+                          size={16}
+                          strokeWidth={1.7}
+                          className="text-[#6fbd68]"
+                        />
+                        <h3 className="text-sm font-medium text-white/80">
+                          {group.title}
+                        </h3>
+                      </div>
 
-                    <div className="mt-5 flex flex-wrap gap-2">
-                      {group.technologies.map((technology) => (
-                        <span
-                          key={technology}
-                          className="rounded-lg border border-white/8 bg-[#0b1117]/70 px-3 py-1.5 text-xs text-white/60 transition-colors hover:border-[#6fbd68]/35 hover:text-white/85"
-                        >
-                          {technology}
-                        </span>
-                      ))}
+                      <div className="flex flex-wrap gap-2">
+                        {group.technologies.map((technology) => (
+                          <span
+                            key={technology}
+                            className="rounded-md border border-white/10 bg-white/2.5 px-3 py-1.5 text-xs text-white/55"
+                          >
+                            {technology}
+                          </span>
+                        ))}
+                      </div>
                     </div>
-                  </div>
+                  </ScrollReveal>
                 );
               })}
             </div>
-          </ScrollReveal>
-        </section>
-
-        {/* FAQ */}
-        <section className="mt-20 sm:mt-28">
-          <div className="grid grid-cols-1 gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-12">
-            <ScrollReveal variant="up">
-              <div>
-                <span className="text-xs font-medium tracking-[0.18em] text-[#6fbd68] uppercase">
-                  Good to know
-                </span>
-
-                <h2 className="mt-3 font-(family-name:--font-bricolage) text-3xl font-semibold tracking-[-0.04em] sm:text-5xl">
-                  Before we get started.
-                </h2>
-
-                <p className="mt-5 max-w-sm text-sm leading-7 text-white/55">
-                  Have questions about working together? Here's a little more about
-                  what to expect.
-                </p>
-              </div>
-            </ScrollReveal>
-
-            <ScrollReveal variant="up" delay={60}>
-              <div className="lg:pt-1">
-                <ServicesFaq />
-              </div>
-            </ScrollReveal>
-          </div>
-        </section>
-
-        {/* CTA */}
-        <ScrollReveal variant="up">
-          <section className="relative mt-20 overflow-hidden rounded-2xl border border-white/8 bg-linear-to-br from-[#0b1117] via-[#0b1117] to-[#6fbd68]/[0.07] p-7 sm:mt-28 sm:p-12">
-            <div className="pointer-events-none absolute -right-20 -top-20 h-72 w-72 rounded-full bg-[#6fbd68]/8 blur-[100px]" />
-
-            <div className="relative flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
-              <div className="max-w-2xl">
-                <span className="text-xs font-medium tracking-[0.18em] text-[#6fbd68] uppercase">
-                  Have something in mind?
-                </span>
-
-                <h2 className="mt-3 font-(family-name:--font-bricolage) text-3xl font-semibold tracking-[-0.04em] sm:text-5xl">
-                  Let&apos;s make it happen.
-                </h2>
-
-                <p className="mt-5 max-w-lg text-sm leading-7 text-white/60 sm:text-base sm:leading-8">
-                  Whether you have a clear plan or just an idea, let's talk about
-                  what you need and how we can bring it to life.
-                </p>
-              </div>
-
-              <Link
-                href="/contact"
-                className="group inline-flex w-full shrink-0 items-center justify-center gap-2.5 rounded-xl bg-[#6fbd68] px-6 py-4 text-sm font-semibold text-[#081009] transition-colors hover:bg-[#82cf7a] sm:w-auto"
-              >
-                Start a conversation
-                <ArrowUpRight
-                  size={17}
-                  className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                />
-              </Link>
-            </div>
           </section>
-        </ScrollReveal>
+
+          {/* FAQ */}
+          <ScrollReveal variant="up">
+            <section className="border-b border-white/10 py-12 sm:py-16">
+              <div className="mb-8">
+                <p className="mb-3 text-xs font-medium uppercase tracking-[0.18em] text-[#6fbd68]">
+                  A few details
+                </p>
+                <h2 className="font-(family-name:--font-bricolage) text-2xl font-semibold tracking-tight sm:text-3xl">
+                  Frequently asked questions
+                </h2>
+                <p className="mt-4 max-w-xl text-sm leading-7 text-white/50">
+                  A little more about working together, project expectations,
+                  and getting started.
+                </p>
+              </div>
+
+              <ServicesFaq />
+            </section>
+          </ScrollReveal>
+
+          {/* CTA */}
+          <ScrollReveal variant="up">
+            <section className="pt-12 sm:pt-16">
+              <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+                <div className="max-w-xl">
+                  <p className="mb-3 text-xs font-medium uppercase tracking-[0.18em] text-[#6fbd68]">
+                    Have something in mind?
+                  </p>
+                  <h2 className="font-(family-name:--font-bricolage) text-2xl font-semibold leading-tight tracking-tight sm:text-3xl">
+                    Let's figure out what's possible.
+                  </h2>
+                  <p className="mt-4 text-sm leading-7 text-white/50">
+                    You don't need a complete plan to get started. Tell me
+                    what you're working on, and we can take it from there.
+                  </p>
+                </div>
+
+                <Link
+                  href="/contact"
+                  className="group inline-flex min-h-12 shrink-0 items-center justify-between gap-5 rounded-lg border border-[#6fbd68]/40 px-5 text-sm font-medium text-white transition-colors hover:border-[#6fbd68] hover:bg-[#6fbd68]/10"
+                >
+                  Get in touch
+                  <ArrowUpRight
+                    size={17}
+                    className="text-[#6fbd68] transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                  />
+                </Link>
+              </div>
+            </section>
+          </ScrollReveal>
+        </div>
       </div>
     </main>
   );

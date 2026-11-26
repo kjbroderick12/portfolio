@@ -355,7 +355,7 @@ export default async function ProjectDetailPage({
             <div className="flex justify-center">
               <Link
                 href="/projects"
-                className="inline-flex min-h-10 items-center justify-center gap-1.5 rounded-md border border-white/10 bg-white/[0.025] px-3 text-[11px] font-medium text-white/65 transition-all hover:border-[#6fbd68]/40 hover:bg-[#6fbd68]/[0.06] hover:text-[#83ce7b] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#6fbd68] sm:px-4 sm:text-xs"
+                className="inline-flex min-h-10 items-center justify-center gap-1.5 rounded-md border border-white/10 bg-white/2.5 px-3 text-[11px] font-medium text-white/65 transition-all hover:border-[#6fbd68]/40 hover:bg-[#6fbd68]/6 hover:text-[#83ce7b] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#6fbd68] sm:px-4 sm:text-xs"
               >
                 All Projects
               </Link>
