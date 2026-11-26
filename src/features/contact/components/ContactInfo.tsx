@@ -13,7 +13,7 @@ type ContactItem = {
 const contacts: ContactItem[] = [
   {
     label: "Email",
-    value: "Kaitlynn Broderick",
+    value: "kjbroderick12@gmail.com",
     href: "mailto:kjbroderick12@gmail.com",
     external: false,
     icon: Mail,
@@ -36,8 +36,8 @@ const contacts: ContactItem[] = [
 
 export default function ContactInfo() {
   return (
-    <aside className="h-fit lg:sticky lg:top-28">
-      <div className="mb-8">
+    <aside className="h-fit">
+      <div className="mb-6">
         <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-[#6fbd68]">
           Prefer a direct approach?
         </p>
@@ -46,7 +46,7 @@ export default function ContactInfo() {
           You can reach me directly.
         </h2>
 
-        <p className="mt-4 text-sm leading-7 text-white/55">
+        <p className="mt-3 text-sm leading-7 text-white/55">
           Sometimes a quick email is easier. Reach out directly or connect on
           another platform.
         </p>
@@ -54,7 +54,7 @@ export default function ContactInfo() {
 
       <nav
         aria-label="Direct contact links"
-        className="divide-y divide-white/8 rounded-2xl border border-white/8 bg-white/1.5 px-4"
+        className="divide-y divide-white/8 border-y border-white/8"
       >
         {contacts.map((contact) => {
           const Icon = contact.icon;
@@ -65,9 +65,9 @@ export default function ContactInfo() {
               href={contact.href}
               target={contact.external ? "_blank" : undefined}
               rel={contact.external ? "noopener noreferrer" : undefined}
-              className="group flex items-center gap-4 py-4.5 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6fbd68]/60"
+              className="group flex items-center gap-4 py-4 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6fbd68]/60"
             >
-              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-white/9 bg-white/3 text-white/60 transition-all duration-200 group-hover:scale-[1.03] group-hover:border-[#6fbd68]/40 group-hover:bg-[#6fbd68]/10 group-hover:text-[#6fbd68]">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-white/8 bg-white/2.5 text-white/60 transition-all duration-200 group-hover:scale-[1.03] group-hover:border-[#6fbd68]/40 group-hover:bg-[#6fbd68]/10 group-hover:text-[#6fbd68]">
                 <Icon size={18} />
               </div>
 
@@ -75,6 +75,7 @@ export default function ContactInfo() {
                 <p className="text-sm font-medium text-white transition-colors group-hover:text-[#8ce085]">
                   {contact.label}
                 </p>
+
                 <p className="mt-0.5 truncate text-xs text-white/45 transition-colors group-hover:text-white/65">
                   {contact.value}
                 </p>
@@ -89,9 +90,9 @@ export default function ContactInfo() {
         })}
       </nav>
 
-      <div className="mt-7 rounded-xl border border-white/[0.07] bg-[#6fbd68]/4 p-4">
-        <p className="text-sm leading-6 text-white/65">
-          Not sure what you need yet? No problem—the best projects often start
+      <div className="mt-6 border-l-2 border-[#6fbd68]/50 pl-4">
+        <p className="text-sm leading-6 text-white/60">
+          Not sure what you need yet? No problem. The best projects often start
           with a quick conversation.
         </p>
       </div>
