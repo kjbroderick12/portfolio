@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import {
   ArrowLeft,
@@ -11,12 +10,64 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 
 import { projects } from "@/features/projects/data/projects";
+import ProjectImageCarousel, {
+  type ProjectImageSlide,
+} from "@/features/projects/components/ProjectImageCarousel";
 import ScrollReveal from "@/shared/components/ScrollReveal";
 
 type ProjectPageProps = {
   params: Promise<{
     slug: string;
   }>;
+};
+
+const projectGalleries: Record<string, ProjectImageSlide[]> = {
+  pointsync: [
+    {
+      src: "/images/projects/pointsync.png",
+      alt: "PointSync dashboard showing tracked work items and point totals",
+      caption: "PointSync Dashboard",
+      description:
+        "A centralized view of tracked work items, point totals, and synchronization activity.",
+    },
+    {
+      src: "/images/projects/pointsync-connection.png",
+      alt: "PointSync Azure DevOps account connection screen",
+      caption: "Azure DevOps Connection",
+      description:
+        "The account connection workflow used to associate a user's Azure DevOps work with PointSync.",
+    },
+    {
+      src: "/images/projects/pointsync-manual-entry.png",
+      alt: "PointSync manual work-item entry form",
+      caption: "Manual Work-Item Entry",
+      description:
+        "A manual fallback for recording work items that were not retrieved automatically.",
+    },
+  ],
+  "teffies-smoky-bbq": [
+    {
+      src: "/images/projects/teffiessmokybbq.png",
+      alt: "Teffie's Smoky BBQ restaurant website homepage",
+      caption: "Customer-Facing Website",
+      description:
+        "The restaurant's public website, designed to showcase its brand and make key information easy to find.",
+    },
+    {
+      src: "/images/projects/teffies-menu.png",
+      alt: "Teffie's Smoky BBQ menu page",
+      caption: "Restaurant Menu",
+      description:
+        "A menu experience that organizes restaurant offerings into clear categories for customers.",
+    },
+    {
+      src: "/images/projects/teffies-admin-dash.png",
+      alt: "Teffie's Smoky BBQ administrative dashboard",
+      caption: "Admin Dashboard",
+      description:
+        "A protected content-management area for maintaining menu items, specials, events, and gallery content.",
+    },
+  ],
 };
 
 export async function generateMetadata({
@@ -74,6 +125,15 @@ export default async function ProjectDetailPage({
     projectIndex < projects.length - 1 ? projects[projectIndex + 1] : null;
 
   const ExternalIcon = project.externalType === "github" ? Code2 : Globe;
+  const isPointSync = project.slug === "pointsync";
+  const gallery = projectGalleries[project.slug] ?? [
+    {
+      src: project.image,
+      alt: project.imageAlt,
+      caption: project.name,
+      description: project.description,
+    },
+  ];
 
   return (
     <main className="relative min-h-screen w-full overflow-x-clip bg-[#080d12] text-white selection:bg-[#6fbd68]/30 selection:text-white">
@@ -105,6 +165,12 @@ export default async function ProjectDetailPage({
               <span>{project.category}</span>
               <span className="text-white/20">/</span>
               <span className="text-white/45">{project.type}</span>
+              {isPointSync && (
+                <>
+                  <span className="text-white/20">/</span>
+                  <span className="text-white/45">Proof of Concept</span>
+                </>
+              )}
             </div>
 
             <h1 className="mt-4 max-w-3xl text-3xl font-semibold leading-tight tracking-tight sm:text-4xl lg:text-[2.75rem]">
@@ -136,28 +202,12 @@ export default async function ProjectDetailPage({
           </ScrollReveal>
         </section>
 
-        {/* Project Screenshot */}
+        {/* Project Screenshot Carousel */}
         <ScrollReveal variant="up" delay={80}>
-          <figure className="mt-7 overflow-hidden rounded-lg border border-white/9 bg-[#0a0f15] sm:mt-10">
-            <div className="relative w-full overflow-hidden bg-[#080c11]">
-              <Image
-                src={project.image}
-                alt={project.imageAlt}
-                width={1600}
-                height={1000}
-                priority
-                sizes="(max-width: 1024px) 100vw, 900px"
-                className="h-auto w-full object-contain"
-              />
-            </div>
-
-            <figcaption className="border-t border-white/[0.07] px-3 py-2 text-[10px] text-white/40 sm:px-4 sm:text-[11px]">
-              {project.imageAlt}
-            </figcaption>
-          </figure>
+          <ProjectImageCarousel slides={gallery} interval={4500} />
         </ScrollReveal>
 
-        {/* Project Information */}
+        {/* Project Overview and Details */}
         <div className="mt-10 grid grid-cols-1 gap-10 sm:mt-14 sm:gap-12 lg:grid-cols-[minmax(0,1fr)_220px] lg:gap-14">
           {/* Main Content */}
           <div className="min-w-0 space-y-9 sm:space-y-12">
@@ -245,8 +295,21 @@ export default async function ProjectDetailPage({
                     </dd>
                   </div>
 
+                  {isPointSync && (
+                    <div>
+                      <dt className="text-[11px] text-white/40">
+                        Project status
+                      </dt>
+                      <dd className="mt-1 text-sm text-white/80">
+                        Proof of Concept
+                      </dd>
+                    </div>
+                  )}
+
                   <div>
-                    <dt className="text-[11px] text-white/40">Technologies</dt>
+                    <dt className="text-[11px] text-white/40">
+                      Technologies
+                    </dt>
                     <dd className="mt-2 flex flex-wrap gap-1.5">
                       {project.technologies.map((technology) => (
                         <span
@@ -264,50 +327,59 @@ export default async function ProjectDetailPage({
           </aside>
         </div>
 
+        
         {/* Project Navigation */}
-        <footer className="mt-12 border-t border-white/9 pt-6 sm:mt-16">
-          <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
-            {prevProject ? (
-              <Link
-                href={`/projects/${prevProject.slug}`}
-                className="group flex items-center gap-2 rounded-sm text-sm text-white/50 transition-colors hover:text-[#6fbd68] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#6fbd68]"
-              >
-                <ArrowLeft
-                  size={15}
-                  className="transition-transform group-hover:-translate-x-1"
-                />
-                <span>Previous: {prevProject.name}</span>
-              </Link>
-            ) : (
-              <span />
-            )}
+        <footer className="mt-12 border-t border-white/9 pt-6 sm:mt-16 sm:pt-7">
+          <div className="grid grid-cols-3 items-center gap-2">
+            {/* Previous Project */}
+            <div className="flex justify-start">
+              {prevProject && (
+                <Link
+                  href={`/projects/${prevProject.slug}`}
+                  aria-label={`Previous project: ${prevProject.name}`}
+                  className="group inline-flex min-h-10 items-center gap-2 rounded-md px-2 text-xs text-white/50 transition-colors hover:text-[#6fbd68] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#6fbd68] sm:px-0 sm:text-sm"
+                >
+                  <ArrowLeft
+                    size={15}
+                    className="shrink-0 transition-transform group-hover:-translate-x-1"
+                  />
+                  <span className="hidden sm:inline">
+                    {prevProject.name}
+                  </span>
+                  <span className="sm:hidden">Previous</span>
+                </Link>
+              )}
+            </div>
 
-            {nextProject && (
+            {/* All Projects */}
+            <div className="flex justify-center">
               <Link
-                href={`/projects/${nextProject.slug}`}
-                className="group flex items-center gap-2 rounded-sm text-sm text-white/50 transition-colors hover:text-[#6fbd68] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#6fbd68] sm:justify-end"
+                href="/projects"
+                className="inline-flex min-h-10 items-center justify-center gap-1.5 rounded-md border border-white/10 bg-white/[0.025] px-3 text-[11px] font-medium text-white/65 transition-all hover:border-[#6fbd68]/40 hover:bg-[#6fbd68]/[0.06] hover:text-[#83ce7b] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#6fbd68] sm:px-4 sm:text-xs"
               >
-                <span>Next: {nextProject.name}</span>
-                <ArrowRight
-                  size={15}
-                  className="transition-transform group-hover:translate-x-1"
-                />
+                All Projects
               </Link>
-            )}
-          </div>
+            </div>
 
-          {/* Return to Projects */}
-          <div className="mt-8 border-t border-white/6 pt-6">
-            <Link
-              href="/projects"
-              className="group inline-flex items-center gap-2 rounded-sm text-sm font-medium text-[#83ce7b] transition-colors hover:text-[#a0e49a] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#6fbd68]"
-            >
-              <ArrowLeft
-                size={15}
-                className="transition-transform group-hover:-translate-x-1"
-              />
-              Explore all projects
-            </Link>
+            {/* Next Project */}
+            <div className="flex justify-end">
+              {nextProject && (
+                <Link
+                  href={`/projects/${nextProject.slug}`}
+                  aria-label={`Next project: ${nextProject.name}`}
+                  className="group inline-flex min-h-10 items-center gap-2 rounded-md px-2 text-xs text-white/50 transition-colors hover:text-[#6fbd68] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#6fbd68] sm:px-0 sm:text-sm"
+                >
+                  <span className="hidden sm:inline">
+                    {nextProject.name}
+                  </span>
+                  <span className="sm:hidden">Next</span>
+                  <ArrowRight
+                    size={15}
+                    className="shrink-0 transition-transform group-hover:translate-x-1"
+                  />
+                </Link>
+              )}
+            </div>
           </div>
         </footer>
       </article>
